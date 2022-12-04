@@ -1,0 +1,9 @@
+http://example.com/2022/12/04/Docker-Tutorial/
+http://example.com/link/index.html
+http://example.com/categories/index.html
+http://example.com/tags/index.html
+http://example.com/2022/12/04/hello-world/
+http://example.com/
+http://example.com/tags/Hexo/
+http://example.com/tags/Docker/
+http://example.com/tags/Tutorial/
