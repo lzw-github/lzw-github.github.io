@@ -2,7 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lzw-github.github.io/messageboard/index.html</loc>
+    
+    <lastmod>2022-12-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/2022/12/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</loc>
+    
+    <lastmod>2022-12-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://lzw-github.github.io/2022/12/04/Docker-Tutorial/</loc>
+    
+    <lastmod>2022-12-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/2022/12/05/hello-world/</loc>
     
     <lastmod>2022-12-05</lastmod>
     
@@ -30,24 +57,6 @@
   
   <url>
     <loc>https://lzw-github.github.io/tags/index.html</loc>
-    
-    <lastmod>2022-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lzw-github.github.io/2022/12/04/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</loc>
-    
-    <lastmod>2022-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lzw-github.github.io/2022/12/04/hello-world/</loc>
     
     <lastmod>2022-12-04</lastmod>
     
@@ -85,6 +94,34 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://lzw-github.github.io/tags/tool/</loc>
+    <lastmod>2022-12-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/java/</loc>
+    <lastmod>2022-12-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
+  
+  <url>
+    <loc>https://lzw-github.github.io/categories/tutorial/</loc>
+    <lastmod>2022-12-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/categories/tool/</loc>
+    <lastmod>2022-12-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 </urlset>
