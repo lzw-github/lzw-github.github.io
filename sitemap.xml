@@ -2,7 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2022/12/04/Docker-Tutorial/</loc>
+    <loc>https://lzw-github.github.io/2022/12/04/Docker-Tutorial/</loc>
+    
+    <lastmod>2022-12-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/link/index.html</loc>
     
     <lastmod>2022-12-04</lastmod>
     
@@ -11,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/link/index.html</loc>
+    <loc>https://lzw-github.github.io/categories/index.html</loc>
     
     <lastmod>2022-12-04</lastmod>
     
@@ -20,7 +29,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/index.html</loc>
+    <loc>https://lzw-github.github.io/tags/index.html</loc>
     
     <lastmod>2022-12-04</lastmod>
     
@@ -29,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>https://lzw-github.github.io/2022/12/04/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</loc>
     
     <lastmod>2022-12-04</lastmod>
     
@@ -38,16 +47,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/12/04/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</loc>
-    
-    <lastmod>2022-12-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/2022/12/04/hello-world/</loc>
+    <loc>https://lzw-github.github.io/2022/12/04/hello-world/</loc>
     
     <lastmod>2022-12-04</lastmod>
     
@@ -57,7 +57,7 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
+    <loc>https://lzw-github.github.io/</loc>
     <lastmod>2022-12-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -65,21 +65,21 @@
 
   
   <url>
-    <loc>http://example.com/tags/Hexo/</loc>
+    <loc>https://lzw-github.github.io/tags/Hexo/</loc>
     <lastmod>2022-12-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/Docker/</loc>
+    <loc>https://lzw-github.github.io/tags/Docker/</loc>
     <lastmod>2022-12-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/Tutorial/</loc>
+    <loc>https://lzw-github.github.io/tags/Tutorial/</loc>
     <lastmod>2022-12-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
