@@ -97,10 +97,30 @@
 <h1 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h1><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212051415890.png" alt="image-20220527123137397" style="zoom:80%;" />
 
 ]]></content>
+      <categories>
+        <category>tutorial</category>
+      </categories>
       <tags>
         <tag>Hexo</tag>
         <tag>Docker</tag>
         <tag>Tutorial</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GitHub托管Hexo博客搭建全过程</title>
+    <url>/2022/12/04/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<p>前提：Windows 64位</p>
+<h1 id="Git安装，绑定GitHub账号"><a href="#Git安装，绑定GitHub账号" class="headerlink" title="Git安装，绑定GitHub账号"></a>Git安装，绑定GitHub账号</h1><h1 id="nvm安装"><a href="#nvm安装" class="headerlink" title="nvm安装"></a>nvm安装</h1><p>推荐使用NodeJs的版本管理工具nvm，安装node更容易，允许多个node版本共存，切换方便。</p>
+<p>参考链接</p>
+]]></content>
+      <categories>
+        <category>tutorial</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Tutorial</tag>
+        <tag>GitHub</tag>
+        <tag>Butterfly</tag>
       </tags>
   </entry>
   <entry>
