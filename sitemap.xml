@@ -99,7 +99,7 @@
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/tags/Docker/</loc>
+    <loc>https://lzw-github.github.io/tags/GitHub/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -113,13 +113,6 @@
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/tags/GitHub/</loc>
-    <lastmod>2022-12-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://lzw-github.github.io/tags/Butterfly/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -127,7 +120,7 @@
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/tags/tool/</loc>
+    <loc>https://lzw-github.github.io/tags/Docker/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -140,14 +133,14 @@
     <priority>0.2</priority>
   </url>
   
-
-  
   <url>
-    <loc>https://lzw-github.github.io/categories/tutorial/</loc>
+    <loc>https://lzw-github.github.io/tags/tool/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
+  
+
   
   <url>
     <loc>https://lzw-github.github.io/categories/Hexo/</loc>
@@ -157,7 +150,7 @@
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/categories/java/</loc>
+    <loc>https://lzw-github.github.io/categories/tutorial/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -165,6 +158,13 @@
   
   <url>
     <loc>https://lzw-github.github.io/categories/tool/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/categories/java/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
