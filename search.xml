@@ -1,35 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Git配置&amp;GitHub绑定</title>
-    <url>/2022/10/05/Git%E9%85%8D%E7%BD%AE&amp;GitHub%E7%BB%91%E5%AE%9A/</url>
-    <content><![CDATA[<h1>Git安装配置，绑定GitHub账号</h1>
-<p><strong>下载</strong>：搜索Git官网，下载64位setup，如Git-2.32.0-64-bit.exe</p>
-<p><strong>安装</strong> ：无脑下一步，Git Bash是Git的命令行，如果选了只GitBash，那在cmd中使用git会报’git’ 不是内部或外部命令，解决办法是把Git安装文件夹下bin目录、git-core加入到环境变量中。</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212061915388.png" alt="image-20221206191429644" style="zoom:80%;" />
-<img src="GitHub托管Hexo博客 Butterfly主题全过程/image-20221206191639793.png" alt="image-20221206191639793" style="zoom:80%;" />
-<p><strong>设置用户全局签名</strong> ： 会记录在 <code>C:\users\用户\.gitconfig</code>里面</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;账户名&quot;</span>       账户名随便写几个字母</span><br><span class="line">git config --global user.email <span class="string">&quot;邮箱地址&quot;</span>     邮箱随便写，瞎写都行。</span><br><span class="line">git config --global --<span class="built_in">list</span>				查看写对了吗    </span><br></pre></td></tr></table></figure>
-<p><strong>配置Git绑定GitHub</strong>：</p>
-<p>鼠标右键选GitBash，输入 <code>ssh-keygen -t rsa</code> ，显示overwrite时输入y，其他时候按三次回车。</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062145500.png" alt="image-20221206214526322" style="zoom:80%;" />
-<p>之后在<code>C:\Users\用户\.ssh</code>下，有一个rsa后缀的私钥文件，要严密保管。 有一个pub后缀的公钥文件，复制公钥的内容，到GitHub网站你头像下面settings -&gt; SSH and GPG keys -&gt; new SSH key，Title随便写，Key部分填你的公钥内容。</p>
-<p>在 <code>GitBash</code> 中输入 <code>ssh -T git@github.com</code> ，看到有successfully就说明绑定好了。</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062146968.png" alt="image-20221206214628634" style="zoom:80%;" />
-<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′   <a href="https://www.cnblogs.com/xueweisuoyong/p/11914045.html">Windows系统Git安装教程-博客园 (cnblogs.com)</a></p>
-]]></content>
-      <categories>
-        <category>Tool</category>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>GitHub</tag>
-        <tag>Tutorial</tag>
-        <tag>Butterfly</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Docker Tutorial</title>
     <url>/2022/12/04/Docker-Tutorial/</url>
     <content><![CDATA[<p><a href="https://blog.csdn.net/qq_39135287/category_9492725.html"> Docker入门到实践</a></p>
@@ -117,25 +88,25 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-        <tag>Tutorial</tag>
         <tag>Docker</tag>
+        <tag>Tutorial</tag>
       </tags>
   </entry>
   <entry>
     <title>GitHub托管Hexo博客搭建全过程</title>
     <url>/2022/12/04/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<p>本教程长期更新。</p>
-<p>**前言：**折腾了好久我的Hexo Butterfly主题博客，中间经历无数令人抓狂的bug，深感个人博客搭建不易，在此写下保姆级全流程教程，希望充当集锦和回忆录，帮助博客新手避坑。遇到了什么困难都可以评论，知无不言。</p>
-<p>**环境：**Windows 10 64位，Linux和MacOS会有差别，但流程差不多</p>
+<p><strong>前言</strong> : 折腾了好久我的Hexo Butterfly主题博客，中间经历无数令人抓狂的bug，深感个人博客搭建不易，在此写下保姆级全流程教程，希望充当集锦和回忆录，帮助博客新手避坑。遇到了什么困难都可以评论，知无不言。</p>
+<p><strong>环境</strong> : Windows 10 64位，Linux和MacOS会有差别，但流程差不多</p>
 <p><strong>优秀博客案例欣赏：</strong>  <a href="https://lzw-github.github.io/">Hexo - WinstonLi的个人博客 (lzw-github.github.io)</a></p>
 <div class="aplayer" data-id="000PeZCQ1i4XVs" data-server="tencent" data-type="artist" data-mutex="true" data-preload="auto" data-theme="#3F51B5"></div>
 <h1>Git安装配置，绑定GitHub账号</h1>
 <p><strong>下载</strong>：搜索Git官网，下载64位setup，如Git-2.32.0-64-bit.exe</p>
 <p><strong>安装</strong> ：无脑下一步，Git Bash是Git的命令行，如果选了只GitBash，那在cmd中使用git会报’git’ 不是内部或外部命令，解决办法是把Git安装文件夹下bin目录、git-core加入到环境变量中。</p>
 <img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212061915388.png" alt="image-20221206191429644" style="zoom:80%;" />
-<img src="GitHub托管Hexo博客 Butterfly主题全过程/image-20221206191639793.png" alt="image-20221206191639793" style="zoom:80%;" />
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032353.png" alt="image-20221206191639793" style="zoom:80%;" />
 <p><strong>设置用户全局签名</strong> ： 会记录在 <code>C:\users\用户\.gitconfig</code>里面</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;账户名&quot;</span>       账户名随便写几个字母</span><br><span class="line">git config --global user.email <span class="string">&quot;邮箱地址&quot;</span>     邮箱随便写，瞎写都行。</span><br><span class="line">git config --global --<span class="built_in">list</span>				查看写对了吗    </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;账户名&quot;       账户名随便写几个字母</span><br><span class="line">git config --global user.email &quot;邮箱地址&quot;     邮箱随便写，瞎写都行。</span><br><span class="line">git config --global --list				查看写对了吗    </span><br></pre></td></tr></table></figure>
 <p><strong>配置Git绑定GitHub</strong>：</p>
 <p>鼠标右键选GitBash，输入 <code>ssh-keygen -t rsa</code> ，显示overwrite时输入y，其他时候按三次回车。</p>
 <img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062145500.png" alt="image-20221206214526322" style="zoom:80%;" />
@@ -169,7 +140,7 @@
 <p>npm_mirror: <a href="https://npm.taobao.org/mirrors/npm/">https://npm.taobao.org/mirrors/npm/</a></p>
 </blockquote>
 <p><strong>nvm常用命令</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">nvm <span class="built_in">list</span>   				看本地有哪些版本NodeJs，正在使用的NodeJs会用*号标识</span><br><span class="line">nvm <span class="built_in">list</span> available    		看网上有哪些可以下载的node版本</span><br><span class="line">nvm install <span class="number">16.16</span><span class="number">.0</span>    		下载<span class="number">16.16</span><span class="number">.0</span>版本的NodeJs到nvm安装目录</span><br><span class="line">nvm uninstall <span class="number">16.16</span><span class="number">.0</span>  		 卸载<span class="number">16</span>。<span class="number">16.0</span>的NodeJs    </span><br><span class="line">nvm use <span class="number">16.16</span><span class="number">.0</span>   使用node    </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nvm list   				看本地有哪些版本NodeJs，正在使用的NodeJs会用*号标识</span><br><span class="line">nvm list available    		看网上有哪些可以下载的node版本</span><br><span class="line">nvm install 16.16.0    		下载16.16.0版本的NodeJs到nvm安装目录</span><br><span class="line">nvm uninstall 16.16.0  		 卸载16。16.0的NodeJs    </span><br><span class="line">nvm use 16.16.0   使用node    </span><br></pre></td></tr></table></figure>
 <p>参考链接：<a href="https://blog.csdn.net/lewky_liu/article/details/87959839">Windows完全卸载node.js并安装node.js的多版本管理工具nvm</a></p>
 <h1>NodeJS</h1>
 <p><strong>NodeJS介绍</strong>：简称 <code>node</code> ，类似后端语言的JavaScript环境，本质上是浏览器底层，自带的包管理器npm在前端能充当Maven一样的角色。</p>
@@ -184,7 +155,7 @@
 <p>npm config set prefix “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_global”      node_global文件夹没有则新建</p>
 </blockquote>
 <p><strong>node和npm常用命令</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">node -v    		看node版本</span><br><span class="line">npm -v    		看npm版本</span><br><span class="line">npm config <span class="built_in">list</span>   			看npm配置项    </span><br><span class="line">npm config get registry     看是否在使用淘宝代理链接</span><br><span class="line">npm install 某           下载某依赖</span><br><span class="line">npm uninstall 某 -g       全局下载某依赖    </span><br><span class="line">npm uninstall 某  		卸载某依赖    </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">node -v    		看node版本</span><br><span class="line">npm -v    		看npm版本</span><br><span class="line">npm config list   			看npm配置项    </span><br><span class="line">npm config get registry     看是否在使用淘宝代理链接</span><br><span class="line">npm install 某           下载某依赖</span><br><span class="line">npm uninstall 某 -g       全局下载某依赖    </span><br><span class="line">npm uninstall 某  		卸载某依赖    </span><br></pre></td></tr></table></figure>
 <p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′  <a href="https://blog.csdn.net/Kenvinxu/article/details/106053210">https://blog.csdn.net/Kenvinxu/article/details/106053210</a></p>
 <p>官网版本：<a href="https://nodejs.org/zh-cn/download/releases/">以往的版本 | Node.js (nodejs.org)</a></p>
 <h1>Hexo搭建博客</h1>
@@ -220,7 +191,7 @@
 <ol>
 <li>下载处理图片的插件</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install https:<span class="comment">//github.com/CodeFalling/hexo-asset-image --save</span></span><br><span class="line">或</span><br><span class="line">npm install hexo-asset-img --save    </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br><span class="line">或</span><br><span class="line">npm install hexo-asset-img --save    </span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>
 <p>在Hexo配置文件将配置项post_asset_folder设为true</p>
@@ -271,12 +242,12 @@
 <h2 id="4、阿里云OSS图床，最终方案"><a class="header-anchor" href="#4、阿里云OSS图床，最终方案">¶</a>4、阿里云OSS图床，最终方案</h2>
 <h3 id="4-1-开通OSS对象存储"><a class="header-anchor" href="#4-1-开通OSS对象存储">¶</a>4.1 开通OSS对象存储</h3>
 <p>在阿里云官网OSS <a href="https://www.aliyun.com/product/oss">对象存储OSS_云存储服务_-阿里云 (aliyun.com)</a> 点击 “立即开通”</p>
-<img src="GitHub托管Hexo博客 Butterfly主题全过程/image-20221206233659678.png" alt="image-20221206233659678" style="zoom:80%;" />
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032355.png" alt="image-20221206233659678" style="zoom:80%;" />
 <p>注册账户，实名。  （如果是新用户，还可以超低价买云服务器，可以用来练习Linux命令、部署网站等）</p>
 <p>点击oss页面 “管理控制台”</p>
 <h3 id="4-2-创建Bucket"><a class="header-anchor" href="#4-2-创建Bucket">¶</a>4.2 创建Bucket</h3>
 <p>在<a href="https://oss.console.aliyun.com/bucket">OSS管理控制台 (aliyun.com)</a> 创建Bucket</p>
-<img src="GitHub托管Hexo博客 Butterfly主题全过程/image-20221206234124640.png" alt="image-20221206234124640" style="zoom:80%;" />
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032356.png" alt="image-20221206234124640" style="zoom:80%;" />
 <blockquote>
 <ol>
 <li>Bucket名称不能有大写字母，不能中文。 建议全小写英文，中间以<code>-</code>连接。如 <code>blog-img-oss</code></li>
@@ -326,9 +297,9 @@
 <p>推荐图片压缩网站：<a href="https://tinypng.com/">TinyPNG – Compress WebP, PNG and JPEG images intelligently</a></p>
 <h2 id="3-npm全局安装"><a class="header-anchor" href="#3-npm全局安装">¶</a>3. npm全局安装</h2>
 <p>配置前，全局下载在</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">C:\Users\用户名\AppData\Roaming\npm</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">C:\Users\用户名\AppData\Roaming\npm</span><br></pre></td></tr></table></figure>
 <p>配置后，全局下载的在</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">C:\Users\admin\AppData\Roaming\nvm\v18<span class="number">.12</span><span class="number">.0</span>\node_global</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">C:\Users\admin\AppData\Roaming\nvm\v18.12.0\node_global</span><br></pre></td></tr></table></figure>
 <p>当使用 <code>npm install hexo-asset-img --save</code> 这类带 <code>--save</code>的命令，不要再加上<code>-g</code> 全局安装</p>
 ]]></content>
       <categories>
@@ -336,8 +307,37 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-        <tag>GitHub</tag>
         <tag>Tutorial</tag>
+        <tag>GitHub</tag>
+        <tag>Butterfly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git配置&amp;GitHub绑定</title>
+    <url>/2022/10/05/Git%E9%85%8D%E7%BD%AE&amp;GitHub%E7%BB%91%E5%AE%9A/</url>
+    <content><![CDATA[<h1>Git安装配置，绑定GitHub账号</h1>
+<p><strong>下载</strong>：搜索Git官网，下载64位setup，如Git-2.32.0-64-bit.exe</p>
+<p><strong>安装</strong> ：无脑下一步，Git Bash是Git的命令行，如果选了只GitBash，那在cmd中使用git会报’git’ 不是内部或外部命令，解决办法是把Git安装文件夹下bin目录、git-core加入到环境变量中。</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212061915388.png" alt="image-20221206191429644" style="zoom:80%;" />
+<img src="GitHub托管Hexo博客 Butterfly主题全过程/image-20221206191639793.png" alt="image-20221206191639793" style="zoom:80%;" />
+<p><strong>设置用户全局签名</strong> ： 会记录在 <code>C:\users\用户\.gitconfig</code>里面</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;账户名&quot;</span>       账户名随便写几个字母</span><br><span class="line">git config --global user.email <span class="string">&quot;邮箱地址&quot;</span>     邮箱随便写，瞎写都行。</span><br><span class="line">git config --global --<span class="built_in">list</span>				查看写对了吗    </span><br></pre></td></tr></table></figure>
+<p><strong>配置Git绑定GitHub</strong>：</p>
+<p>鼠标右键选GitBash，输入 <code>ssh-keygen -t rsa</code> ，显示overwrite时输入y，其他时候按三次回车。</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062145500.png" alt="image-20221206214526322" style="zoom:80%;" />
+<p>之后在<code>C:\Users\用户\.ssh</code>下，有一个rsa后缀的私钥文件，要严密保管。 有一个pub后缀的公钥文件，复制公钥的内容，到GitHub网站你头像下面settings -&gt; SSH and GPG keys -&gt; new SSH key，Title随便写，Key部分填你的公钥内容。</p>
+<p>在 <code>GitBash</code> 中输入 <code>ssh -T git@github.com</code> ，看到有successfully就说明绑定好了。</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062146968.png" alt="image-20221206214628634" style="zoom:80%;" />
+<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′   <a href="https://www.cnblogs.com/xueweisuoyong/p/11914045.html">Windows系统Git安装教程-博客园 (cnblogs.com)</a></p>
+]]></content>
+      <categories>
+        <category>Tool</category>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Tutorial</tag>
+        <tag>GitHub</tag>
         <tag>Butterfly</tag>
       </tags>
   </entry>
@@ -377,14 +377,73 @@
       </categories>
       <tags>
         <tag>Hexo</tag>
-        <tag>GitHub</tag>
         <tag>Tutorial</tag>
+        <tag>GitHub</tag>
         <tag>Butterfly</tag>
       </tags>
   </entry>
   <entry>
+    <title>nvm管理NodeJS</title>
+    <url>/2022/11/05/nvm%E7%AE%A1%E7%90%86NodeJS/</url>
+    <content><![CDATA[<h1>nvm安装配置</h1>
+<p>推荐使用NodeJs的版本管理工具nvm，安装node更容易，允许多个node版本共存，切换方便。</p>
+<p><strong>完全卸载NodeJS</strong> ：</p>
+<ol>
+<li>控制面板卸载NodeJS，更推荐使用Geek Uninstaller和Wise Program Uninstaller</li>
+<li>重启任务管理器，鲨掉所有与node有关进程。</li>
+<li>删掉 <code>C:\Users\admin\.npmrc</code> 文件</li>
+<li>寻找以下目录删掉
+<ul>
+<li>C:\Program Files (x86)\nodejs</li>
+<li>C:\Program Files\nodejs</li>
+<li>C:\Users\用户名\AppData\Roaming\npm</li>
+<li>C:\Users\用户名\AppData\Roaming\npm-cache</li>
+</ul>
+</li>
+<li>删有关node的环境变量。</li>
+</ol>
+<p><strong>下载安装nvm</strong>：</p>
+<p>下载前确定node已经卸载干净。到<a href="https://github.com/coreybutler/nvm-windows/releases">github.com</a> 该网址的下载nvm-setup.zip或nvm-setup.exe</p>
+<p>双击安装exe，一路猛戳下一步，默认下载到 <code>C:\Users\用户\AppData\Roaming\nvm</code></p>
+<blockquote>
+<p>安装好nvm后，由于国内下载速度慢，所以使用淘宝镜像。在nvm安装目录下找到settings.txt文件。在最后面回车加上：</p>
+<p>node_mirror: <a href="http://npm.taobao.org/mirrors/node/">http://npm.taobao.org/mirrors/node/</a></p>
+<p>npm_mirror: <a href="https://npm.taobao.org/mirrors/npm/">https://npm.taobao.org/mirrors/npm/</a></p>
+</blockquote>
+<p><strong>nvm常用命令</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">nvm <span class="built_in">list</span>   				看本地有哪些版本NodeJs，正在使用的NodeJs会用*号标识</span><br><span class="line">nvm <span class="built_in">list</span> available    		看网上有哪些可以下载的node版本</span><br><span class="line">nvm install <span class="number">16.16</span><span class="number">.0</span>    		下载<span class="number">16.16</span><span class="number">.0</span>版本的NodeJs到nvm安装目录</span><br><span class="line">nvm uninstall <span class="number">16.16</span><span class="number">.0</span>  		 卸载<span class="number">16</span>。<span class="number">16.0</span>的NodeJs    </span><br><span class="line">nvm use <span class="number">16.16</span><span class="number">.0</span>   使用node    </span><br></pre></td></tr></table></figure>
+<p>参考链接：<a href="https://blog.csdn.net/lewky_liu/article/details/87959839">Windows完全卸载node.js并安装node.js的多版本管理工具nvm</a></p>
+<h1>NodeJS</h1>
+<p><strong>NodeJS介绍</strong>：简称 <code>node</code> ，类似后端语言的JavaScript环境，本质上是浏览器底层，自带的包管理器npm在前端能充当Maven一样的角色。</p>
+<p><strong>node版本</strong>：2022年Hexo要求<u>Node版本必须14以上</u>，推荐16或18，太高或者太低都不好。 另外，Node版本选双不选单。</p>
+<p><strong>下载安装</strong>： 直接用nvm下载node</p>
+<blockquote>
+<p>切换node或是<code>nvm use 16.16.0</code> 之前，需要先把<code>C:\Users\用户\.npmrc</code> 文件删掉，就像之前的卸载node一样。</p>
+<p>再执行以下命令</p>
+<p>npm cache clean --force                  清理缓存</p>
+<p>npm config set registry <a href="https://registry.npm.taobao.org">https://registry.npm.taobao.org</a>       node使用淘宝代理链接</p>
+<p>npm config set cache “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_cache”     node_cache文件夹没有则新建</p>
+<p>npm config set prefix “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_global”      node_global文件夹没有则新建</p>
+</blockquote>
+<p><strong>node和npm常用命令</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">node -v    		看node版本</span><br><span class="line">npm -v    		看npm版本</span><br><span class="line">npm config <span class="built_in">list</span>   			看npm配置项    </span><br><span class="line">npm config get registry     看是否在使用淘宝代理链接</span><br><span class="line">npm install 某           下载某依赖</span><br><span class="line">npm uninstall 某 -g       全局下载某依赖    </span><br><span class="line">npm uninstall 某  		卸载某依赖    </span><br></pre></td></tr></table></figure>
+<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′  <a href="https://blog.csdn.net/Kenvinxu/article/details/106053210">https://blog.csdn.net/Kenvinxu/article/details/106053210</a></p>
+<p>官网版本：<a href="https://nodejs.org/zh-cn/download/releases/">以往的版本 | Node.js (nodejs.org)</a></p>
+]]></content>
+      <categories>
+        <category>Tool</category>
+        <category>nvm</category>
+      </categories>
+      <tags>
+        <tag>Tutorial</tag>
+        <tag>nvm</tag>
+        <tag>node</tag>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
-    <url>/2022/12/05/hello-world/</url>
+    <url>/2021/12/05/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
 <h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
@@ -519,7 +578,7 @@
   </entry>
   <entry>
     <title>我的第一篇博客</title>
-    <url>/2022/12/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+    <url>/2022/01/01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1>第一章</h1>
 <p>内<code>容</code>…</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">    world</span><br></pre></td></tr></table></figure>
@@ -537,65 +596,6 @@
       </categories>
       <tags>
         <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nvm管理NodeJS</title>
-    <url>/2022/11/05/nvm%E7%AE%A1%E7%90%86NodeJS/</url>
-    <content><![CDATA[<h1>nvm安装配置</h1>
-<p>推荐使用NodeJs的版本管理工具nvm，安装node更容易，允许多个node版本共存，切换方便。</p>
-<p><strong>完全卸载NodeJS</strong> ：</p>
-<ol>
-<li>控制面板卸载NodeJS，更推荐使用Geek Uninstaller和Wise Program Uninstaller</li>
-<li>重启任务管理器，鲨掉所有与node有关进程。</li>
-<li>删掉 <code>C:\Users\admin\.npmrc</code> 文件</li>
-<li>寻找以下目录删掉
-<ul>
-<li>C:\Program Files (x86)\nodejs</li>
-<li>C:\Program Files\nodejs</li>
-<li>C:\Users\用户名\AppData\Roaming\npm</li>
-<li>C:\Users\用户名\AppData\Roaming\npm-cache</li>
-</ul>
-</li>
-<li>删有关node的环境变量。</li>
-</ol>
-<p><strong>下载安装nvm</strong>：</p>
-<p>下载前确定node已经卸载干净。到<a href="https://github.com/coreybutler/nvm-windows/releases">github.com</a> 该网址的下载nvm-setup.zip或nvm-setup.exe</p>
-<p>双击安装exe，一路猛戳下一步，默认下载到 <code>C:\Users\用户\AppData\Roaming\nvm</code></p>
-<blockquote>
-<p>安装好nvm后，由于国内下载速度慢，所以使用淘宝镜像。在nvm安装目录下找到settings.txt文件。在最后面回车加上：</p>
-<p>node_mirror: <a href="http://npm.taobao.org/mirrors/node/">http://npm.taobao.org/mirrors/node/</a></p>
-<p>npm_mirror: <a href="https://npm.taobao.org/mirrors/npm/">https://npm.taobao.org/mirrors/npm/</a></p>
-</blockquote>
-<p><strong>nvm常用命令</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">nvm <span class="built_in">list</span>   				看本地有哪些版本NodeJs，正在使用的NodeJs会用*号标识</span><br><span class="line">nvm <span class="built_in">list</span> available    		看网上有哪些可以下载的node版本</span><br><span class="line">nvm install <span class="number">16.16</span><span class="number">.0</span>    		下载<span class="number">16.16</span><span class="number">.0</span>版本的NodeJs到nvm安装目录</span><br><span class="line">nvm uninstall <span class="number">16.16</span><span class="number">.0</span>  		 卸载<span class="number">16</span>。<span class="number">16.0</span>的NodeJs    </span><br><span class="line">nvm use <span class="number">16.16</span><span class="number">.0</span>   使用node    </span><br></pre></td></tr></table></figure>
-<p>参考链接：<a href="https://blog.csdn.net/lewky_liu/article/details/87959839">Windows完全卸载node.js并安装node.js的多版本管理工具nvm</a></p>
-<h1>NodeJS</h1>
-<p><strong>NodeJS介绍</strong>：简称 <code>node</code> ，类似后端语言的JavaScript环境，本质上是浏览器底层，自带的包管理器npm在前端能充当Maven一样的角色。</p>
-<p><strong>node版本</strong>：2022年Hexo要求<u>Node版本必须14以上</u>，推荐16或18，太高或者太低都不好。 另外，Node版本选双不选单。</p>
-<p><strong>下载安装</strong>： 直接用nvm下载node</p>
-<blockquote>
-<p>切换node或是<code>nvm use 16.16.0</code> 之前，需要先把<code>C:\Users\用户\.npmrc</code> 文件删掉，就像之前的卸载node一样。</p>
-<p>再执行以下命令</p>
-<p>npm cache clean --force                  清理缓存</p>
-<p>npm config set registry <a href="https://registry.npm.taobao.org">https://registry.npm.taobao.org</a>       node使用淘宝代理链接</p>
-<p>npm config set cache “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_cache”     node_cache文件夹没有则新建</p>
-<p>npm config set prefix “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_global”      node_global文件夹没有则新建</p>
-</blockquote>
-<p><strong>node和npm常用命令</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">node -v    		看node版本</span><br><span class="line">npm -v    		看npm版本</span><br><span class="line">npm config <span class="built_in">list</span>   			看npm配置项    </span><br><span class="line">npm config get registry     看是否在使用淘宝代理链接</span><br><span class="line">npm install 某           下载某依赖</span><br><span class="line">npm uninstall 某 -g       全局下载某依赖    </span><br><span class="line">npm uninstall 某  		卸载某依赖    </span><br></pre></td></tr></table></figure>
-<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′  <a href="https://blog.csdn.net/Kenvinxu/article/details/106053210">https://blog.csdn.net/Kenvinxu/article/details/106053210</a></p>
-<p>官网版本：<a href="https://nodejs.org/zh-cn/download/releases/">以往的版本 | Node.js (nodejs.org)</a></p>
-]]></content>
-      <categories>
-        <category>Tool</category>
-        <category>nvm</category>
-      </categories>
-      <tags>
-        <tag>Tutorial</tag>
-        <tag>nvm</tag>
-        <tag>node</tag>
-        <tag>npm</tag>
       </tags>
   </entry>
 </search>
