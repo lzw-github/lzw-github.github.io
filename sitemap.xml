@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://lzw-github.github.io/2022/12/04/Docker-Tutorial/</loc>
+    <loc>https://lzw-github.github.io/2022/12/06/Typora&PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</loc>
     
     <lastmod>2022-12-06</lastmod>
     
@@ -12,6 +12,42 @@
   
   <url>
     <loc>https://lzw-github.github.io/2022/12/04/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/</loc>
+    
+    <lastmod>2022-12-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/2022/12/04/Docker-Tutorial/</loc>
+    
+    <lastmod>2022-12-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/2022/01/05/Hexo&Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
+    
+    <lastmod>2022-12-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/2022/11/05/nvm%E7%AE%A1%E7%90%86NodeJS/</loc>
+    
+    <lastmod>2022-12-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/2022/10/05/Git%E9%85%8D%E7%BD%AE&GitHub%E7%BB%91%E5%AE%9A/</loc>
     
     <lastmod>2022-12-06</lastmod>
     
@@ -134,7 +170,63 @@
   </url>
   
   <url>
+    <loc>https://lzw-github.github.io/tags/%E5%9B%BE%E5%BA%8A/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/PicGo/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/Typora/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/OSS/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/Aliyun/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://lzw-github.github.io/tags/tool/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/nvm/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/node/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/npm/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -143,14 +235,21 @@
 
   
   <url>
-    <loc>https://lzw-github.github.io/categories/Hexo/</loc>
+    <loc>https://lzw-github.github.io/categories/Tool/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/categories/tutorial/</loc>
+    <loc>https://lzw-github.github.io/categories/Java/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/categories/Tool/Git/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -164,7 +263,28 @@
   </url>
   
   <url>
+    <loc>https://lzw-github.github.io/categories/Tool/%E5%9B%BE%E5%BA%8A/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/categories/Tool/Docker/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://lzw-github.github.io/categories/java/</loc>
+    <lastmod>2022-12-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/categories/Tool/nvm/</loc>
     <lastmod>2022-12-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
