@@ -103,8 +103,9 @@
 <h1>Git安装配置，绑定GitHub账号</h1>
 <p><strong>下载</strong>：搜索Git官网，下载64位setup，如Git-2.32.0-64-bit.exe</p>
 <p><strong>安装</strong> ：无脑下一步，Git Bash是Git的命令行，如果选了只GitBash，那在cmd中使用git会报’git’ 不是内部或外部命令，解决办法是把Git安装文件夹下bin目录、git-core加入到环境变量中。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Git安装目录\bin</span><br><span class="line"></span><br><span class="line">Git安装目录\mingw64\libexec\git-core</span><br></pre></td></tr></table></figure>
 <img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212061915388.png" alt="image-20221206191429644" style="zoom:80%;" />
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032353.png" alt="image-20221206191639793" style="zoom:80%;" />
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212071100043.png" alt="image-20221206191639793" style="zoom:80%;" />
 <p><strong>设置用户全局签名</strong> ： 会记录在 <code>C:\users\用户\.gitconfig</code>里面</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;账户名&quot;       账户名随便写几个字母</span><br><span class="line">git config --global user.email &quot;邮箱地址&quot;     邮箱随便写，瞎写都行。</span><br><span class="line">git config --global --list				查看写对了吗    </span><br></pre></td></tr></table></figure>
 <p><strong>配置Git绑定GitHub</strong>：</p>
@@ -159,16 +160,27 @@
 <p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′  <a href="https://blog.csdn.net/Kenvinxu/article/details/106053210">https://blog.csdn.net/Kenvinxu/article/details/106053210</a></p>
 <p>官网版本：<a href="https://nodejs.org/zh-cn/download/releases/">以往的版本 | Node.js (nodejs.org)</a></p>
 <h1>Hexo搭建博客</h1>
-<p>以下命令都在管理员身份的 <code>GitBash</code> 中敲</p>
+<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
 <p><strong>本地生成博客文件，并访问</strong> ：</p>
 <p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
 <p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">#Github创建一个新的public仓库    你的GitHub账户名.github.io     严格要求是这个名字</span><br><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">#配置Hexo配置文件_config.yml， 在blog目录下    </span><br><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">#部署博客到 GitHub，就可以远程访问了</span><br><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>部署博客到 GitHub，就可以远程访问了</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
 <p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
 <p><strong>注意点</strong>：</p>
 <ol>
-<li>报错，可能是没有以管理员模式打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
+<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
 <li>部署不上GitHub，以下解决办法，都可以试试
 <ul>
 <li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
@@ -180,11 +192,18 @@
 <li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
 </ol>
 <h1>Butterfly主题</h1>
+<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
+<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
+<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<p><strong>主题美化</strong></p>
+<blockquote>
 <p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
-<p>参考链接：</p>
-<p>跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′</p>
+<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
 <p><a href="https://blog.csdn.net/Brad_PiTt7/article/details/125712874">Hexo 个人博客搭建完整版</a></p>
-<p><a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
+</blockquote>
 <h1>图床存图片，哪哪都能看</h1>
 <p>本人使用 <code>Typora</code> 编辑Markdown文档来上传到博客，但本地图片上传到GitHub博客，就没法看了，为此寻找了多种方法。 最后选择了阿里云OSS存储作为图床，<code>PicGo</code>软件上传，<code>Typora</code>引用网址的方式</p>
 <h2 id="1、本地同名文件夹引用，失效"><a class="header-anchor" href="#1、本地同名文件夹引用，失效">¶</a>1、本地同名文件夹引用，失效</h2>
@@ -319,7 +338,7 @@
 <p><strong>下载</strong>：搜索Git官网，下载64位setup，如Git-2.32.0-64-bit.exe</p>
 <p><strong>安装</strong> ：无脑下一步，Git Bash是Git的命令行，如果选了只GitBash，那在cmd中使用git会报’git’ 不是内部或外部命令，解决办法是把Git安装文件夹下bin目录、git-core加入到环境变量中。</p>
 <img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212061915388.png" alt="image-20221206191429644" style="zoom:80%;" />
-<img src="GitHub托管Hexo博客 Butterfly主题全过程/image-20221206191639793.png" alt="image-20221206191639793" style="zoom:80%;" />
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212071100043.png" alt="image-20221206191639793" style="zoom:80%;" />
 <p><strong>设置用户全局签名</strong> ： 会记录在 <code>C:\users\用户\.gitconfig</code>里面</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;账户名&quot;</span>       账户名随便写几个字母</span><br><span class="line">git config --global user.email <span class="string">&quot;邮箱地址&quot;</span>     邮箱随便写，瞎写都行。</span><br><span class="line">git config --global --<span class="built_in">list</span>				查看写对了吗    </span><br></pre></td></tr></table></figure>
 <p><strong>配置Git绑定GitHub</strong>：</p>
@@ -345,16 +364,27 @@
     <title>Hexo&amp;Butterfly搭建博客</title>
     <url>/2022/01/05/Hexo&amp;Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1>Hexo搭建博客</h1>
-<p>以下命令都在管理员身份的 <code>GitBash</code> 中敲</p>
+<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
 <p><strong>本地生成博客文件，并访问</strong> ：</p>
 <p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
 <p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">#Github创建一个新的public仓库    你的GitHub账户名.github.io     严格要求是这个名字</span><br><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">#配置Hexo配置文件_config.yml， 在blog目录下    </span><br><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">#部署博客到 GitHub，就可以远程访问了</span><br><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>部署博客到 GitHub，就可以远程访问了</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
 <p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
 <p><strong>注意点</strong>：</p>
 <ol>
-<li>报错，可能是没有以管理员模式打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
+<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
 <li>部署不上GitHub，以下解决办法，都可以试试
 <ul>
 <li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
@@ -366,10 +396,17 @@
 <li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
 </ol>
 <h1>Butterfly主题</h1>
+<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
+<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
+<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<p><strong>主题美化</strong></p>
+<blockquote>
 <p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
-<p>参考链接：</p>
-<p>跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′</p>
-<p><a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
+<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Tool</category>
@@ -385,7 +422,8 @@
   <entry>
     <title>nvm管理NodeJS</title>
     <url>/2022/11/05/nvm%E7%AE%A1%E7%90%86NodeJS/</url>
-    <content><![CDATA[<h1>nvm安装配置</h1>
+    <content><![CDATA[<h1>nvm管理NodeJs</h1>
+<h2 id="nvm安装配置"><a class="header-anchor" href="#nvm安装配置">¶</a>nvm安装配置</h2>
 <p>推荐使用NodeJs的版本管理工具nvm，安装node更容易，允许多个node版本共存，切换方便。</p>
 <p><strong>完全卸载NodeJS</strong> ：</p>
 <ol>
@@ -413,7 +451,7 @@
 <p><strong>nvm常用命令</strong> ：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">nvm <span class="built_in">list</span>   				看本地有哪些版本NodeJs，正在使用的NodeJs会用*号标识</span><br><span class="line">nvm <span class="built_in">list</span> available    		看网上有哪些可以下载的node版本</span><br><span class="line">nvm install <span class="number">16.16</span><span class="number">.0</span>    		下载<span class="number">16.16</span><span class="number">.0</span>版本的NodeJs到nvm安装目录</span><br><span class="line">nvm uninstall <span class="number">16.16</span><span class="number">.0</span>  		 卸载<span class="number">16</span>。<span class="number">16.0</span>的NodeJs    </span><br><span class="line">nvm use <span class="number">16.16</span><span class="number">.0</span>   使用node    </span><br></pre></td></tr></table></figure>
 <p>参考链接：<a href="https://blog.csdn.net/lewky_liu/article/details/87959839">Windows完全卸载node.js并安装node.js的多版本管理工具nvm</a></p>
-<h1>NodeJS</h1>
+<h2 id="NodeJS"><a class="header-anchor" href="#NodeJS">¶</a>NodeJS</h2>
 <p><strong>NodeJS介绍</strong>：简称 <code>node</code> ，类似后端语言的JavaScript环境，本质上是浏览器底层，自带的包管理器npm在前端能充当Maven一样的角色。</p>
 <p><strong>node版本</strong>：2022年Hexo要求<u>Node版本必须14以上</u>，推荐16或18，太高或者太低都不好。 另外，Node版本选双不选单。</p>
 <p><strong>下载安装</strong>： 直接用nvm下载node</p>
@@ -439,31 +477,6 @@
         <tag>nvm</tag>
         <tag>node</tag>
         <tag>npm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/12/05/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
-<h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a class="header-anchor" href="#Run-server">¶</a>Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a class="header-anchor" href="#Generate-static-files">¶</a>Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a class="header-anchor" href="#Deploy-to-remote-sites">¶</a>Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>tool</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -526,12 +539,12 @@
 <h2 id="4、阿里云OSS图床，最终方案"><a class="header-anchor" href="#4、阿里云OSS图床，最终方案">¶</a>4、阿里云OSS图床，最终方案</h2>
 <h3 id="4-1-开通OSS对象存储"><a class="header-anchor" href="#4-1-开通OSS对象存储">¶</a>4.1 开通OSS对象存储</h3>
 <p>在阿里云官网OSS <a href="https://www.aliyun.com/product/oss">对象存储OSS_云存储服务_-阿里云 (aliyun.com)</a> 点击 “立即开通”</p>
-<img src="GitHub托管Hexo博客 Butterfly主题全过程/image-20221206233659678.png" alt="image-20221206233659678" style="zoom:80%;" />
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032355.png" alt="image-20221206233659678" style="zoom:80%;" />
 <p>注册账户，实名。  （如果是新用户，还可以超低价买云服务器，可以用来练习Linux命令、部署网站等）</p>
 <p>点击oss页面 “管理控制台”</p>
 <h3 id="4-2-创建Bucket"><a class="header-anchor" href="#4-2-创建Bucket">¶</a>4.2 创建Bucket</h3>
 <p>在<a href="https://oss.console.aliyun.com/bucket">OSS管理控制台 (aliyun.com)</a> 创建Bucket</p>
-<img src="GitHub托管Hexo博客 Butterfly主题全过程/image-20221206234124640.png" alt="image-20221206234124640" style="zoom:80%;" />
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032356.png" alt="image-20221206234124640" style="zoom:80%;" />
 <blockquote>
 <ol>
 <li>Bucket名称不能有大写字母，不能中文。 建议全小写英文，中间以<code>-</code>连接。如 <code>blog-img-oss</code></li>
@@ -596,6 +609,31 @@
       </categories>
       <tags>
         <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/12/05/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
+<h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a class="header-anchor" href="#Run-server">¶</a>Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a class="header-anchor" href="#Generate-static-files">¶</a>Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a class="header-anchor" href="#Deploy-to-remote-sites">¶</a>Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
 </search>
