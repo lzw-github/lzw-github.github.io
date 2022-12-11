@@ -361,125 +361,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo&amp;Butterfly搭建博客</title>
-    <url>/2022/01/05/Hexo&amp;Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1>Hexo搭建博客</h1>
-<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
-<p><strong>本地生成博客文件，并访问</strong> ：</p>
-<p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
-<p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
-<blockquote>
-<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>部署博客到 GitHub，就可以远程访问了</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
-<p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
-<p><strong>注意点</strong>：</p>
-<ol>
-<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
-<li>部署不上GitHub，以下解决办法，都可以试试
-<ul>
-<li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
-<li>改<code>branch</code>值为 <code>main</code></li>
-<li>网太烂了，拨打10086升级宽带</li>
-<li>单纯连不上GitHub，寻求周围 程序猿/媛 帮助</li>
-</ul>
-</li>
-<li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
-</ol>
-<h1>Butterfly主题</h1>
-<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
-<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
-<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
-<p><strong>主题美化</strong></p>
-<blockquote>
-<p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
-<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Tool</category>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Tutorial</tag>
-        <tag>GitHub</tag>
-        <tag>Butterfly</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nvm管理NodeJS</title>
-    <url>/2022/11/05/nvm%E7%AE%A1%E7%90%86NodeJS/</url>
-    <content><![CDATA[<h1>nvm管理NodeJs</h1>
-<h2 id="nvm安装配置"><a class="header-anchor" href="#nvm安装配置">¶</a>nvm安装配置</h2>
-<p>推荐使用NodeJs的版本管理工具nvm，安装node更容易，允许多个node版本共存，切换方便。</p>
-<p><strong>完全卸载NodeJS</strong> ：</p>
-<ol>
-<li>控制面板卸载NodeJS，更推荐使用Geek Uninstaller和Wise Program Uninstaller</li>
-<li>重启任务管理器，鲨掉所有与node有关进程。</li>
-<li>删掉 <code>C:\Users\admin\.npmrc</code> 文件</li>
-<li>寻找以下目录删掉
-<ul>
-<li>C:\Program Files (x86)\nodejs</li>
-<li>C:\Program Files\nodejs</li>
-<li>C:\Users\用户名\AppData\Roaming\npm</li>
-<li>C:\Users\用户名\AppData\Roaming\npm-cache</li>
-</ul>
-</li>
-<li>删有关node的环境变量。</li>
-</ol>
-<p><strong>下载安装nvm</strong>：</p>
-<p>下载前确定node已经卸载干净。到<a href="https://github.com/coreybutler/nvm-windows/releases">github.com</a> 该网址的下载nvm-setup.zip或nvm-setup.exe</p>
-<p>双击安装exe，一路猛戳下一步，默认下载到 <code>C:\Users\用户\AppData\Roaming\nvm</code></p>
-<blockquote>
-<p>安装好nvm后，由于国内下载速度慢，所以使用淘宝镜像。在nvm安装目录下找到settings.txt文件。在最后面回车加上：</p>
-<p>node_mirror: <a href="http://npm.taobao.org/mirrors/node/">http://npm.taobao.org/mirrors/node/</a></p>
-<p>npm_mirror: <a href="https://npm.taobao.org/mirrors/npm/">https://npm.taobao.org/mirrors/npm/</a></p>
-</blockquote>
-<p><strong>nvm常用命令</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">nvm <span class="built_in">list</span>   				看本地有哪些版本NodeJs，正在使用的NodeJs会用*号标识</span><br><span class="line">nvm <span class="built_in">list</span> available    		看网上有哪些可以下载的node版本</span><br><span class="line">nvm install <span class="number">16.16</span><span class="number">.0</span>    		下载<span class="number">16.16</span><span class="number">.0</span>版本的NodeJs到nvm安装目录</span><br><span class="line">nvm uninstall <span class="number">16.16</span><span class="number">.0</span>  		 卸载<span class="number">16</span>。<span class="number">16.0</span>的NodeJs    </span><br><span class="line">nvm use <span class="number">16.16</span><span class="number">.0</span>   使用node    </span><br></pre></td></tr></table></figure>
-<p>参考链接：<a href="https://blog.csdn.net/lewky_liu/article/details/87959839">Windows完全卸载node.js并安装node.js的多版本管理工具nvm</a></p>
-<h2 id="NodeJS"><a class="header-anchor" href="#NodeJS">¶</a>NodeJS</h2>
-<p><strong>NodeJS介绍</strong>：简称 <code>node</code> ，类似后端语言的JavaScript环境，本质上是浏览器底层，自带的包管理器npm在前端能充当Maven一样的角色。</p>
-<p><strong>node版本</strong>：2022年Hexo要求<u>Node版本必须14以上</u>，推荐16或18，太高或者太低都不好。 另外，Node版本选双不选单。</p>
-<p><strong>下载安装</strong>： 直接用nvm下载node</p>
-<blockquote>
-<p>切换node或是<code>nvm use 16.16.0</code> 之前，需要先把<code>C:\Users\用户\.npmrc</code> 文件删掉，就像之前的卸载node一样。</p>
-<p>再执行以下命令</p>
-<p>npm cache clean --force                  清理缓存</p>
-<p>npm config set registry <a href="https://registry.npm.taobao.org">https://registry.npm.taobao.org</a>       node使用淘宝代理链接</p>
-<p>npm config set cache “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_cache”     node_cache文件夹没有则新建</p>
-<p>npm config set prefix “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_global”      node_global文件夹没有则新建</p>
-</blockquote>
-<p><strong>node和npm常用命令</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">node -v    		看node版本</span><br><span class="line">npm -v    		看npm版本</span><br><span class="line">npm config <span class="built_in">list</span>   			看npm配置项    </span><br><span class="line">npm config get registry     看是否在使用淘宝代理链接</span><br><span class="line">npm install 某           下载某依赖</span><br><span class="line">npm uninstall 某 -g       全局下载某依赖    </span><br><span class="line">npm uninstall 某  		卸载某依赖    </span><br></pre></td></tr></table></figure>
-<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′  <a href="https://blog.csdn.net/Kenvinxu/article/details/106053210">https://blog.csdn.net/Kenvinxu/article/details/106053210</a></p>
-<p>官网版本：<a href="https://nodejs.org/zh-cn/download/releases/">以往的版本 | Node.js (nodejs.org)</a></p>
-]]></content>
-      <categories>
-        <category>Tool</category>
-        <category>nvm</category>
-      </categories>
-      <tags>
-        <tag>Tutorial</tag>
-        <tag>nvm</tag>
-        <tag>node</tag>
-        <tag>npm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Typora&amp;PicGo博客图床搭建</title>
     <url>/2022/12/06/Typora&amp;PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<h1>图床存图片，哪哪都能看</h1>
@@ -590,25 +471,62 @@
       </tags>
   </entry>
   <entry>
-    <title>我的第一篇博客</title>
-    <url>/2022/01/01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1>第一章</h1>
-<p>内<code>容</code>…</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">    world</span><br></pre></td></tr></table></figure>
-<h1>第二章</h1>
+    <title>Hexo&amp;Butterfly搭建博客</title>
+    <url>/2022/01/05/Hexo&amp;Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1>Hexo搭建博客</h1>
+<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
+<p><strong>本地生成博客文件，并访问</strong> ：</p>
+<p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
+<p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
 <blockquote>
-<p>hello</p>
+<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
 </blockquote>
-<h2 id="2-1-标题"><a class="header-anchor" href="#2-1-标题">¶</a>2.1 标题</h2>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>部署博客到 GitHub，就可以远程访问了</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
+<p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
+<p><strong>注意点</strong>：</p>
+<ol>
+<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
+<li>部署不上GitHub，以下解决办法，都可以试试
 <ul>
-<li>内容</li>
+<li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
+<li>改<code>branch</code>值为 <code>main</code></li>
+<li>网太烂了，拨打10086升级宽带</li>
+<li>单纯连不上GitHub，寻求周围 程序猿/媛 帮助</li>
 </ul>
+</li>
+<li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
+</ol>
+<h1>Butterfly主题</h1>
+<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
+<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
+<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<p><strong>主题美化</strong></p>
+<blockquote>
+<p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
+<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
+</blockquote>
 ]]></content>
       <categories>
-        <category>java</category>
+        <category>Tool</category>
+        <category>Git</category>
       </categories>
       <tags>
-        <tag>tool</tag>
+        <tag>Hexo</tag>
+        <tag>Tutorial</tag>
+        <tag>GitHub</tag>
+        <tag>Butterfly</tag>
       </tags>
   </entry>
   <entry>
@@ -634,6 +552,88 @@
       </categories>
       <tags>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的第一篇博客</title>
+    <url>/2022/01/01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1>第一章</h1>
+<p>内<code>容</code>…</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">    world</span><br></pre></td></tr></table></figure>
+<h1>第二章</h1>
+<blockquote>
+<p>hello</p>
+</blockquote>
+<h2 id="2-1-标题"><a class="header-anchor" href="#2-1-标题">¶</a>2.1 标题</h2>
+<ul>
+<li>内容</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nvm管理NodeJS</title>
+    <url>/2022/11/05/nvm%E7%AE%A1%E7%90%86NodeJS/</url>
+    <content><![CDATA[<h1>nvm管理NodeJs</h1>
+<h2 id="nvm安装配置"><a class="header-anchor" href="#nvm安装配置">¶</a>nvm安装配置</h2>
+<p>推荐使用NodeJs的版本管理工具nvm，安装node更容易，允许多个node版本共存，切换方便。</p>
+<p><strong>完全卸载NodeJS</strong> ：</p>
+<ol>
+<li>控制面板卸载NodeJS，更推荐使用Geek Uninstaller和Wise Program Uninstaller</li>
+<li>重启任务管理器，鲨掉所有与node有关进程。</li>
+<li>删掉 <code>C:\Users\admin\.npmrc</code> 文件</li>
+<li>寻找以下目录删掉
+<ul>
+<li>C:\Program Files (x86)\nodejs</li>
+<li>C:\Program Files\nodejs</li>
+<li>C:\Users\用户名\AppData\Roaming\npm</li>
+<li>C:\Users\用户名\AppData\Roaming\npm-cache</li>
+</ul>
+</li>
+<li>删有关node的环境变量。</li>
+</ol>
+<p><strong>下载安装nvm</strong>：</p>
+<p>下载前确定node已经卸载干净。到<a href="https://github.com/coreybutler/nvm-windows/releases">github.com</a> 该网址的下载nvm-setup.zip或nvm-setup.exe</p>
+<p>双击安装exe，一路猛戳下一步，默认下载到 <code>C:\Users\用户\AppData\Roaming\nvm</code></p>
+<blockquote>
+<p>安装好nvm后，由于国内下载速度慢，所以使用淘宝镜像。在nvm安装目录下找到settings.txt文件。在最后面回车加上：</p>
+<p>node_mirror: <a href="http://npm.taobao.org/mirrors/node/">http://npm.taobao.org/mirrors/node/</a></p>
+<p>npm_mirror: <a href="https://npm.taobao.org/mirrors/npm/">https://npm.taobao.org/mirrors/npm/</a></p>
+</blockquote>
+<p><strong>nvm常用命令</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">nvm <span class="built_in">list</span>   				看本地有哪些版本NodeJs，正在使用的NodeJs会用*号标识</span><br><span class="line">nvm <span class="built_in">list</span> available    		看网上有哪些可以下载的node版本</span><br><span class="line">nvm install <span class="number">16.16</span><span class="number">.0</span>    		下载<span class="number">16.16</span><span class="number">.0</span>版本的NodeJs到nvm安装目录</span><br><span class="line">nvm uninstall <span class="number">16.16</span><span class="number">.0</span>  		 卸载<span class="number">16</span>。<span class="number">16.0</span>的NodeJs    </span><br><span class="line">nvm use <span class="number">16.16</span><span class="number">.0</span>   使用node    </span><br></pre></td></tr></table></figure>
+<p>参考链接：<a href="https://blog.csdn.net/lewky_liu/article/details/87959839">Windows完全卸载node.js并安装node.js的多版本管理工具nvm</a></p>
+<h2 id="NodeJS"><a class="header-anchor" href="#NodeJS">¶</a>NodeJS</h2>
+<p><strong>NodeJS介绍</strong>：简称 <code>node</code> ，类似后端语言的JavaScript环境，本质上是浏览器底层，自带的包管理器npm在前端能充当Maven一样的角色。</p>
+<p><strong>node版本</strong>：2022年Hexo要求<u>Node版本必须14以上</u>，推荐16或18，太高或者太低都不好。 另外，Node版本选双不选单。</p>
+<p><strong>下载安装</strong>： 直接用nvm下载node</p>
+<blockquote>
+<p>切换node或是<code>nvm use 16.16.0</code> 之前，需要先把<code>C:\Users\用户\.npmrc</code> 文件删掉，就像之前的卸载node一样。</p>
+<p>再执行以下命令</p>
+<p>npm cache clean --force                  清理缓存</p>
+<p>npm config set registry <a href="https://registry.npm.taobao.org">https://registry.npm.taobao.org</a>       node使用淘宝代理链接</p>
+<p>npm config set cache “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_cache”     node_cache文件夹没有则新建</p>
+<p>npm config set prefix “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_global”      node_global文件夹没有则新建</p>
+</blockquote>
+<p><strong>node和npm常用命令</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">node -v    		看node版本</span><br><span class="line">npm -v    		看npm版本</span><br><span class="line">npm config <span class="built_in">list</span>   			看npm配置项    </span><br><span class="line">npm config get registry     看是否在使用淘宝代理链接</span><br><span class="line">npm install 某           下载某依赖</span><br><span class="line">npm uninstall 某 -g       全局下载某依赖    </span><br><span class="line">npm uninstall 某  		卸载某依赖    </span><br></pre></td></tr></table></figure>
+<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′  <a href="https://blog.csdn.net/Kenvinxu/article/details/106053210">https://blog.csdn.net/Kenvinxu/article/details/106053210</a></p>
+<p>官网版本：<a href="https://nodejs.org/zh-cn/download/releases/">以往的版本 | Node.js (nodejs.org)</a></p>
+]]></content>
+      <categories>
+        <category>Tool</category>
+        <category>nvm</category>
+      </categories>
+      <tags>
+        <tag>Tutorial</tag>
+        <tag>nvm</tag>
+        <tag>node</tag>
+        <tag>npm</tag>
       </tags>
   </entry>
 </search>
