@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'myfont';
+  font-display: swap;
+  src: url('/demonChangeButterfly/XiaolaiMonoSC-Regular.ttf') format("truetype");
+}
+@font-face {
+  font-family: 'mycodefont';
+  font-display: swap;
+  src: url('/demonChangeButterfly/CascadiaMono.ttf') format("truetype");
+}
