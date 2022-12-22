@@ -1448,7 +1448,7 @@ hr:before {
   left: 5%;
   z-index: 1;
   color: var(--hr-before-color);
-  content: '\f0c4';
+  content: '\e4e2';
   font-size: 20px;
   line-height: 1;
   -webkit-transition: all 1s ease-in-out;
