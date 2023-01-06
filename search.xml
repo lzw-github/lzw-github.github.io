@@ -93,6 +93,65 @@
       </tags>
   </entry>
   <entry>
+    <title>Hexo&amp;Butterfly搭建博客</title>
+    <url>/2022/01/05/Hexo&amp;Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1>Hexo搭建博客</h1>
+<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
+<p><strong>本地生成博客文件，并访问</strong> ：</p>
+<p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
+<p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
+<blockquote>
+<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>部署博客到 GitHub，就可以远程访问了</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
+<p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
+<p><strong>注意点</strong>：</p>
+<ol>
+<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
+<li>部署不上GitHub，以下解决办法，都可以试试
+<ul>
+<li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
+<li>改<code>branch</code>值为 <code>main</code></li>
+<li>网太烂了，拨打10086升级宽带</li>
+<li>单纯连不上GitHub，寻求周围 程序猿/媛 帮助</li>
+</ul>
+</li>
+<li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
+</ol>
+<h1>Butterfly主题</h1>
+<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
+<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
+<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<p><strong>主题美化</strong></p>
+<blockquote>
+<p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
+<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Tool</category>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Tutorial</tag>
+        <tag>GitHub</tag>
+        <tag>Butterfly</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GitHub托管Hexo博客搭建全过程</title>
     <url>/2022/12/04/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<p>本教程长期更新。</p>
@@ -361,62 +420,60 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo&amp;Butterfly搭建博客</title>
-    <url>/2022/01/05/Hexo&amp;Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1>Hexo搭建博客</h1>
-<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
-<p><strong>本地生成博客文件，并访问</strong> ：</p>
-<p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
-<p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
-<blockquote>
-<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>部署博客到 GitHub，就可以远程访问了</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
-<p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
-<p><strong>注意点</strong>：</p>
-<ol>
-<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
-<li>部署不上GitHub，以下解决办法，都可以试试
+    <title>IDEA中三种方式实现SpringBoot热部署</title>
+    <url>/2022/12/22/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<p><strong>概述</strong>：热部署(HotSwap)也叫热加载、热更新、热替换，它避免了少量代码更改而带来的避免重启时间，在大型项目中尤其有用，三个实现<code>SpringBoot</code>热部署方法，配合IDEA使用。</p>
 <ul>
-<li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
-<li>改<code>branch</code>值为 <code>main</code></li>
-<li>网太烂了，拨打10086升级宽带</li>
-<li>单纯连不上GitHub，寻求周围 程序猿/媛 帮助</li>
+<li><code>dev-tools</code>可以实现大部分代码的热部署，但是和数据库连接池有冲突，容易造成数据库连接池关闭。</li>
+<li><code>JRebel</code>需要用网络注册，无网环境配置不太行。</li>
+<li><code>HotSwap</code> 插件IDEA自带，有时不太生效。</li>
 </ul>
-</li>
-<li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
-</ol>
-<h1>Butterfly主题</h1>
-<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
-<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
-<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
-<p><strong>主题美化</strong></p>
-<blockquote>
-<p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
-<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
-</blockquote>
+<h1>总</h1>
+<h2 id="Dev-tools-推荐"><a class="header-anchor" href="#Dev-tools-推荐">¶</a>Dev-tools(推荐)</h2>
+<p><code>spring-boot-devtools</code> 是 Spring Boot 提供的<a href="https://cloud.tencent.com/product/cclid?from=10680">开发者工具</a>，它会监控当前应用所在的 classpath 下的文件发生变化，进行<strong>自动重启</strong>。</p>
+<p>注： dev-tools并不是热部署，而是一种<strong>较快的重启方式</strong> 。</p>
+<h3 id="引入Maven依赖"><a class="header-anchor" href="#引入Maven依赖">¶</a>引入Maven依赖</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 这是spring boot devtool plugin 热部署1常用，如果不添加似乎也可以运行--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    		<span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置yaml"><a class="header-anchor" href="#配置yaml">¶</a>配置yaml</h3>
+<p>在<code>application.yaml</code>或<code>application.yml</code> 配置，如果是.properties需自行转换</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">devtools</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">restart</span>:<span class="string"></span></span><br><span class="line"><span class="comment">            #热部署生效</span></span><br><span class="line">          <span class="attr">enabled</span>: <span class="string">true</span></span><br><span class="line"><span class="comment">            #设置重启的目录</span></span><br><span class="line"><span class="comment">            #additional-paths: src/main/java</span></span><br><span class="line"><span class="comment">            #classpath目录下的WEB-INF文件夹内容修改不重启</span></span><br><span class="line">          <span class="attr">exclude</span>: <span class="string">WEB-INF/**</span></span><br></pre></td></tr></table></figure>
+<p>到这里就已经可以了，如果项目代码更改，在项目使用Debug模式启动下，只需要在IDEA上方 Build-&gt;Build Project即可（快捷键为 Ctrl+F9）</p>
+<p>如果这一步也想省掉，执行以下步骤。</p>
+<h3 id="自动编译"><a class="header-anchor" href="#自动编译">¶</a>自动编译</h3>
+<p>打开IDEA设置，在<code>Compiler</code> 选项卡，将 <code>Build project automatically</code> 勾选</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222330997.png" alt="image-20221222233042106" style="zoom:80%;" />
+<p>此时dev-tools限定在Debug模式下启动项目，如果想要Run模式也能使用dev-tools，<code>Ctrl+Shift+Alt+/</code> ，勾选Registry下的<code>Compiler autoMake allow when app running</code></p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222335867.png" alt="image-20221222233549082" style="zoom:80%;" />
+<hr>
+<h2 id="JRebel"><a class="header-anchor" href="#JRebel">¶</a>JRebel</h2>
+<p>一款知名的Java热部署插件</p>
+<h3 id="IDEA安装JRebel插件"><a class="header-anchor" href="#IDEA安装JRebel插件">¶</a>IDEA安装JRebel插件</h3>
+<p>在idea的settings -&gt; Marketspace -&gt; 搜索jrebel -&gt; 下载<code>JRebel and XRebel for IntelliJ</code></p>
+<h3 id="在线GUID地址：在线生成GUID"><a class="header-anchor" href="#在线GUID地址：在线生成GUID">¶</a>在线GUID地址：在线生成GUID</h3>
+<p>在 <a href="https://www.guidgen.com/">https://www.guidgen.com/</a> 生成GUID后， 服务器地址为 <code>https://jrebel.qekang.com/&#123;GUID&#125;</code></p>
+<h3 id="打开JRebel"><a class="header-anchor" href="#打开JRebel">¶</a>打开JRebel</h3>
+<p>选择<code>Connect to online licensing service</code></p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222342051.png" alt="image-20221222234157794" style="zoom:80%;" />
+<p>以后通过<code>JRebel</code>启动项目即可</p>
+<h3 id="设置离线模式"><a class="header-anchor" href="#设置离线模式">¶</a>设置离线模式</h3>
+<p>在IDEA中 <code>settings -&gt; JRebel &amp; XRebel -&gt; 点击Work offline</code></p>
+<h3 id="自动编译-v2"><a class="header-anchor" href="#自动编译-v2">¶</a>自动编译</h3>
+<p>同Dev-tools的自动编译</p>
+<h2 id="HotSwap"><a class="header-anchor" href="#HotSwap">¶</a>HotSwap</h2>
+<p>IDEA自带的插件，而且与<code>dev-tools</code>不兼容，需去除dev的依赖。</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222348943.png" alt="image-20221222234756047" style="zoom:80%;" />
+<p>使用和自动编译同Dev-tools。</p>
 ]]></content>
       <categories>
-        <category>Tool</category>
-        <category>Git</category>
+        <category>Java</category>
+        <category>SpringBoot</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
-        <tag>Tutorial</tag>
-        <tag>GitHub</tag>
-        <tag>Butterfly</tag>
+        <tag>devtools</tag>
+        <tag>jrebel</tag>
+        <tag>idea</tag>
+        <tag>SpringBoot</tag>
+        <tag>热部署</tag>
       </tags>
   </entry>
   <entry>
@@ -555,85 +612,6 @@
       </tags>
   </entry>
   <entry>
-    <title>IDEA中三种方式实现SpringBoot热部署</title>
-    <url>/2022/12/22/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/</url>
-    <content><![CDATA[<p><strong>概述</strong>：热部署(HotSwap)也叫热加载、热更新、热替换，它避免了少量代码更改而带来的避免重启时间，在大型项目中尤其有用，三个实现<code>SpringBoot</code>热部署方法，配合IDEA使用。</p>
-<ul>
-<li><code>dev-tools</code>可以实现大部分代码的热部署，但是和数据库连接池有冲突，容易造成数据库连接池关闭。</li>
-<li><code>JRebel</code>需要用网络注册，无网环境配置不太行。</li>
-<li><code>HotSwap</code> 插件IDEA自带，有时不太生效。</li>
-</ul>
-<h1>总</h1>
-<h2 id="Dev-tools-推荐"><a class="header-anchor" href="#Dev-tools-推荐">¶</a>Dev-tools(推荐)</h2>
-<p><code>spring-boot-devtools</code> 是 Spring Boot 提供的<a href="https://cloud.tencent.com/product/cclid?from=10680">开发者工具</a>，它会监控当前应用所在的 classpath 下的文件发生变化，进行<strong>自动重启</strong>。</p>
-<p>注： dev-tools并不是热部署，而是一种<strong>较快的重启方式</strong> 。</p>
-<h3 id="引入Maven依赖"><a class="header-anchor" href="#引入Maven依赖">¶</a>引入Maven依赖</h3>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 这是spring boot devtool plugin 热部署1常用，如果不添加似乎也可以运行--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    		<span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="配置yaml"><a class="header-anchor" href="#配置yaml">¶</a>配置yaml</h3>
-<p>在<code>application.yaml</code>或<code>application.yml</code> 配置，如果是.properties需自行转换</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">devtools</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">restart</span>:<span class="string"></span></span><br><span class="line"><span class="comment">            #热部署生效</span></span><br><span class="line">          <span class="attr">enabled</span>: <span class="string">true</span></span><br><span class="line"><span class="comment">            #设置重启的目录</span></span><br><span class="line"><span class="comment">            #additional-paths: src/main/java</span></span><br><span class="line"><span class="comment">            #classpath目录下的WEB-INF文件夹内容修改不重启</span></span><br><span class="line">          <span class="attr">exclude</span>: <span class="string">WEB-INF/**</span></span><br></pre></td></tr></table></figure>
-<p>到这里就已经可以了，如果项目代码更改，在项目使用Debug模式启动下，只需要在IDEA上方 Build-&gt;Build Project即可（快捷键为 Ctrl+F9）</p>
-<p>如果这一步也想省掉，执行以下步骤。</p>
-<h3 id="自动编译"><a class="header-anchor" href="#自动编译">¶</a>自动编译</h3>
-<p>打开IDEA设置，在<code>Compiler</code> 选项卡，将 <code>Build project automatically</code> 勾选</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222330997.png" alt="image-20221222233042106" style="zoom:80%;" />
-<p>此时dev-tools限定在Debug模式下启动项目，如果想要Run模式也能使用dev-tools，<code>Ctrl+Shift+Alt+/</code> ，勾选Registry下的<code>Compiler autoMake allow when app running</code></p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222335867.png" alt="image-20221222233549082" style="zoom:80%;" />
-<hr>
-<h2 id="JRebel"><a class="header-anchor" href="#JRebel">¶</a>JRebel</h2>
-<p>一款知名的Java热部署插件</p>
-<h3 id="IDEA安装JRebel插件"><a class="header-anchor" href="#IDEA安装JRebel插件">¶</a>IDEA安装JRebel插件</h3>
-<p>在idea的settings -&gt; Marketspace -&gt; 搜索jrebel -&gt; 下载<code>JRebel and XRebel for IntelliJ</code></p>
-<h3 id="在线GUID地址：在线生成GUID"><a class="header-anchor" href="#在线GUID地址：在线生成GUID">¶</a>在线GUID地址：在线生成GUID</h3>
-<p>在 <a href="https://www.guidgen.com/">https://www.guidgen.com/</a> 生成GUID后， 服务器地址为 <code>https://jrebel.qekang.com/&#123;GUID&#125;</code></p>
-<h3 id="打开JRebel"><a class="header-anchor" href="#打开JRebel">¶</a>打开JRebel</h3>
-<p>选择<code>Connect to online licensing service</code></p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222342051.png" alt="image-20221222234157794" style="zoom:80%;" />
-<p>以后通过<code>JRebel</code>启动项目即可</p>
-<h3 id="设置离线模式"><a class="header-anchor" href="#设置离线模式">¶</a>设置离线模式</h3>
-<p>在IDEA中 <code>settings -&gt; JRebel &amp; XRebel -&gt; 点击Work offline</code></p>
-<h3 id="自动编译-v2"><a class="header-anchor" href="#自动编译-v2">¶</a>自动编译</h3>
-<p>同Dev-tools的自动编译</p>
-<h2 id="HotSwap"><a class="header-anchor" href="#HotSwap">¶</a>HotSwap</h2>
-<p>IDEA自带的插件，而且与<code>dev-tools</code>不兼容，需去除dev的依赖。</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222348943.png" alt="image-20221222234756047" style="zoom:80%;" />
-<p>使用和自动编译同Dev-tools。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>devtools</tag>
-        <tag>jrebel</tag>
-        <tag>idea</tag>
-        <tag>SpringBoot</tag>
-        <tag>热部署</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我的第一篇博客</title>
-    <url>/2022/01/01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1>第一章</h1>
-<p>内<code>容</code>…</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">    world</span><br></pre></td></tr></table></figure>
-<h1>第二章</h1>
-<blockquote>
-<p>hello</p>
-</blockquote>
-<h2 id="2-1-标题"><a class="header-anchor" href="#2-1-标题">¶</a>2.1 标题</h2>
-<ul>
-<li>内容</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>nvm管理NodeJS</title>
     <url>/2022/11/05/nvm%E7%AE%A1%E7%90%86NodeJS/</url>
     <content><![CDATA[<h1>nvm管理NodeJs</h1>
@@ -691,6 +669,28 @@
         <tag>nvm</tag>
         <tag>node</tag>
         <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的第一篇博客</title>
+    <url>/2022/01/01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1>第一章</h1>
+<p>内<code>容</code>…</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">    world</span><br></pre></td></tr></table></figure>
+<h1>第二章</h1>
+<blockquote>
+<p>hello</p>
+</blockquote>
+<h2 id="2-1-标题"><a class="header-anchor" href="#2-1-标题">¶</a>2.1 标题</h2>
+<ul>
+<li>内容</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
 </search>
