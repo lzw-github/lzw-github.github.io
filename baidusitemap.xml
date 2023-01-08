@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://lzw-github.github.io/2022/01/05/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <loc>https://lzw-github.github.io/articles/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2023-01-08</lastmod>
   </url>
   <url>
-    <loc>https://lzw-github.github.io/2022/10/05/Git%E9%85%8D%E7%BD%AE+GitHub%E7%BB%91%E5%AE%9A/</loc>
+    <loc>https://lzw-github.github.io/articles/Git%E9%85%8D%E7%BD%AE+GitHub%E7%BB%91%E5%AE%9A/</loc>
     <lastmod>2023-01-08</lastmod>
   </url>
   <url>
-    <loc>https://lzw-github.github.io/2022/12/04/Docker-Tutorial/</loc>
+    <loc>https://lzw-github.github.io/articles/Docker-Tutorial/</loc>
     <lastmod>2023-01-08</lastmod>
   </url>
   <url>
-    <loc>https://lzw-github.github.io/2022/12/06/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</loc>
+    <loc>https://lzw-github.github.io/articles/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2023-01-08</lastmod>
   </url>
   <url>
-    <loc>https://lzw-github.github.io/2022/12/22/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/</loc>
+    <loc>https://lzw-github.github.io/articles/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/</loc>
     <lastmod>2023-01-08</lastmod>
   </url>
   <url>
-    <loc>https://lzw-github.github.io/2023/01/02/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</loc>
+    <loc>https://lzw-github.github.io/articles/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</loc>
     <lastmod>2023-01-08</lastmod>
   </url>
   <url>
-    <loc>https://lzw-github.github.io/2022/12/04/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/</loc>
+    <loc>https://lzw-github.github.io/articles/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/</loc>
     <lastmod>2022-12-22</lastmod>
   </url>
   <url>
-    <loc>https://lzw-github.github.io/2021/12/05/hello-world/</loc>
+    <loc>https://lzw-github.github.io/articles/nvm%E7%AE%A1%E7%90%86NodeJS/</loc>
     <lastmod>2022-12-20</lastmod>
   </url>
   <url>
-    <loc>https://lzw-github.github.io/2022/11/05/nvm%E7%AE%A1%E7%90%86NodeJS/</loc>
+    <loc>https://lzw-github.github.io/articles/hello-world/</loc>
     <lastmod>2022-12-20</lastmod>
   </url>
   <url>
-    <loc>https://lzw-github.github.io/2022/01/01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</loc>
+    <loc>https://lzw-github.github.io/articles/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2022-12-20</lastmod>
   </url>
 </urlset> 

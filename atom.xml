@@ -18,8 +18,8 @@
   
   <entry>
     <title>Linux权限rwx管理+定时任务调度</title>
-    <link href="https://lzw-github.github.io/2023/01/02/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/"/>
-    <id>https://lzw-github.github.io/2023/01/02/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</id>
+    <link href="https://lzw-github.github.io/articles/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/"/>
+    <id>https://lzw-github.github.io/articles/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</id>
     <published>2023-01-02T14:58:34.000Z</published>
     <updated>2023-01-08T06:49:12.845Z</updated>
     
@@ -43,8 +43,8 @@
   
   <entry>
     <title>IDEA中三种方式实现SpringBoot热部署</title>
-    <link href="https://lzw-github.github.io/2022/12/22/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/"/>
-    <id>https://lzw-github.github.io/2022/12/22/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/</id>
+    <link href="https://lzw-github.github.io/articles/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/"/>
+    <id>https://lzw-github.github.io/articles/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/</id>
     <published>2022-12-22T14:58:34.000Z</published>
     <updated>2023-01-08T06:55:23.723Z</updated>
     
@@ -74,8 +74,8 @@
   
   <entry>
     <title>Typora+PicGo博客图床搭建</title>
-    <link href="https://lzw-github.github.io/2022/12/06/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/"/>
-    <id>https://lzw-github.github.io/2022/12/06/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</id>
+    <link href="https://lzw-github.github.io/articles/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/"/>
+    <id>https://lzw-github.github.io/articles/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</id>
     <published>2022-12-05T16:58:34.000Z</published>
     <updated>2023-01-08T06:58:54.564Z</updated>
     
@@ -109,8 +109,8 @@
   
   <entry>
     <title>Docker Tutorial</title>
-    <link href="https://lzw-github.github.io/2022/12/04/Docker-Tutorial/"/>
-    <id>https://lzw-github.github.io/2022/12/04/Docker-Tutorial/</id>
+    <link href="https://lzw-github.github.io/articles/Docker-Tutorial/"/>
+    <id>https://lzw-github.github.io/articles/Docker-Tutorial/</id>
     <published>2022-12-04T14:58:34.000Z</published>
     <updated>2023-01-08T07:29:14.059Z</updated>
     
@@ -140,8 +140,8 @@
   
   <entry>
     <title>GitHub托管Hexo博客搭建全过程</title>
-    <link href="https://lzw-github.github.io/2022/12/04/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/"/>
-    <id>https://lzw-github.github.io/2022/12/04/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/</id>
+    <link href="https://lzw-github.github.io/articles/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/"/>
+    <id>https://lzw-github.github.io/articles/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/</id>
     <published>2022-12-04T14:58:34.000Z</published>
     <updated>2022-12-22T15:05:42.290Z</updated>
     
@@ -171,8 +171,8 @@
   
   <entry>
     <title>nvm管理NodeJS</title>
-    <link href="https://lzw-github.github.io/2022/11/05/nvm%E7%AE%A1%E7%90%86NodeJS/"/>
-    <id>https://lzw-github.github.io/2022/11/05/nvm%E7%AE%A1%E7%90%86NodeJS/</id>
+    <link href="https://lzw-github.github.io/articles/nvm%E7%AE%A1%E7%90%86NodeJS/"/>
+    <id>https://lzw-github.github.io/articles/nvm%E7%AE%A1%E7%90%86NodeJS/</id>
     <published>2022-11-05T14:58:34.000Z</published>
     <updated>2022-12-20T13:05:25.888Z</updated>
     
@@ -205,8 +205,8 @@
   
   <entry>
     <title>Git配置+GitHub绑定</title>
-    <link href="https://lzw-github.github.io/2022/10/05/Git%E9%85%8D%E7%BD%AE+GitHub%E7%BB%91%E5%AE%9A/"/>
-    <id>https://lzw-github.github.io/2022/10/05/Git%E9%85%8D%E7%BD%AE+GitHub%E7%BB%91%E5%AE%9A/</id>
+    <link href="https://lzw-github.github.io/articles/Git%E9%85%8D%E7%BD%AE+GitHub%E7%BB%91%E5%AE%9A/"/>
+    <id>https://lzw-github.github.io/articles/Git%E9%85%8D%E7%BD%AE+GitHub%E7%BB%91%E5%AE%9A/</id>
     <published>2022-10-05T14:58:34.000Z</published>
     <updated>2023-01-08T07:48:07.470Z</updated>
     
@@ -239,8 +239,8 @@
   
   <entry>
     <title>Hexo+Butterfly搭建博客</title>
-    <link href="https://lzw-github.github.io/2022/01/05/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>https://lzw-github.github.io/2022/01/05/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</id>
+    <link href="https://lzw-github.github.io/articles/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://lzw-github.github.io/articles/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</id>
     <published>2022-01-05T15:58:34.000Z</published>
     <updated>2023-01-08T07:48:13.394Z</updated>
     
@@ -274,8 +274,8 @@
   
   <entry>
     <title>我的第一篇博客</title>
-    <link href="https://lzw-github.github.io/2022/01/01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-    <id>https://lzw-github.github.io/2022/01/01/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</id>
+    <link href="https://lzw-github.github.io/articles/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://lzw-github.github.io/articles/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</id>
     <published>2022-01-01T04:12:12.000Z</published>
     <updated>2022-12-20T13:05:25.888Z</updated>
     
@@ -300,8 +300,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://lzw-github.github.io/2021/12/05/hello-world/"/>
-    <id>https://lzw-github.github.io/2021/12/05/hello-world/</id>
+    <link href="https://lzw-github.github.io/articles/hello-world/"/>
+    <id>https://lzw-github.github.io/articles/hello-world/</id>
     <published>2021-12-05T04:13:13.000Z</published>
     <updated>2022-12-20T13:05:25.888Z</updated>
     
