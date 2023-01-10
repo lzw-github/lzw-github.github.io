@@ -93,65 +93,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo+Butterfly搭建博客</title>
-    <url>/articles/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1>Hexo搭建博客</h1>
-<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
-<p><strong>本地生成博客文件，并访问</strong> ：</p>
-<p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
-<p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
-<blockquote>
-<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>部署博客到 GitHub，就可以远程访问了</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
-<p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
-<p><strong>注意点</strong>：</p>
-<ol>
-<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
-<li>部署不上GitHub，以下解决办法，都可以试试
-<ul>
-<li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
-<li>改<code>branch</code>值为 <code>main</code></li>
-<li>网太烂了，拨打10086升级宽带</li>
-<li>单纯连不上GitHub，寻求周围 程序猿/媛 帮助</li>
-</ul>
-</li>
-<li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
-</ol>
-<h1>Butterfly主题</h1>
-<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
-<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
-<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
-<p><strong>主题美化</strong></p>
-<blockquote>
-<p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
-<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Tool</category>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Tutorial</tag>
-        <tag>GitHub</tag>
-        <tag>Butterfly</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>GitHub托管Hexo博客搭建全过程</title>
     <url>/articles/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<p>本教程长期更新。</p>
@@ -407,6 +348,65 @@
 <p>在 <code>GitBash</code> 中输入 <code>ssh -T git@github.com</code> ，看到有successfully就说明绑定好了。</p>
 <img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062146968.png" alt="image-20221206214628634" style="zoom:80%;" />
 <p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′   <a href="https://www.cnblogs.com/xueweisuoyong/p/11914045.html">Windows系统Git安装教程-博客园 (cnblogs.com)</a></p>
+]]></content>
+      <categories>
+        <category>Tool</category>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Tutorial</tag>
+        <tag>GitHub</tag>
+        <tag>Butterfly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo+Butterfly搭建博客</title>
+    <url>/articles/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1>Hexo搭建博客</h1>
+<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
+<p><strong>本地生成博客文件，并访问</strong> ：</p>
+<p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
+<p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
+<blockquote>
+<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>部署博客到 GitHub，就可以远程访问了</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
+<p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
+<p><strong>注意点</strong>：</p>
+<ol>
+<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
+<li>部署不上GitHub，以下解决办法，都可以试试
+<ul>
+<li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
+<li>改<code>branch</code>值为 <code>main</code></li>
+<li>网太烂了，拨打10086升级宽带</li>
+<li>单纯连不上GitHub，寻求周围 程序猿/媛 帮助</li>
+</ul>
+</li>
+<li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
+</ol>
+<h1>Butterfly主题</h1>
+<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
+<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
+<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<p><strong>主题美化</strong></p>
+<blockquote>
+<p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
+<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Tool</category>
