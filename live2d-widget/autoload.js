@@ -35,10 +35,14 @@ if (screen.width >= 768) {
 		// 配置选项的具体用法见 README.md
 		initWidget({
 			waifuPath: live2d_path + "waifu-tips.json",
-			apiPath: "https://live2d.fghrsh.net/api/",
-			// apiPath: "https://gitee.com/mirrors_fghrsh/live2d_api/",
-			cdnPath: "https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/",
+			// apiPath: "https://live2d.fghrsh.net/api/",
+			// apiPath: live2d_path + "live2d_api-master/",
+			// 这个是我通过F12找到陌生人服务器地址，用的他的模型
+			apiPath: "https://api.moechun.fun/php/live2d_api/",
+			// apiPath: "https://api3.fghrsh.net/live2d/",
+			// cdnPath: "https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/",
 			// cdnPath: "https://gitee.com/mirrors_fghrsh/live2d_api/raw/master/",
+			// cdnPath: "https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/live2d_api-1.0.1/",
 			tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
 		});
 	});
