@@ -38,12 +38,12 @@ if (screen.width >= 768) {
 			// apiPath: "https://live2d.fghrsh.net/api/",
 			// apiPath: live2d_path + "live2d_api-master/",
 			// 这个是我通过F12找到陌生人服务器地址，用的他的模型
-			// apiPath: "https://api.moechun.fun/php/live2d_api/",
+			apiPath: "https://api.moechun.fun/php/live2d_api/",
 			// apiPath: "https://91.90.194.171:8443/",
 			// apiPath: "https://api3.fghrsh.net/live2d/",
 			// cdnPath: "https://fastly.jsdelivr.net/gh/fghrsh/live2d_api/",
 			// cdnPath: "https://gitee.com/mirrors_fghrsh/live2d_api/raw/master/",
-			cdnPath: "https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/live2d_api-1.0.1/",
+			// cdnPath: "https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/live2d_api-1.0.1/",
 			tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
 		});
 	});
