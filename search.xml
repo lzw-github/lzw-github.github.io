@@ -93,91 +93,60 @@
       </tags>
   </entry>
   <entry>
-    <title>Git配置+GitHub绑定</title>
-    <url>/articles/Git%E9%85%8D%E7%BD%AE+GitHub%E7%BB%91%E5%AE%9A/</url>
-    <content><![CDATA[<h1>Git安装配置，绑定GitHub账号</h1>
-<p><strong>下载</strong>：搜索Git官网，下载64位setup，如Git-2.32.0-64-bit.exe</p>
-<p><strong>安装</strong> ：无脑下一步，Git Bash是Git的命令行，如果选了只GitBash，那在cmd中使用git会报’git’ 不是内部或外部命令，解决办法是把Git安装文件夹下bin目录、git-core加入到环境变量中。</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212061915388.png" alt="image-20221206191429644" style="zoom:80%;" />
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212071100043.png" alt="image-20221206191639793" style="zoom:80%;" />
-<p><strong>设置用户全局签名</strong> ： 会记录在 <code>C:\users\用户\.gitconfig</code>里面</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;账户名&quot;</span>       账户名随便写几个字母</span><br><span class="line">git config --global user.email <span class="string">&quot;邮箱地址&quot;</span>     邮箱随便写，瞎写都行。</span><br><span class="line">git config --global --<span class="built_in">list</span>				查看写对了吗    </span><br></pre></td></tr></table></figure>
-<p><strong>配置Git绑定GitHub</strong>：</p>
-<p>鼠标右键选GitBash，输入 <code>ssh-keygen -t rsa</code> ，显示overwrite时输入y，其他时候按三次回车。</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062145500.png" alt="image-20221206214526322" style="zoom:80%;" />
-<p>之后在<code>C:\Users\用户\.ssh</code>下，有一个rsa后缀的私钥文件，要严密保管。 有一个pub后缀的公钥文件，复制公钥的内容，到GitHub网站你头像下面settings -&gt; SSH and GPG keys -&gt; new SSH key，Title随便写，Key部分填你的公钥内容。</p>
-<p>在 <code>GitBash</code> 中输入 <code>ssh -T git@github.com</code> ，看到有successfully就说明绑定好了。</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062146968.png" alt="image-20221206214628634" style="zoom:80%;" />
-<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′   <a href="https://www.cnblogs.com/xueweisuoyong/p/11914045.html">Windows系统Git安装教程-博客园 (cnblogs.com)</a></p>
-]]></content>
-      <categories>
-        <category>Tool</category>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Tutorial</tag>
-        <tag>GitHub</tag>
-        <tag>Butterfly</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo+Butterfly搭建博客</title>
-    <url>/articles/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1>Hexo搭建博客</h1>
-<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
-<p><strong>本地生成博客文件，并访问</strong> ：</p>
-<p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
-<p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
-<blockquote>
-<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>部署博客到 GitHub，就可以远程访问了</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
-<p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
-<p><strong>注意点</strong>：</p>
-<ol>
-<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
-<li>部署不上GitHub，以下解决办法，都可以试试
+    <title>IDEA中三种方式实现SpringBoot热部署</title>
+    <url>/articles/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<p><strong>概述</strong>：热部署(HotSwap)也叫热加载、热更新、热替换，它避免了少量代码更改而带来的避免重启时间，在大型项目中尤其有用，三个实现<code>SpringBoot</code>热部署方法，配合IDEA使用。</p>
 <ul>
-<li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
-<li>改<code>branch</code>值为 <code>main</code></li>
-<li>网太烂了，拨打10086升级宽带</li>
-<li>单纯连不上GitHub，寻求周围 程序猿/媛 帮助</li>
+<li><code>dev-tools</code>可以实现大部分代码的热部署，但是和数据库连接池有冲突，容易造成数据库连接池关闭。</li>
+<li><code>JRebel</code>需要用网络注册，无网环境配置不太行。</li>
+<li><code>HotSwap</code> 插件IDEA自带，有时不太生效。</li>
 </ul>
-</li>
-<li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
-</ol>
-<h1>Butterfly主题</h1>
-<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
-<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
-<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
-<p><strong>主题美化</strong></p>
-<blockquote>
-<p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
-<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
-</blockquote>
+<h1>总</h1>
+<h2 id="Dev-tools-推荐"><a class="header-anchor" href="#Dev-tools-推荐">¶</a>Dev-tools(推荐)</h2>
+<p><code>spring-boot-devtools</code> 是 Spring Boot 提供的<a href="https://cloud.tencent.com/product/cclid?from=10680">开发者工具</a>，它会监控当前应用所在的 classpath 下的文件发生变化，进行<strong>自动重启</strong>。</p>
+<p>注： dev-tools并不是热部署，而是一种<strong>较快的重启方式</strong> 。</p>
+<h3 id="引入Maven依赖"><a class="header-anchor" href="#引入Maven依赖">¶</a>引入Maven依赖</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 这是spring boot devtool plugin 热部署1常用，如果不添加似乎也可以运行--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    		<span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置yaml"><a class="header-anchor" href="#配置yaml">¶</a>配置yaml</h3>
+<p>在<code>application.yaml</code>或<code>application.yml</code> 配置，如果是.properties需自行转换</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">devtools</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">restart</span>:<span class="string"></span></span><br><span class="line"><span class="comment">            #热部署生效</span></span><br><span class="line">          <span class="attr">enabled</span>: <span class="string">true</span></span><br><span class="line"><span class="comment">            #设置重启的目录</span></span><br><span class="line"><span class="comment">            #additional-paths: src/main/java</span></span><br><span class="line"><span class="comment">            #classpath目录下的WEB-INF文件夹内容修改不重启</span></span><br><span class="line">          <span class="attr">exclude</span>: <span class="string">WEB-INF/**</span></span><br></pre></td></tr></table></figure>
+<p>到这里就已经可以了，如果项目代码更改，在项目使用Debug模式启动下，只需要在IDEA上方 Build-&gt;Build Project即可（快捷键为 Ctrl+F9）</p>
+<p>如果这一步也想省掉，执行以下步骤。</p>
+<h3 id="自动编译"><a class="header-anchor" href="#自动编译">¶</a>自动编译</h3>
+<p>打开IDEA设置，在<code>Compiler</code> 选项卡，将 <code>Build project automatically</code> 勾选</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222330997.png" alt="image-20221222233042106" style="zoom:80%;" />
+<p>此时dev-tools限定在Debug模式下启动项目，如果想要Run模式也能使用dev-tools，<code>Ctrl+Shift+Alt+/</code> ，勾选Registry下的<code>Compiler autoMake allow when app running</code></p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222335867.png" alt="image-20221222233549082" style="zoom:80%;" />
+<hr>
+<h2 id="JRebel"><a class="header-anchor" href="#JRebel">¶</a>JRebel</h2>
+<p>一款知名的Java热部署插件</p>
+<h3 id="IDEA安装JRebel插件"><a class="header-anchor" href="#IDEA安装JRebel插件">¶</a>IDEA安装JRebel插件</h3>
+<p>在idea的settings -&gt; Marketspace -&gt; 搜索jrebel -&gt; 下载<code>JRebel and XRebel for IntelliJ</code></p>
+<h3 id="在线GUID地址：在线生成GUID"><a class="header-anchor" href="#在线GUID地址：在线生成GUID">¶</a>在线GUID地址：在线生成GUID</h3>
+<p>在 <a href="https://www.guidgen.com/">https://www.guidgen.com/</a> 生成GUID后， 服务器地址为 <code>https://jrebel.qekang.com/&#123;GUID&#125;</code></p>
+<h3 id="打开JRebel"><a class="header-anchor" href="#打开JRebel">¶</a>打开JRebel</h3>
+<p>选择<code>Connect to online licensing service</code></p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222342051.png" alt="image-20221222234157794" style="zoom:80%;" />
+<p>以后通过<code>JRebel</code>启动项目即可</p>
+<h3 id="设置离线模式"><a class="header-anchor" href="#设置离线模式">¶</a>设置离线模式</h3>
+<p>在IDEA中 <code>settings -&gt; JRebel &amp; XRebel -&gt; 点击Work offline</code></p>
+<h3 id="自动编译-v2"><a class="header-anchor" href="#自动编译-v2">¶</a>自动编译</h3>
+<p>同Dev-tools的自动编译</p>
+<h2 id="HotSwap"><a class="header-anchor" href="#HotSwap">¶</a>HotSwap</h2>
+<p>IDEA自带的插件，而且与<code>dev-tools</code>不兼容，需去除dev的依赖。</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222348943.png" alt="image-20221222234756047" style="zoom:80%;" />
+<p>使用和自动编译同Dev-tools。</p>
 ]]></content>
       <categories>
-        <category>Tool</category>
-        <category>Git</category>
+        <category>Java</category>
+        <category>SpringBoot</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
-        <tag>Tutorial</tag>
-        <tag>GitHub</tag>
-        <tag>Butterfly</tag>
+        <tag>devtools</tag>
+        <tag>jrebel</tag>
+        <tag>idea</tag>
+        <tag>SpringBoot</tag>
+        <tag>热部署</tag>
       </tags>
   </entry>
   <entry>
@@ -420,63 +389,6 @@
       </tags>
   </entry>
   <entry>
-    <title>IDEA中三种方式实现SpringBoot热部署</title>
-    <url>/articles/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/</url>
-    <content><![CDATA[<p><strong>概述</strong>：热部署(HotSwap)也叫热加载、热更新、热替换，它避免了少量代码更改而带来的避免重启时间，在大型项目中尤其有用，三个实现<code>SpringBoot</code>热部署方法，配合IDEA使用。</p>
-<ul>
-<li><code>dev-tools</code>可以实现大部分代码的热部署，但是和数据库连接池有冲突，容易造成数据库连接池关闭。</li>
-<li><code>JRebel</code>需要用网络注册，无网环境配置不太行。</li>
-<li><code>HotSwap</code> 插件IDEA自带，有时不太生效。</li>
-</ul>
-<h1>总</h1>
-<h2 id="Dev-tools-推荐"><a class="header-anchor" href="#Dev-tools-推荐">¶</a>Dev-tools(推荐)</h2>
-<p><code>spring-boot-devtools</code> 是 Spring Boot 提供的<a href="https://cloud.tencent.com/product/cclid?from=10680">开发者工具</a>，它会监控当前应用所在的 classpath 下的文件发生变化，进行<strong>自动重启</strong>。</p>
-<p>注： dev-tools并不是热部署，而是一种<strong>较快的重启方式</strong> 。</p>
-<h3 id="引入Maven依赖"><a class="header-anchor" href="#引入Maven依赖">¶</a>引入Maven依赖</h3>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 这是spring boot devtool plugin 热部署1常用，如果不添加似乎也可以运行--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    		<span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="配置yaml"><a class="header-anchor" href="#配置yaml">¶</a>配置yaml</h3>
-<p>在<code>application.yaml</code>或<code>application.yml</code> 配置，如果是.properties需自行转换</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">devtools</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">restart</span>:<span class="string"></span></span><br><span class="line"><span class="comment">            #热部署生效</span></span><br><span class="line">          <span class="attr">enabled</span>: <span class="string">true</span></span><br><span class="line"><span class="comment">            #设置重启的目录</span></span><br><span class="line"><span class="comment">            #additional-paths: src/main/java</span></span><br><span class="line"><span class="comment">            #classpath目录下的WEB-INF文件夹内容修改不重启</span></span><br><span class="line">          <span class="attr">exclude</span>: <span class="string">WEB-INF/**</span></span><br></pre></td></tr></table></figure>
-<p>到这里就已经可以了，如果项目代码更改，在项目使用Debug模式启动下，只需要在IDEA上方 Build-&gt;Build Project即可（快捷键为 Ctrl+F9）</p>
-<p>如果这一步也想省掉，执行以下步骤。</p>
-<h3 id="自动编译"><a class="header-anchor" href="#自动编译">¶</a>自动编译</h3>
-<p>打开IDEA设置，在<code>Compiler</code> 选项卡，将 <code>Build project automatically</code> 勾选</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222330997.png" alt="image-20221222233042106" style="zoom:80%;" />
-<p>此时dev-tools限定在Debug模式下启动项目，如果想要Run模式也能使用dev-tools，<code>Ctrl+Shift+Alt+/</code> ，勾选Registry下的<code>Compiler autoMake allow when app running</code></p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222335867.png" alt="image-20221222233549082" style="zoom:80%;" />
-<hr>
-<h2 id="JRebel"><a class="header-anchor" href="#JRebel">¶</a>JRebel</h2>
-<p>一款知名的Java热部署插件</p>
-<h3 id="IDEA安装JRebel插件"><a class="header-anchor" href="#IDEA安装JRebel插件">¶</a>IDEA安装JRebel插件</h3>
-<p>在idea的settings -&gt; Marketspace -&gt; 搜索jrebel -&gt; 下载<code>JRebel and XRebel for IntelliJ</code></p>
-<h3 id="在线GUID地址：在线生成GUID"><a class="header-anchor" href="#在线GUID地址：在线生成GUID">¶</a>在线GUID地址：在线生成GUID</h3>
-<p>在 <a href="https://www.guidgen.com/">https://www.guidgen.com/</a> 生成GUID后， 服务器地址为 <code>https://jrebel.qekang.com/&#123;GUID&#125;</code></p>
-<h3 id="打开JRebel"><a class="header-anchor" href="#打开JRebel">¶</a>打开JRebel</h3>
-<p>选择<code>Connect to online licensing service</code></p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222342051.png" alt="image-20221222234157794" style="zoom:80%;" />
-<p>以后通过<code>JRebel</code>启动项目即可</p>
-<h3 id="设置离线模式"><a class="header-anchor" href="#设置离线模式">¶</a>设置离线模式</h3>
-<p>在IDEA中 <code>settings -&gt; JRebel &amp; XRebel -&gt; 点击Work offline</code></p>
-<h3 id="自动编译-v2"><a class="header-anchor" href="#自动编译-v2">¶</a>自动编译</h3>
-<p>同Dev-tools的自动编译</p>
-<h2 id="HotSwap"><a class="header-anchor" href="#HotSwap">¶</a>HotSwap</h2>
-<p>IDEA自带的插件，而且与<code>dev-tools</code>不兼容，需去除dev的依赖。</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222348943.png" alt="image-20221222234756047" style="zoom:80%;" />
-<p>使用和自动编译同Dev-tools。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>devtools</tag>
-        <tag>jrebel</tag>
-        <tag>idea</tag>
-        <tag>SpringBoot</tag>
-        <tag>热部署</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux权限rwx管理+定时任务调度</title>
     <url>/articles/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</url>
     <content><![CDATA[<h1>组管理和权限管理</h1>
@@ -627,6 +539,176 @@
       </tags>
   </entry>
   <entry>
+    <title>Git配置+GitHub绑定</title>
+    <url>/articles/Git%E9%85%8D%E7%BD%AE+GitHub%E7%BB%91%E5%AE%9A/</url>
+    <content><![CDATA[<h1>Git安装配置，绑定GitHub账号</h1>
+<p><strong>下载</strong>：搜索Git官网，下载64位setup，如Git-2.32.0-64-bit.exe</p>
+<p><strong>安装</strong> ：无脑下一步，Git Bash是Git的命令行，如果选了只GitBash，那在cmd中使用git会报’git’ 不是内部或外部命令，解决办法是把Git安装文件夹下bin目录、git-core加入到环境变量中。</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212061915388.png" alt="image-20221206191429644" style="zoom:80%;" />
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212071100043.png" alt="image-20221206191639793" style="zoom:80%;" />
+<p><strong>设置用户全局签名</strong> ： 会记录在 <code>C:\users\用户\.gitconfig</code>里面</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;账户名&quot;</span>       账户名随便写几个字母</span><br><span class="line">git config --global user.email <span class="string">&quot;邮箱地址&quot;</span>     邮箱随便写，瞎写都行。</span><br><span class="line">git config --global --<span class="built_in">list</span>				查看写对了吗    </span><br></pre></td></tr></table></figure>
+<p><strong>配置Git绑定GitHub</strong>：</p>
+<p>鼠标右键选GitBash，输入 <code>ssh-keygen -t rsa</code> ，显示overwrite时输入y，其他时候按三次回车。</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062145500.png" alt="image-20221206214526322" style="zoom:80%;" />
+<p>之后在<code>C:\Users\用户\.ssh</code>下，有一个rsa后缀的私钥文件，要严密保管。 有一个pub后缀的公钥文件，复制公钥的内容，到GitHub网站你头像下面settings -&gt; SSH and GPG keys -&gt; new SSH key，Title随便写，Key部分填你的公钥内容。</p>
+<p>在 <code>GitBash</code> 中输入 <code>ssh -T git@github.com</code> ，看到有successfully就说明绑定好了。</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062146968.png" alt="image-20221206214628634" style="zoom:80%;" />
+<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′   <a href="https://www.cnblogs.com/xueweisuoyong/p/11914045.html">Windows系统Git安装教程-博客园 (cnblogs.com)</a></p>
+]]></content>
+      <categories>
+        <category>Tool</category>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Tutorial</tag>
+        <tag>GitHub</tag>
+        <tag>Butterfly</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nvm管理NodeJS</title>
+    <url>/articles/nvm%E7%AE%A1%E7%90%86NodeJS/</url>
+    <content><![CDATA[<h1>nvm管理NodeJs</h1>
+<h2 id="nvm安装配置"><a class="header-anchor" href="#nvm安装配置">¶</a>nvm安装配置</h2>
+<p>推荐使用NodeJs的版本管理工具nvm，安装node更容易，允许多个node版本共存，切换方便。</p>
+<p><strong>完全卸载NodeJS</strong> ：</p>
+<ol>
+<li>控制面板卸载NodeJS，更推荐使用Geek Uninstaller和Wise Program Uninstaller</li>
+<li>重启任务管理器，鲨掉所有与node有关进程。</li>
+<li>删掉 <code>C:\Users\admin\.npmrc</code> 文件</li>
+<li>寻找以下目录删掉
+<ul>
+<li>C:\Program Files (x86)\nodejs</li>
+<li>C:\Program Files\nodejs</li>
+<li>C:\Users\用户名\AppData\Roaming\npm</li>
+<li>C:\Users\用户名\AppData\Roaming\npm-cache</li>
+</ul>
+</li>
+<li>删有关node的环境变量。</li>
+</ol>
+<p><strong>下载安装nvm</strong>：</p>
+<p>下载前确定node已经卸载干净。到<a href="https://github.com/coreybutler/nvm-windows/releases">github.com</a> 该网址的下载nvm-setup.zip或nvm-setup.exe</p>
+<p>双击安装exe，一路猛戳下一步，默认下载到 <code>C:\Users\用户\AppData\Roaming\nvm</code></p>
+<blockquote>
+<p>安装好nvm后，由于国内下载速度慢，所以使用淘宝镜像。在nvm安装目录下找到settings.txt文件。在最后面回车加上：</p>
+<p>node_mirror: <a href="http://npm.taobao.org/mirrors/node/">http://npm.taobao.org/mirrors/node/</a></p>
+<p>npm_mirror: <a href="https://npm.taobao.org/mirrors/npm/">https://npm.taobao.org/mirrors/npm/</a></p>
+</blockquote>
+<p><strong>nvm常用命令</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">nvm <span class="built_in">list</span>   				看本地有哪些版本NodeJs，正在使用的NodeJs会用*号标识</span><br><span class="line">nvm <span class="built_in">list</span> available    		看网上有哪些可以下载的node版本</span><br><span class="line">nvm install <span class="number">16.16</span><span class="number">.0</span>    		下载<span class="number">16.16</span><span class="number">.0</span>版本的NodeJs到nvm安装目录</span><br><span class="line">nvm uninstall <span class="number">16.16</span><span class="number">.0</span>  		 卸载<span class="number">16</span>。<span class="number">16.0</span>的NodeJs    </span><br><span class="line">nvm use <span class="number">16.16</span><span class="number">.0</span>   使用node    </span><br></pre></td></tr></table></figure>
+<p>参考链接：<a href="https://blog.csdn.net/lewky_liu/article/details/87959839">Windows完全卸载node.js并安装node.js的多版本管理工具nvm</a></p>
+<h2 id="NodeJS"><a class="header-anchor" href="#NodeJS">¶</a>NodeJS</h2>
+<p><strong>NodeJS介绍</strong>：简称 <code>node</code> ，类似后端语言的JavaScript环境，本质上是浏览器底层，自带的包管理器npm在前端能充当Maven一样的角色。</p>
+<p><strong>node版本</strong>：2022年Hexo要求<u>Node版本必须14以上</u>，推荐16或18，太高或者太低都不好。 另外，Node版本选双不选单。</p>
+<p><strong>下载安装</strong>： 直接用nvm下载node</p>
+<blockquote>
+<p>切换node或是<code>nvm use 16.16.0</code> 之前，需要先把<code>C:\Users\用户\.npmrc</code> 文件删掉，就像之前的卸载node一样。</p>
+<p>再执行以下命令</p>
+<p>npm cache clean --force                  清理缓存</p>
+<p>npm config set registry <a href="https://registry.npm.taobao.org">https://registry.npm.taobao.org</a>       node使用淘宝代理链接</p>
+<p>npm config set cache “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_cache”     node_cache文件夹没有则新建</p>
+<p>npm config set prefix “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_global”      node_global文件夹没有则新建</p>
+</blockquote>
+<p><strong>node和npm常用命令</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">node -v    		看node版本</span><br><span class="line">npm -v    		看npm版本</span><br><span class="line">npm config <span class="built_in">list</span>   			看npm配置项    </span><br><span class="line">npm config get registry     看是否在使用淘宝代理链接</span><br><span class="line">npm install 某           下载某依赖</span><br><span class="line">npm uninstall 某 -g       全局下载某依赖    </span><br><span class="line">npm uninstall 某  		卸载某依赖    </span><br></pre></td></tr></table></figure>
+<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′  <a href="https://blog.csdn.net/Kenvinxu/article/details/106053210">https://blog.csdn.net/Kenvinxu/article/details/106053210</a></p>
+<p>官网版本：<a href="https://nodejs.org/zh-cn/download/releases/">以往的版本 | Node.js (nodejs.org)</a></p>
+]]></content>
+      <categories>
+        <category>Tool</category>
+        <category>nvm</category>
+      </categories>
+      <tags>
+        <tag>Tutorial</tag>
+        <tag>nvm</tag>
+        <tag>node</tag>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的第一篇博客</title>
+    <url>/articles/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1>第一章</h1>
+<p>内<code>容</code>…</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">    world</span><br></pre></td></tr></table></figure>
+<h1>第二章</h1>
+<blockquote>
+<p>hello</p>
+</blockquote>
+<h2 id="2-1-标题"><a class="header-anchor" href="#2-1-标题">¶</a>2.1 标题</h2>
+<ul>
+<li>内容</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo+Butterfly搭建博客</title>
+    <url>/articles/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1>Hexo搭建博客</h1>
+<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
+<p><strong>本地生成博客文件，并访问</strong> ：</p>
+<p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
+<p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
+<blockquote>
+<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>部署博客到 GitHub，就可以远程访问了</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
+<p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
+<p><strong>注意点</strong>：</p>
+<ol>
+<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
+<li>部署不上GitHub，以下解决办法，都可以试试
+<ul>
+<li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
+<li>改<code>branch</code>值为 <code>main</code></li>
+<li>网太烂了，拨打10086升级宽带</li>
+<li>单纯连不上GitHub，寻求周围 程序猿/媛 帮助</li>
+</ul>
+</li>
+<li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
+</ol>
+<h1>Butterfly主题</h1>
+<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
+<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
+<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<p><strong>主题美化</strong></p>
+<blockquote>
+<p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
+<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Tool</category>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Tutorial</tag>
+        <tag>GitHub</tag>
+        <tag>Butterfly</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Typora+PicGo博客图床搭建</title>
     <url>/articles/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<h1>图床存图片，哪哪都能看</h1>
@@ -759,88 +841,6 @@
       </categories>
       <tags>
         <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我的第一篇博客</title>
-    <url>/articles/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1>第一章</h1>
-<p>内<code>容</code>…</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">    world</span><br></pre></td></tr></table></figure>
-<h1>第二章</h1>
-<blockquote>
-<p>hello</p>
-</blockquote>
-<h2 id="2-1-标题"><a class="header-anchor" href="#2-1-标题">¶</a>2.1 标题</h2>
-<ul>
-<li>内容</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>tool</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nvm管理NodeJS</title>
-    <url>/articles/nvm%E7%AE%A1%E7%90%86NodeJS/</url>
-    <content><![CDATA[<h1>nvm管理NodeJs</h1>
-<h2 id="nvm安装配置"><a class="header-anchor" href="#nvm安装配置">¶</a>nvm安装配置</h2>
-<p>推荐使用NodeJs的版本管理工具nvm，安装node更容易，允许多个node版本共存，切换方便。</p>
-<p><strong>完全卸载NodeJS</strong> ：</p>
-<ol>
-<li>控制面板卸载NodeJS，更推荐使用Geek Uninstaller和Wise Program Uninstaller</li>
-<li>重启任务管理器，鲨掉所有与node有关进程。</li>
-<li>删掉 <code>C:\Users\admin\.npmrc</code> 文件</li>
-<li>寻找以下目录删掉
-<ul>
-<li>C:\Program Files (x86)\nodejs</li>
-<li>C:\Program Files\nodejs</li>
-<li>C:\Users\用户名\AppData\Roaming\npm</li>
-<li>C:\Users\用户名\AppData\Roaming\npm-cache</li>
-</ul>
-</li>
-<li>删有关node的环境变量。</li>
-</ol>
-<p><strong>下载安装nvm</strong>：</p>
-<p>下载前确定node已经卸载干净。到<a href="https://github.com/coreybutler/nvm-windows/releases">github.com</a> 该网址的下载nvm-setup.zip或nvm-setup.exe</p>
-<p>双击安装exe，一路猛戳下一步，默认下载到 <code>C:\Users\用户\AppData\Roaming\nvm</code></p>
-<blockquote>
-<p>安装好nvm后，由于国内下载速度慢，所以使用淘宝镜像。在nvm安装目录下找到settings.txt文件。在最后面回车加上：</p>
-<p>node_mirror: <a href="http://npm.taobao.org/mirrors/node/">http://npm.taobao.org/mirrors/node/</a></p>
-<p>npm_mirror: <a href="https://npm.taobao.org/mirrors/npm/">https://npm.taobao.org/mirrors/npm/</a></p>
-</blockquote>
-<p><strong>nvm常用命令</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">nvm <span class="built_in">list</span>   				看本地有哪些版本NodeJs，正在使用的NodeJs会用*号标识</span><br><span class="line">nvm <span class="built_in">list</span> available    		看网上有哪些可以下载的node版本</span><br><span class="line">nvm install <span class="number">16.16</span><span class="number">.0</span>    		下载<span class="number">16.16</span><span class="number">.0</span>版本的NodeJs到nvm安装目录</span><br><span class="line">nvm uninstall <span class="number">16.16</span><span class="number">.0</span>  		 卸载<span class="number">16</span>。<span class="number">16.0</span>的NodeJs    </span><br><span class="line">nvm use <span class="number">16.16</span><span class="number">.0</span>   使用node    </span><br></pre></td></tr></table></figure>
-<p>参考链接：<a href="https://blog.csdn.net/lewky_liu/article/details/87959839">Windows完全卸载node.js并安装node.js的多版本管理工具nvm</a></p>
-<h2 id="NodeJS"><a class="header-anchor" href="#NodeJS">¶</a>NodeJS</h2>
-<p><strong>NodeJS介绍</strong>：简称 <code>node</code> ，类似后端语言的JavaScript环境，本质上是浏览器底层，自带的包管理器npm在前端能充当Maven一样的角色。</p>
-<p><strong>node版本</strong>：2022年Hexo要求<u>Node版本必须14以上</u>，推荐16或18，太高或者太低都不好。 另外，Node版本选双不选单。</p>
-<p><strong>下载安装</strong>： 直接用nvm下载node</p>
-<blockquote>
-<p>切换node或是<code>nvm use 16.16.0</code> 之前，需要先把<code>C:\Users\用户\.npmrc</code> 文件删掉，就像之前的卸载node一样。</p>
-<p>再执行以下命令</p>
-<p>npm cache clean --force                  清理缓存</p>
-<p>npm config set registry <a href="https://registry.npm.taobao.org">https://registry.npm.taobao.org</a>       node使用淘宝代理链接</p>
-<p>npm config set cache “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_cache”     node_cache文件夹没有则新建</p>
-<p>npm config set prefix “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_global”      node_global文件夹没有则新建</p>
-</blockquote>
-<p><strong>node和npm常用命令</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">node -v    		看node版本</span><br><span class="line">npm -v    		看npm版本</span><br><span class="line">npm config <span class="built_in">list</span>   			看npm配置项    </span><br><span class="line">npm config get registry     看是否在使用淘宝代理链接</span><br><span class="line">npm install 某           下载某依赖</span><br><span class="line">npm uninstall 某 -g       全局下载某依赖    </span><br><span class="line">npm uninstall 某  		卸载某依赖    </span><br></pre></td></tr></table></figure>
-<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′  <a href="https://blog.csdn.net/Kenvinxu/article/details/106053210">https://blog.csdn.net/Kenvinxu/article/details/106053210</a></p>
-<p>官网版本：<a href="https://nodejs.org/zh-cn/download/releases/">以往的版本 | Node.js (nodejs.org)</a></p>
-]]></content>
-      <categories>
-        <category>Tool</category>
-        <category>nvm</category>
-      </categories>
-      <tags>
-        <tag>Tutorial</tag>
-        <tag>nvm</tag>
-        <tag>node</tag>
-        <tag>npm</tag>
       </tags>
   </entry>
 </search>
