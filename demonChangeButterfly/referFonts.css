@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'myfont';
   font-display: swap;
-  src: url('/demonChangeButterfly/XiaolaiMonoSC-Regular.ttf') format("truetype");
+  src: url('/demonChangeButterfly/XiaolaiMonoSC-Regular.subset.ttf') format("truetype");
 }
 @font-face {
   font-family: 'mycodefont';
