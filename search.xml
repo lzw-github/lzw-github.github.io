@@ -477,6 +477,116 @@
       </tags>
   </entry>
   <entry>
+    <title>Typora+PicGo博客图床搭建</title>
+    <url>/articles/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h1>图床存图片，哪哪都能看</h1>
+<p>本人使用 <code>Typora</code> 编辑Markdown文档来上传到博客，但本地图片上传到GitHub博客，就没法看了，为此寻找了多种方法。 最后选择了阿里云OSS存储作为图床，<code>PicGo</code>软件上传，<code>Typora</code>引用网址的方式</p>
+<h2 id="1、本地同名文件夹引用，失效"><a class="header-anchor" href="#1、本地同名文件夹引用，失效">¶</a>1、本地同名文件夹引用，失效</h2>
+<ol>
+<li>下载处理图片的插件</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install https:<span class="comment">//github.com/CodeFalling/hexo-asset-image --save</span></span><br><span class="line">或</span><br><span class="line">npm install hexo-asset-img --save    </span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>
+<p>在Hexo配置文件将配置项post_asset_folder设为true</p>
+</li>
+<li>
+<p>设置Typora放图片的方式，自动把图片放到同名文件夹下</p>
+</li>
+</ol>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062229102.png" alt="image-20221206222940084" style="zoom:80%;" />
+<ol start="4">
+<li>执行命令 <code>hexo new article_name</code>，在source/_posts中会生成文章article_name.md和同名文件夹article_name。将图片资源放在article_name文件夹中，文章就可以使用相对路径引用图片资源了。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">![可选图片描述](文章名/图片名.png)  </span><br></pre></td></tr></table></figure>
+<h2 id="2、GitHub图床，失效"><a class="header-anchor" href="#2、GitHub图床，失效">¶</a>2、GitHub图床，失效</h2>
+<ul>
+<li>登录自己的github，建立一个<strong>公开</strong>的仓库，用于存储图片</li>
+<li>进入personal settings -&gt; developer settings -&gt; personal access tokens -&gt; generate new token</li>
+</ul>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062237974.png" alt="image-20221206223720588" style="zoom:80%;" />
+<ul>
+<li>生成token信息，及时复制出现的token</li>
+<li>下载Windows的PicGo的exe文件，如PicGo-Setup-2.3.0-x64.exe，  链接：<a href="https://github.com/Molunerfinn/PicGo/releases">https://github.com/Molunerfinn/PicGo/releases</a></li>
+<li>设置PicGo，开启<strong>时间戳重命名</strong>。</li>
+</ul>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062240680.png" alt="image-20221206224009940" style="zoom:80%;" />
+<ul>
+<li>Typora设置</li>
+</ul>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062241782.png" alt="image-20221206224141673" style="zoom:80%;" />
+<ul>
+<li>点击<strong>验证图片上传选项</strong> ，看到success就大功告成！</li>
+</ul>
+<h2 id="3、Gitee图床，失效"><a class="header-anchor" href="#3、Gitee图床，失效">¶</a>3、Gitee图床，失效</h2>
+<p><u>设置方式和GitHub图床类似</u></p>
+<p><strong>在不好用这方面，和GitHub图床类似，水平十分接近。 Gitee网速稍微快一点</strong></p>
+<p>Typora把图片给PicGo，PicGo用于上传，Gitee仓库用于存放图片。</p>
+<ul>
+<li>GitHub单仓库1Gb~5GB，单文件最大100MB</li>
+<li>Gitee单仓库最大500MB，单文件最大50M，总仓库5GB；</li>
+</ul>
+<blockquote>
+<p>Gitee用于图床的个人密钥：xxxxxxxxxxx ， 被PicGo用于上传图片，让Gitee知道是自己人。 但查看图片不限于自己人<br>
+<code>https://gitee.com/码云账户名/仓库名/raw/master/</code> 图片存时，前缀地址<br>
+图片每次都会暂时存在<code>C:/Users/用户/AppData/Roaming/Typora/typora-user-images</code>， 害怕它会越存越大，解决办法是：先保存在./pictures下，需要时再上传到图床。<br>
+可以一次性上传所有本地pictures， “格式” -&gt; “图像” -&gt; “上传所有本地图片” （不用担心上传几百张，它只上传当下folder的pictures</p>
+</blockquote>
+<p>参考链接：<a href="https://cloud.tencent.com/developer/article/1801576">https://cloud.tencent.com/developer/article/1801576</a></p>
+<h2 id="4、阿里云OSS图床，最终方案"><a class="header-anchor" href="#4、阿里云OSS图床，最终方案">¶</a>4、阿里云OSS图床，最终方案</h2>
+<h3 id="4-1-开通OSS对象存储"><a class="header-anchor" href="#4-1-开通OSS对象存储">¶</a>4.1 开通OSS对象存储</h3>
+<p>在阿里云官网OSS <a href="https://www.aliyun.com/product/oss">对象存储OSS_云存储服务_-阿里云 (aliyun.com)</a> 点击 “立即开通”</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032355.png" alt="image-20221206233659678" style="zoom:80%;" />
+<p>注册账户，实名。  （如果是新用户，还可以超低价买云服务器，可以用来练习Linux命令、部署网站等）</p>
+<p>点击oss页面 “管理控制台”</p>
+<h3 id="4-2-创建Bucket"><a class="header-anchor" href="#4-2-创建Bucket">¶</a>4.2 创建Bucket</h3>
+<p>在<a href="https://oss.console.aliyun.com/bucket">OSS管理控制台 (aliyun.com)</a> 创建Bucket</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032356.png" alt="image-20221206234124640" style="zoom:80%;" />
+<blockquote>
+<ol>
+<li>Bucket名称不能有大写字母，不能中文。 建议全小写英文，中间以<code>-</code>连接。如 <code>blog-img-oss</code></li>
+<li>服务器选离自己近的</li>
+<li>Endpoint默认，所属资源组默认</li>
+<li>存储类型： <strong>标准存储</strong>（因为博客网所需流量和容量大，如果访问很少选<u>低频访问存储</u>）</li>
+<li>读写权限： 一定要是<strong>公共读</strong>！ (私有别人看不了你图片，公共读写太危险)</li>
+<li>其余的，都不听不要不开通！！ HDFS服务、冗余存储、版本控制、加密方式、日志查询、定时备份</li>
+</ol>
+</blockquote>
+<p>复制你的地域节点，如<code>oss-cn-beijing</code> ，后面的 <code>.aliyuncs.com</code> 不复制。</p>
+<h3 id="4-3-复制AccessKey和AccessKeySecret"><a class="header-anchor" href="#4-3-复制AccessKey和AccessKeySecret">¶</a>4.3 复制AccessKey和AccessKeySecret</h3>
+<p>依次点击 <u>头像</u> -&gt; AccessKey管理 -&gt; 继续使用AccessKey -&gt; 创建AccessKey</p>
+<p>一系列操作后，复制你的<code>accessKeyId</code>和<code>accessKeySecret</code></p>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070004317.png" alt=""></p>
+<h3 id="4-4-充钱"><a class="header-anchor" href="#4-4-充钱">¶</a>4.4 充钱</h3>
+<p>见名知意，阿里云首页-&gt;费用</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070008232.png" alt="image-20221207000842470" style="zoom:80%;" />
+<p>主要分容量和流量(流入/留出)，费用很便宜</p>
+<ul>
+<li>容量：0.12元/GB/月</li>
+<li>图片<strong>上传</strong>到阿里OSS流量：免费</li>
+<li>用户查看你的博客图片，<strong>流出</strong>流量： 闲时<u>0.25元/GB</u>，忙时<u>0.50元/GB</u></li>
+</ul>
+<h3 id="4-5-PicGo图床设置"><a class="header-anchor" href="#4-5-PicGo图床设置">¶</a>4.5 PicGo图床设置</h3>
+<p>刚复制的那些内容派上用场了，点击确定，设为默认图床。</p>
+<p>PicGo设置开启 “时间戳重命名”</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070016467.png" alt="image-20221207001600070" style="zoom:80%;" />
+<h3 id="4-6-Typora设置"><a class="header-anchor" href="#4-6-Typora设置">¶</a>4.6 Typora设置</h3>
+<p>验证成功，直接在Typora粘贴图片，自动由PicGo上传到OSS。</p>
+<p>图片链接如：<a href="https://xn--Bucket-on9im33a.xn--6qq04ao0deyay3ll6f.aliyuncs.com/%E4%BD%A0%E5%AD%98%E5%82%A8%E8%B7%AF%E5%BE%84/%E5%9B%BE%E7%89%87%E5%90%8D">https://你Bucket名.你存储区域名.aliyuncs.com/你存储路径/图片名</a></p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070022192.png" alt="image-20221207002129577" style="zoom:80%;" />]]></content>
+      <categories>
+        <category>Tool</category>
+        <category>图床</category>
+      </categories>
+      <tags>
+        <tag>图床</tag>
+        <tag>PicGo</tag>
+        <tag>Typora</tag>
+        <tag>OSS</tag>
+        <tag>Aliyun</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux权限rwx管理+定时任务调度</title>
     <url>/articles/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</url>
     <content><![CDATA[<h1>组管理和权限管理</h1>
@@ -627,141 +737,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Typora+PicGo博客图床搭建</title>
-    <url>/articles/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h1>图床存图片，哪哪都能看</h1>
-<p>本人使用 <code>Typora</code> 编辑Markdown文档来上传到博客，但本地图片上传到GitHub博客，就没法看了，为此寻找了多种方法。 最后选择了阿里云OSS存储作为图床，<code>PicGo</code>软件上传，<code>Typora</code>引用网址的方式</p>
-<h2 id="1、本地同名文件夹引用，失效"><a class="header-anchor" href="#1、本地同名文件夹引用，失效">¶</a>1、本地同名文件夹引用，失效</h2>
-<ol>
-<li>下载处理图片的插件</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install https:<span class="comment">//github.com/CodeFalling/hexo-asset-image --save</span></span><br><span class="line">或</span><br><span class="line">npm install hexo-asset-img --save    </span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>
-<p>在Hexo配置文件将配置项post_asset_folder设为true</p>
-</li>
-<li>
-<p>设置Typora放图片的方式，自动把图片放到同名文件夹下</p>
-</li>
-</ol>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062229102.png" alt="image-20221206222940084" style="zoom:80%;" />
-<ol start="4">
-<li>执行命令 <code>hexo new article_name</code>，在source/_posts中会生成文章article_name.md和同名文件夹article_name。将图片资源放在article_name文件夹中，文章就可以使用相对路径引用图片资源了。</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">![可选图片描述](文章名/图片名.png)  </span><br></pre></td></tr></table></figure>
-<h2 id="2、GitHub图床，失效"><a class="header-anchor" href="#2、GitHub图床，失效">¶</a>2、GitHub图床，失效</h2>
-<ul>
-<li>登录自己的github，建立一个<strong>公开</strong>的仓库，用于存储图片</li>
-<li>进入personal settings -&gt; developer settings -&gt; personal access tokens -&gt; generate new token</li>
-</ul>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062237974.png" alt="image-20221206223720588" style="zoom:80%;" />
-<ul>
-<li>生成token信息，及时复制出现的token</li>
-<li>下载Windows的PicGo的exe文件，如PicGo-Setup-2.3.0-x64.exe，  链接：<a href="https://github.com/Molunerfinn/PicGo/releases">https://github.com/Molunerfinn/PicGo/releases</a></li>
-<li>设置PicGo，开启<strong>时间戳重命名</strong>。</li>
-</ul>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062240680.png" alt="image-20221206224009940" style="zoom:80%;" />
-<ul>
-<li>Typora设置</li>
-</ul>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062241782.png" alt="image-20221206224141673" style="zoom:80%;" />
-<ul>
-<li>点击<strong>验证图片上传选项</strong> ，看到success就大功告成！</li>
-</ul>
-<h2 id="3、Gitee图床，失效"><a class="header-anchor" href="#3、Gitee图床，失效">¶</a>3、Gitee图床，失效</h2>
-<p><u>设置方式和GitHub图床类似</u></p>
-<p><strong>在不好用这方面，和GitHub图床类似，水平十分接近。 Gitee网速稍微快一点</strong></p>
-<p>Typora把图片给PicGo，PicGo用于上传，Gitee仓库用于存放图片。</p>
-<ul>
-<li>GitHub单仓库1Gb~5GB，单文件最大100MB</li>
-<li>Gitee单仓库最大500MB，单文件最大50M，总仓库5GB；</li>
-</ul>
-<blockquote>
-<p>Gitee用于图床的个人密钥：xxxxxxxxxxx ， 被PicGo用于上传图片，让Gitee知道是自己人。 但查看图片不限于自己人<br>
-<code>https://gitee.com/码云账户名/仓库名/raw/master/</code> 图片存时，前缀地址<br>
-图片每次都会暂时存在<code>C:/Users/用户/AppData/Roaming/Typora/typora-user-images</code>， 害怕它会越存越大，解决办法是：先保存在./pictures下，需要时再上传到图床。<br>
-可以一次性上传所有本地pictures， “格式” -&gt; “图像” -&gt; “上传所有本地图片” （不用担心上传几百张，它只上传当下folder的pictures</p>
-</blockquote>
-<p>参考链接：<a href="https://cloud.tencent.com/developer/article/1801576">https://cloud.tencent.com/developer/article/1801576</a></p>
-<h2 id="4、阿里云OSS图床，最终方案"><a class="header-anchor" href="#4、阿里云OSS图床，最终方案">¶</a>4、阿里云OSS图床，最终方案</h2>
-<h3 id="4-1-开通OSS对象存储"><a class="header-anchor" href="#4-1-开通OSS对象存储">¶</a>4.1 开通OSS对象存储</h3>
-<p>在阿里云官网OSS <a href="https://www.aliyun.com/product/oss">对象存储OSS_云存储服务_-阿里云 (aliyun.com)</a> 点击 “立即开通”</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032355.png" alt="image-20221206233659678" style="zoom:80%;" />
-<p>注册账户，实名。  （如果是新用户，还可以超低价买云服务器，可以用来练习Linux命令、部署网站等）</p>
-<p>点击oss页面 “管理控制台”</p>
-<h3 id="4-2-创建Bucket"><a class="header-anchor" href="#4-2-创建Bucket">¶</a>4.2 创建Bucket</h3>
-<p>在<a href="https://oss.console.aliyun.com/bucket">OSS管理控制台 (aliyun.com)</a> 创建Bucket</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032356.png" alt="image-20221206234124640" style="zoom:80%;" />
-<blockquote>
-<ol>
-<li>Bucket名称不能有大写字母，不能中文。 建议全小写英文，中间以<code>-</code>连接。如 <code>blog-img-oss</code></li>
-<li>服务器选离自己近的</li>
-<li>Endpoint默认，所属资源组默认</li>
-<li>存储类型： <strong>标准存储</strong>（因为博客网所需流量和容量大，如果访问很少选<u>低频访问存储</u>）</li>
-<li>读写权限： 一定要是<strong>公共读</strong>！ (私有别人看不了你图片，公共读写太危险)</li>
-<li>其余的，都不听不要不开通！！ HDFS服务、冗余存储、版本控制、加密方式、日志查询、定时备份</li>
-</ol>
-</blockquote>
-<p>复制你的地域节点，如<code>oss-cn-beijing</code> ，后面的 <code>.aliyuncs.com</code> 不复制。</p>
-<h3 id="4-3-复制AccessKey和AccessKeySecret"><a class="header-anchor" href="#4-3-复制AccessKey和AccessKeySecret">¶</a>4.3 复制AccessKey和AccessKeySecret</h3>
-<p>依次点击 <u>头像</u> -&gt; AccessKey管理 -&gt; 继续使用AccessKey -&gt; 创建AccessKey</p>
-<p>一系列操作后，复制你的<code>accessKeyId</code>和<code>accessKeySecret</code></p>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070004317.png" alt=""></p>
-<h3 id="4-4-充钱"><a class="header-anchor" href="#4-4-充钱">¶</a>4.4 充钱</h3>
-<p>见名知意，阿里云首页-&gt;费用</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070008232.png" alt="image-20221207000842470" style="zoom:80%;" />
-<p>主要分容量和流量(流入/留出)，费用很便宜</p>
-<ul>
-<li>容量：0.12元/GB/月</li>
-<li>图片<strong>上传</strong>到阿里OSS流量：免费</li>
-<li>用户查看你的博客图片，<strong>流出</strong>流量： 闲时<u>0.25元/GB</u>，忙时<u>0.50元/GB</u></li>
-</ul>
-<h3 id="4-5-PicGo图床设置"><a class="header-anchor" href="#4-5-PicGo图床设置">¶</a>4.5 PicGo图床设置</h3>
-<p>刚复制的那些内容派上用场了，点击确定，设为默认图床。</p>
-<p>PicGo设置开启 “时间戳重命名”</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070016467.png" alt="image-20221207001600070" style="zoom:80%;" />
-<h3 id="4-6-Typora设置"><a class="header-anchor" href="#4-6-Typora设置">¶</a>4.6 Typora设置</h3>
-<p>验证成功，直接在Typora粘贴图片，自动由PicGo上传到OSS。</p>
-<p>图片链接如：<a href="https://xn--Bucket-on9im33a.xn--6qq04ao0deyay3ll6f.aliyuncs.com/%E4%BD%A0%E5%AD%98%E5%82%A8%E8%B7%AF%E5%BE%84/%E5%9B%BE%E7%89%87%E5%90%8D">https://你Bucket名.你存储区域名.aliyuncs.com/你存储路径/图片名</a></p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070022192.png" alt="image-20221207002129577" style="zoom:80%;" />]]></content>
-      <categories>
-        <category>Tool</category>
-        <category>图床</category>
-      </categories>
-      <tags>
-        <tag>图床</tag>
-        <tag>PicGo</tag>
-        <tag>Typora</tag>
-        <tag>OSS</tag>
-        <tag>Aliyun</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/articles/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
-<h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a class="header-anchor" href="#Run-server">¶</a>Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a class="header-anchor" href="#Generate-static-files">¶</a>Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a class="header-anchor" href="#Deploy-to-remote-sites">¶</a>Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>tool</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>nvm管理NodeJS</title>
     <url>/articles/nvm%E7%AE%A1%E7%90%86NodeJS/</url>
     <content><![CDATA[<h1>nvm管理NodeJs</h1>
@@ -819,6 +794,31 @@
         <tag>nvm</tag>
         <tag>node</tag>
         <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/articles/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
+<h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a class="header-anchor" href="#Run-server">¶</a>Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a class="header-anchor" href="#Generate-static-files">¶</a>Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a class="header-anchor" href="#Deploy-to-remote-sites">¶</a>Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
