@@ -420,6 +420,156 @@
       </tags>
   </entry>
   <entry>
+    <title>Linux权限rwx管理+定时任务调度</title>
+    <url>/articles/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</url>
+    <content><![CDATA[<h1>组管理和权限管理</h1>
+<h2 id="1、所有者"><a class="header-anchor" href="#1、所有者">¶</a>1、所有者</h2>
+<p>文件a.txt的三概念</p>
+<ul>
+<li>所有者：谁创建的，可改    -------》比如根目录是root的，所以lzw就不能在那创建dir02</li>
+<li>所在组：所有者所在的组，<strong>组内其他成员对文件有点权限</strong>。</li>
+<li>其他组：</li>
+<li>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436031.png" alt="image-20211210185737254" style="zoom: 67%;" />
+</li>
+</ul>
+<p>命令</p>
+<ul>
+<li>ls -ahl   <strong>查看</strong>所有者</li>
+</ul>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436032.png" alt="image-20211224181945716"></p>
+<ul>
+<li>chown tom apple.txt   <strong>更改</strong>所有者</li>
+</ul>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436033.png" alt="image-20211224182616934"></p>
+<h2 id="2、所在组"><a class="header-anchor" href="#2、所在组">¶</a>2、所在组</h2>
+<p>就是day02用户组那里</p>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436034.png" alt="image-20211224183103295"></p>
+<ul>
+<li>
+<p>ls -l     ----<strong>看</strong>所在组</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436036.png" alt="image-20211224183257114" style="zoom:80%;" />
+</li>
+<li>
+<p>chgrp 组名 文件名    ----<strong>修改</strong>文件的所在组</p>
+</li>
+</ul>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436037.png" alt="image-20211224184555425" style="zoom:80%;" />
+<ul>
+<li>usermod -g 新组名 用户名  —<strong>修改</strong>用户的组</li>
+</ul>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436038.png" alt="image-20211224184523324"></p>
+<h2 id="3、rwx权限"><a class="header-anchor" href="#3、rwx权限">¶</a>3、rwx权限</h2>
+<p>第0位，文件类型（dev目录有很多character文件</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436039.png" alt="image-20211226181515228" style="zoom:80%;" />
+<p>比如b块设备</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436040.png" alt="image-20211226181847468" style="zoom:80%;" />
+<blockquote>
+<p>第1-3位，所有者的权限</p>
+<p>第4-6位，组内其他人的权限</p>
+<p>第7-9位，其他用户的权限</p>
+<p>读文件只需 <code>文件r+目录x</code>，无需目录r</p>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436041.png" alt="image-20211228105736423" style="zoom:80%;" />1</p>
+</blockquote>
+<p><strong>重要</strong>：<code>目录的x执行权限，是读写删增目录内文件的基础</code></p>
+<h2 id="4、rwx举例"><a class="header-anchor" href="#4、rwx举例">¶</a>4、rwx举例</h2>
+<h3 id="1）看文件的rwx内容"><a class="header-anchor" href="#1）看文件的rwx内容">¶</a>1）看文件的rwx内容</h3>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436042.png" alt="image-20211226183509967" style="zoom:80%;" />
+<h3 id="2）修改rwx权限—chmod"><a class="header-anchor" href="#2）修改rwx权限—chmod">¶</a>2）修改rwx权限—chmod</h3>
+<p>给哪些<a href=""><strong>人</strong></a>权限？</p>
+<ul>
+<li>u  所有者</li>
+<li>g  组内其他人</li>
+<li>o  外人</li>
+<li>a  <u>每个人</u></li>
+</ul>
+<p>给的<a href=""><strong>权限</strong></a>有哪些？</p>
+<ol>
+<li>r   读</li>
+<li>w  写</li>
+<li>x   执行</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">用字母</span><br><span class="line">chmod u=rwx,g=rx,o=x 文件名    ---</span><br><span class="line">    </span><br><span class="line">chmod o+w 文件名       ---给外人赋予“读”</span><br><span class="line">    </span><br><span class="line">chmod a-x 文件名      ---给所有人剥夺“执行权限”</span><br></pre></td></tr></table></figure>
+<p>用**<a href="">数字表权限</a>**</p>
+<p>r=4， w=2， x=1</p>
+<ul>
+<li>1  是x</li>
+<li>2  是w</li>
+<li>3  是x+w</li>
+<li>4  是r</li>
+<li>5  是r+x</li>
+<li>6  是r+w</li>
+<li>7  是rwx</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">用数字</span><br><span class="line">chmod <span class="number">751</span> 文件名      <span class="comment">---等同于上面的</span></span><br></pre></td></tr></table></figure>
+<h3 id="3）修改所有者—chown"><a class="header-anchor" href="#3）修改所有者—chown">¶</a>3）修改所有者—chown</h3>
+<p>-R   让**<a href="">目录</a>**的儿孙们都生效</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">chown  tom  文件名    ---文件所有者变成tom</span><br><span class="line"></span><br><span class="line">chown  tom:cat  文件名   ---所有者tom，组为cat</span><br><span class="line"></span><br><span class="line">chown  -<span class="type">R</span> tom  目录   ---目录所有儿孙的主人都是tom</span><br></pre></td></tr></table></figure>
+<h3 id="4）修改所在组—chgrp"><a class="header-anchor" href="#4）修改所在组—chgrp">¶</a>4）修改所在组—chgrp</h3>
+<p>-R   让**<a href="">目录</a>**的儿孙们都生效</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">chgrp shaolin /home/abc.txt  ---abc.txt组改为shaolin </span><br><span class="line"></span><br><span class="line">chgrp -R shaolin /home/test  ---test文件夹组改为shaolin</span><br></pre></td></tr></table></figure>
+<h3 id="5）综合栗子"><a class="header-anchor" href="#5）综合栗子">¶</a>5）综合栗子</h3>
+<p>警察和土匪</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436043.png" alt="image-20211226211052435" style="zoom:80%;" />
+<p>西游记</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436044.png" alt="image-20211226212626897" style="zoom:80%;" />
+<h1>定时任务调度crond—反复性</h1>
+<p>病毒扫描，用户mysql数据库的备份</p>
+<p>-e  **<a href="">编辑</a>**crontab定时任务</p>
+<p>-l   <a href=""><strong>查询</strong></a>crontab任务</p>
+<p>-r  **<a href="">删除</a>**当前用户的crontab任务             —记得终止，<strong>免得不堪重负</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">crontab -e     ---编辑定时任务</span><br><span class="line"></span><br><span class="line">*/<span class="number">1</span> * * * * ls -l /home/ &gt; /usr/a.txt     ---每隔一分钟把home下内容，重定向写到a.txt中   </span><br><span class="line">    </span><br><span class="line">service crond restart     ---重启任务调度</span><br></pre></td></tr></table></figure>
+<h2 id="1、时间规则"><a class="header-anchor" href="#1、时间规则">¶</a>1、时间规则</h2>
+<blockquote>
+<p>五个占位符</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436045.png" alt="image-20211228162008090" style="zoom:80%;" />
+</blockquote>
+<blockquote>
+<p>占位符的种类</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436046.png" alt="image-20211228162326304" style="zoom:80%;" />
+</blockquote>
+<blockquote>
+<p>案例</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436047.png" alt="image-20211228165024130" style="zoom:80%;" />
+</blockquote>
+<h2 id="2、应用实例"><a class="header-anchor" href="#2、应用实例">¶</a>2、应用实例</h2>
+<h3 id="1）定时执行脚本"><a class="header-anchor" href="#1）定时执行脚本">¶</a>1）定时执行脚本</h3>
+<p>每隔一分钟，把cal追加写到 /home/mycal 文件中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">vim /home/jiaoben.sh     ---编辑jiaoben.sh</span><br><span class="line"></span><br><span class="line">cal &gt;&gt; /home/mycal       ---往jiaoben.sh里面写入命令</span><br><span class="line">     </span><br><span class="line">chmod u+x /home/jiaoben.sh     ---给jiaoben.sh执行权限</span><br><span class="line">    </span><br><span class="line">crontab -e         ---编辑crontab任务</span><br><span class="line">    </span><br><span class="line">*/<span class="number">1</span> * * * * /home/jiaoben.sh    ---往crontab写入定时任务</span><br></pre></td></tr></table></figure>
+<h3 id="2）定时备份mysql"><a class="header-anchor" href="#2）定时备份mysql">¶</a>2）定时备份mysql</h3>
+<p>每天2:00把mysql数据库testdb，备份到文件中，</p>
+<p>指令为：mysqldump  -uroot  -p密码  库名  &gt;  /home/db.bak</p>
+<p>可选</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"></span><br><span class="line"><span class="number">0</span> <span class="number">2</span> * * * mysqldump -uroot -proot 【--host=某】 --databases=testdb &gt; /home/db.bak</span><br></pre></td></tr></table></figure>
+<h1>at定时任务—一次性</h1>
+<p>只执行一次</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ps  -ef  |  grep atd     ---查看atd守护进程运行</span><br><span class="line"></span><br><span class="line">Ctrl+D    ---结束at命令的输入</span><br><span class="line">    </span><br><span class="line">atq       ---查看执行的工作任务   </span><br><span class="line">    </span><br><span class="line">atrm 编号  ---删除某任务    </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>选项</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436048.png" alt="image-20211228200533422" style="zoom: 50%;" />
+</blockquote>
+<blockquote>
+<p>时间</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436049.png" alt="image-20211228200934044" style="zoom:80%;" />
+</blockquote>
+<h2 id="1、实例"><a class="header-anchor" href="#1、实例">¶</a>1、实例</h2>
+<p>两天后的下午5点执行	/bin/ls   /home</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436050.png" alt="image-20211228202108473" style="zoom:80%;" />
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436051.png" alt="image-20211228202322938"></p>
+<p>明天17点，输出时间到 /root/date100.log</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436052.png" alt="image-20211228202701864" style="zoom:80%;" />
+<p>两分钟后执行脚本script</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436053.png" alt="image-20211228204350070" style="zoom:80%;" />]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>rwx</tag>
+        <tag>crond</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>IDEA中三种方式实现SpringBoot热部署</title>
     <url>/articles/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/</url>
     <content><![CDATA[<p><strong>概述</strong>：热部署(HotSwap)也叫热加载、热更新、热替换，它避免了少量代码更改而带来的避免重启时间，在大型项目中尤其有用，三个实现<code>SpringBoot</code>热部署方法，配合IDEA使用。</p>
@@ -584,156 +734,6 @@
         <tag>Typora</tag>
         <tag>OSS</tag>
         <tag>Aliyun</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux权限rwx管理+定时任务调度</title>
-    <url>/articles/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</url>
-    <content><![CDATA[<h1>组管理和权限管理</h1>
-<h2 id="1、所有者"><a class="header-anchor" href="#1、所有者">¶</a>1、所有者</h2>
-<p>文件a.txt的三概念</p>
-<ul>
-<li>所有者：谁创建的，可改    -------》比如根目录是root的，所以lzw就不能在那创建dir02</li>
-<li>所在组：所有者所在的组，<strong>组内其他成员对文件有点权限</strong>。</li>
-<li>其他组：</li>
-<li>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436031.png" alt="image-20211210185737254" style="zoom: 67%;" />
-</li>
-</ul>
-<p>命令</p>
-<ul>
-<li>ls -ahl   <strong>查看</strong>所有者</li>
-</ul>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436032.png" alt="image-20211224181945716"></p>
-<ul>
-<li>chown tom apple.txt   <strong>更改</strong>所有者</li>
-</ul>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436033.png" alt="image-20211224182616934"></p>
-<h2 id="2、所在组"><a class="header-anchor" href="#2、所在组">¶</a>2、所在组</h2>
-<p>就是day02用户组那里</p>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436034.png" alt="image-20211224183103295"></p>
-<ul>
-<li>
-<p>ls -l     ----<strong>看</strong>所在组</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436036.png" alt="image-20211224183257114" style="zoom:80%;" />
-</li>
-<li>
-<p>chgrp 组名 文件名    ----<strong>修改</strong>文件的所在组</p>
-</li>
-</ul>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436037.png" alt="image-20211224184555425" style="zoom:80%;" />
-<ul>
-<li>usermod -g 新组名 用户名  —<strong>修改</strong>用户的组</li>
-</ul>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436038.png" alt="image-20211224184523324"></p>
-<h2 id="3、rwx权限"><a class="header-anchor" href="#3、rwx权限">¶</a>3、rwx权限</h2>
-<p>第0位，文件类型（dev目录有很多character文件</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436039.png" alt="image-20211226181515228" style="zoom:80%;" />
-<p>比如b块设备</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436040.png" alt="image-20211226181847468" style="zoom:80%;" />
-<blockquote>
-<p>第1-3位，所有者的权限</p>
-<p>第4-6位，组内其他人的权限</p>
-<p>第7-9位，其他用户的权限</p>
-<p>读文件只需 <code>文件r+目录x</code>，无需目录r</p>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436041.png" alt="image-20211228105736423" style="zoom:80%;" />1</p>
-</blockquote>
-<p><strong>重要</strong>：<code>目录的x执行权限，是读写删增目录内文件的基础</code></p>
-<h2 id="4、rwx举例"><a class="header-anchor" href="#4、rwx举例">¶</a>4、rwx举例</h2>
-<h3 id="1）看文件的rwx内容"><a class="header-anchor" href="#1）看文件的rwx内容">¶</a>1）看文件的rwx内容</h3>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436042.png" alt="image-20211226183509967" style="zoom:80%;" />
-<h3 id="2）修改rwx权限—chmod"><a class="header-anchor" href="#2）修改rwx权限—chmod">¶</a>2）修改rwx权限—chmod</h3>
-<p>给哪些<a href=""><strong>人</strong></a>权限？</p>
-<ul>
-<li>u  所有者</li>
-<li>g  组内其他人</li>
-<li>o  外人</li>
-<li>a  <u>每个人</u></li>
-</ul>
-<p>给的<a href=""><strong>权限</strong></a>有哪些？</p>
-<ol>
-<li>r   读</li>
-<li>w  写</li>
-<li>x   执行</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">用字母</span><br><span class="line">chmod u=rwx,g=rx,o=x 文件名    ---</span><br><span class="line">    </span><br><span class="line">chmod o+w 文件名       ---给外人赋予“读”</span><br><span class="line">    </span><br><span class="line">chmod a-x 文件名      ---给所有人剥夺“执行权限”</span><br></pre></td></tr></table></figure>
-<p>用**<a href="">数字表权限</a>**</p>
-<p>r=4， w=2， x=1</p>
-<ul>
-<li>1  是x</li>
-<li>2  是w</li>
-<li>3  是x+w</li>
-<li>4  是r</li>
-<li>5  是r+x</li>
-<li>6  是r+w</li>
-<li>7  是rwx</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">用数字</span><br><span class="line">chmod <span class="number">751</span> 文件名      <span class="comment">---等同于上面的</span></span><br></pre></td></tr></table></figure>
-<h3 id="3）修改所有者—chown"><a class="header-anchor" href="#3）修改所有者—chown">¶</a>3）修改所有者—chown</h3>
-<p>-R   让**<a href="">目录</a>**的儿孙们都生效</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">chown  tom  文件名    ---文件所有者变成tom</span><br><span class="line"></span><br><span class="line">chown  tom:cat  文件名   ---所有者tom，组为cat</span><br><span class="line"></span><br><span class="line">chown  -<span class="type">R</span> tom  目录   ---目录所有儿孙的主人都是tom</span><br></pre></td></tr></table></figure>
-<h3 id="4）修改所在组—chgrp"><a class="header-anchor" href="#4）修改所在组—chgrp">¶</a>4）修改所在组—chgrp</h3>
-<p>-R   让**<a href="">目录</a>**的儿孙们都生效</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">chgrp shaolin /home/abc.txt  ---abc.txt组改为shaolin </span><br><span class="line"></span><br><span class="line">chgrp -R shaolin /home/test  ---test文件夹组改为shaolin</span><br></pre></td></tr></table></figure>
-<h3 id="5）综合栗子"><a class="header-anchor" href="#5）综合栗子">¶</a>5）综合栗子</h3>
-<p>警察和土匪</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436043.png" alt="image-20211226211052435" style="zoom:80%;" />
-<p>西游记</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436044.png" alt="image-20211226212626897" style="zoom:80%;" />
-<h1>定时任务调度crond—反复性</h1>
-<p>病毒扫描，用户mysql数据库的备份</p>
-<p>-e  **<a href="">编辑</a>**crontab定时任务</p>
-<p>-l   <a href=""><strong>查询</strong></a>crontab任务</p>
-<p>-r  **<a href="">删除</a>**当前用户的crontab任务             —记得终止，<strong>免得不堪重负</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">crontab -e     ---编辑定时任务</span><br><span class="line"></span><br><span class="line">*/<span class="number">1</span> * * * * ls -l /home/ &gt; /usr/a.txt     ---每隔一分钟把home下内容，重定向写到a.txt中   </span><br><span class="line">    </span><br><span class="line">service crond restart     ---重启任务调度</span><br></pre></td></tr></table></figure>
-<h2 id="1、时间规则"><a class="header-anchor" href="#1、时间规则">¶</a>1、时间规则</h2>
-<blockquote>
-<p>五个占位符</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436045.png" alt="image-20211228162008090" style="zoom:80%;" />
-</blockquote>
-<blockquote>
-<p>占位符的种类</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436046.png" alt="image-20211228162326304" style="zoom:80%;" />
-</blockquote>
-<blockquote>
-<p>案例</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436047.png" alt="image-20211228165024130" style="zoom:80%;" />
-</blockquote>
-<h2 id="2、应用实例"><a class="header-anchor" href="#2、应用实例">¶</a>2、应用实例</h2>
-<h3 id="1）定时执行脚本"><a class="header-anchor" href="#1）定时执行脚本">¶</a>1）定时执行脚本</h3>
-<p>每隔一分钟，把cal追加写到 /home/mycal 文件中</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">vim /home/jiaoben.sh     ---编辑jiaoben.sh</span><br><span class="line"></span><br><span class="line">cal &gt;&gt; /home/mycal       ---往jiaoben.sh里面写入命令</span><br><span class="line">     </span><br><span class="line">chmod u+x /home/jiaoben.sh     ---给jiaoben.sh执行权限</span><br><span class="line">    </span><br><span class="line">crontab -e         ---编辑crontab任务</span><br><span class="line">    </span><br><span class="line">*/<span class="number">1</span> * * * * /home/jiaoben.sh    ---往crontab写入定时任务</span><br></pre></td></tr></table></figure>
-<h3 id="2）定时备份mysql"><a class="header-anchor" href="#2）定时备份mysql">¶</a>2）定时备份mysql</h3>
-<p>每天2:00把mysql数据库testdb，备份到文件中，</p>
-<p>指令为：mysqldump  -uroot  -p密码  库名  &gt;  /home/db.bak</p>
-<p>可选</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"></span><br><span class="line"><span class="number">0</span> <span class="number">2</span> * * * mysqldump -uroot -proot 【--host=某】 --databases=testdb &gt; /home/db.bak</span><br></pre></td></tr></table></figure>
-<h1>at定时任务—一次性</h1>
-<p>只执行一次</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ps  -ef  |  grep atd     ---查看atd守护进程运行</span><br><span class="line"></span><br><span class="line">Ctrl+D    ---结束at命令的输入</span><br><span class="line">    </span><br><span class="line">atq       ---查看执行的工作任务   </span><br><span class="line">    </span><br><span class="line">atrm 编号  ---删除某任务    </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>选项</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436048.png" alt="image-20211228200533422" style="zoom: 50%;" />
-</blockquote>
-<blockquote>
-<p>时间</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436049.png" alt="image-20211228200934044" style="zoom:80%;" />
-</blockquote>
-<h2 id="1、实例"><a class="header-anchor" href="#1、实例">¶</a>1、实例</h2>
-<p>两天后的下午5点执行	/bin/ls   /home</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436050.png" alt="image-20211228202108473" style="zoom:80%;" />
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436051.png" alt="image-20211228202322938"></p>
-<p>明天17点，输出时间到 /root/date100.log</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436052.png" alt="image-20211228202701864" style="zoom:80%;" />
-<p>两分钟后执行脚本script</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436053.png" alt="image-20211228204350070" style="zoom:80%;" />]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>rwx</tag>
-        <tag>crond</tag>
       </tags>
   </entry>
   <entry>

@@ -235,6 +235,27 @@
   </url>
   
   <url>
+    <loc>https://lzw-github.github.io/tags/Linux/</loc>
+    <lastmod>2023-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/rwx/</loc>
+    <lastmod>2023-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/crond/</loc>
+    <lastmod>2023-01-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://lzw-github.github.io/tags/devtools/</loc>
     <lastmod>2023-01-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -299,27 +320,6 @@
   
   <url>
     <loc>https://lzw-github.github.io/tags/Aliyun/</loc>
-    <lastmod>2023-01-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lzw-github.github.io/tags/Linux/</loc>
-    <lastmod>2023-01-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lzw-github.github.io/tags/rwx/</loc>
-    <lastmod>2023-01-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lzw-github.github.io/tags/crond/</loc>
     <lastmod>2023-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -391,7 +391,7 @@
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/categories/Tool/%E5%9B%BE%E5%BA%8A/</loc>
+    <loc>https://lzw-github.github.io/categories/Linux/</loc>
     <lastmod>2023-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -405,7 +405,7 @@
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/categories/Linux/</loc>
+    <loc>https://lzw-github.github.io/categories/Tool/%E5%9B%BE%E5%BA%8A/</loc>
     <lastmod>2023-01-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
