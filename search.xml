@@ -93,65 +93,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hexo+Butterfly搭建博客</title>
-    <url>/articles/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1>Hexo搭建博客</h1>
-<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
-<p><strong>本地生成博客文件，并访问</strong> ：</p>
-<p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
-<p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
-<blockquote>
-<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>部署博客到 GitHub，就可以远程访问了</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
-<p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
-<p><strong>注意点</strong>：</p>
-<ol>
-<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
-<li>部署不上GitHub，以下解决办法，都可以试试
-<ul>
-<li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
-<li>改<code>branch</code>值为 <code>main</code></li>
-<li>网太烂了，拨打10086升级宽带</li>
-<li>单纯连不上GitHub，寻求周围 程序猿/媛 帮助</li>
-</ul>
-</li>
-<li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
-</ol>
-<h1>Butterfly主题</h1>
-<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
-<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
-<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
-<p><strong>主题美化</strong></p>
-<blockquote>
-<p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
-<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Tool</category>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>Tutorial</tag>
-        <tag>GitHub</tag>
-        <tag>Butterfly</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>GitHub托管Hexo博客搭建全过程</title>
     <url>/articles/GitHub%E6%89%98%E7%AE%A1Hexo%E5%8D%9A%E5%AE%A2%20Butterfly%E4%B8%BB%E9%A2%98%E5%85%A8%E8%BF%87%E7%A8%8B/</url>
     <content><![CDATA[<p>本教程长期更新。</p>
@@ -420,153 +361,62 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux权限rwx管理+定时任务调度</title>
-    <url>/articles/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</url>
-    <content><![CDATA[<h1>组管理和权限管理</h1>
-<h2 id="1、所有者"><a class="header-anchor" href="#1、所有者">¶</a>1、所有者</h2>
-<p>文件a.txt的三概念</p>
-<ul>
-<li>所有者：谁创建的，可改    -------》比如根目录是root的，所以lzw就不能在那创建dir02</li>
-<li>所在组：所有者所在的组，<strong>组内其他成员对文件有点权限</strong>。</li>
-<li>其他组：</li>
-<li>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436031.png" alt="image-20211210185737254" style="zoom: 67%;" />
-</li>
-</ul>
-<p>命令</p>
-<ul>
-<li>ls -ahl   <strong>查看</strong>所有者</li>
-</ul>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436032.png" alt="image-20211224181945716"></p>
-<ul>
-<li>chown tom apple.txt   <strong>更改</strong>所有者</li>
-</ul>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436033.png" alt="image-20211224182616934"></p>
-<h2 id="2、所在组"><a class="header-anchor" href="#2、所在组">¶</a>2、所在组</h2>
-<p>就是day02用户组那里</p>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436034.png" alt="image-20211224183103295"></p>
-<ul>
-<li>
-<p>ls -l     ----<strong>看</strong>所在组</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436036.png" alt="image-20211224183257114" style="zoom:80%;" />
-</li>
-<li>
-<p>chgrp 组名 文件名    ----<strong>修改</strong>文件的所在组</p>
-</li>
-</ul>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436037.png" alt="image-20211224184555425" style="zoom:80%;" />
-<ul>
-<li>usermod -g 新组名 用户名  —<strong>修改</strong>用户的组</li>
-</ul>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436038.png" alt="image-20211224184523324"></p>
-<h2 id="3、rwx权限"><a class="header-anchor" href="#3、rwx权限">¶</a>3、rwx权限</h2>
-<p>第0位，文件类型（dev目录有很多character文件</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436039.png" alt="image-20211226181515228" style="zoom:80%;" />
-<p>比如b块设备</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436040.png" alt="image-20211226181847468" style="zoom:80%;" />
+    <title>Hexo+Butterfly搭建博客</title>
+    <url>/articles/Hexo+Butterfly%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1>Hexo搭建博客</h1>
+<p>以下命令都在<u>管理员身份</u>的 <code>GitBash</code> 中敲</p>
+<p><strong>本地生成博客文件，并访问</strong> ：</p>
+<p>先找一个存博客的目录，新建目录blog，进去打开GitBash。再执行以下命令</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli      	  	  npm全局安装hexo</span><br><span class="line">hexo init							初始化目录，生成一堆乱七八糟的文件和文件夹</span><br><span class="line">hexo s								本地运行，本地访问，默认端口<span class="number">4000</span>， 地址是http:<span class="comment">//localhost:4000/    </span></span><br><span class="line">Ctrl+C								取消运行</span><br><span class="line">hexo n <span class="string">&quot;第一篇MarkDown格式的博客&quot;</span>      	在blog下source\_posts下，用typora等md编辑软件编辑，随便写点字，写点格式进去</span><br><span class="line">hexo clean 			 				清理</span><br><span class="line">hexo g 						    	生成静态文件   </span><br></pre></td></tr></table></figure>
+<p><strong>GitHub托管博客，所有人都可以访问</strong> ：</p>
 <blockquote>
-<p>第1-3位，所有者的权限</p>
-<p>第4-6位，组内其他人的权限</p>
-<p>第7-9位，其他用户的权限</p>
-<p>读文件只需 <code>文件r+目录x</code>，无需目录r</p>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436041.png" alt="image-20211228105736423" style="zoom:80%;" />1</p>
+<p>Github创建一个新的public仓库    <a href="http://xn--GitHub-on9im33ani7axo6bfb0c.github.io">你的GitHub账户名.github.io</a>     严格要求是这个名字</p>
 </blockquote>
-<p><strong>重要</strong>：<code>目录的x执行权限，是读写删增目录内文件的基础</code></p>
-<h2 id="4、rwx举例"><a class="header-anchor" href="#4、rwx举例">¶</a>4、rwx举例</h2>
-<h3 id="1）看文件的rwx内容"><a class="header-anchor" href="#1）看文件的rwx内容">¶</a>1）看文件的rwx内容</h3>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436042.png" alt="image-20211226183509967" style="zoom:80%;" />
-<h3 id="2）修改rwx权限—chmod"><a class="header-anchor" href="#2）修改rwx权限—chmod">¶</a>2）修改rwx权限—chmod</h3>
-<p>给哪些<a href=""><strong>人</strong></a>权限？</p>
-<ul>
-<li>u  所有者</li>
-<li>g  组内其他人</li>
-<li>o  外人</li>
-<li>a  <u>每个人</u></li>
-</ul>
-<p>给的<a href=""><strong>权限</strong></a>有哪些？</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git 				#在blog目录下安装git部署插件 </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>配置Hexo配置文件_config.yml， 在blog目录下</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">	type: git</span><br><span class="line">    repo: https:<span class="comment">//github.com/你的GitHub账户名/你的GitHub账户名.github.io.git</span></span><br><span class="line">	branch: master</span><br><span class="line">注意：冒号后面有空格的！！ 如果懒得注意，建议直接复制        </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>部署博客到 GitHub，就可以远程访问了</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hexo d         部署</span><br><span class="line">或者</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d      清理缓存+生成静态文件+部署        </span><br></pre></td></tr></table></figure>
+<p><code>https://你的GitHub账户名.github.io</code>  大功告成！ 这就是你的博客了</p>
+<p><strong>注意点</strong>：</p>
 <ol>
-<li>r   读</li>
-<li>w  写</li>
-<li>x   执行</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">用字母</span><br><span class="line">chmod u=rwx,g=rx,o=x 文件名    ---</span><br><span class="line">    </span><br><span class="line">chmod o+w 文件名       ---给外人赋予“读”</span><br><span class="line">    </span><br><span class="line">chmod a-x 文件名      ---给所有人剥夺“执行权限”</span><br></pre></td></tr></table></figure>
-<p>用**<a href="">数字表权限</a>**</p>
-<p>r=4， w=2， x=1</p>
+<li>报错，可能是没有以<strong>管理员模式</strong>打开<code>GitBash</code> ，有时候一些让人生气的bug，就是这种细节，知道是这个原因之后，更让人生气了！</li>
+<li>部署不上GitHub，以下解决办法，都可以试试
 <ul>
-<li>1  是x</li>
-<li>2  是w</li>
-<li>3  是x+w</li>
-<li>4  是r</li>
-<li>5  是r+x</li>
-<li>6  是r+w</li>
-<li>7  是rwx</li>
+<li>改<code>repo</code> 后面的为 <code>git@github.com:你的GitHub账户名/你的GitHub账户名.github.io.git</code></li>
+<li>改<code>branch</code>值为 <code>main</code></li>
+<li>网太烂了，拨打10086升级宽带</li>
+<li>单纯连不上GitHub，寻求周围 程序猿/媛 帮助</li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">用数字</span><br><span class="line">chmod <span class="number">751</span> 文件名      <span class="comment">---等同于上面的</span></span><br></pre></td></tr></table></figure>
-<h3 id="3）修改所有者—chown"><a class="header-anchor" href="#3）修改所有者—chown">¶</a>3）修改所有者—chown</h3>
-<p>-R   让**<a href="">目录</a>**的儿孙们都生效</p>
-<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">chown  tom  文件名    ---文件所有者变成tom</span><br><span class="line"></span><br><span class="line">chown  tom:cat  文件名   ---所有者tom，组为cat</span><br><span class="line"></span><br><span class="line">chown  -<span class="type">R</span> tom  目录   ---目录所有儿孙的主人都是tom</span><br></pre></td></tr></table></figure>
-<h3 id="4）修改所在组—chgrp"><a class="header-anchor" href="#4）修改所在组—chgrp">¶</a>4）修改所在组—chgrp</h3>
-<p>-R   让**<a href="">目录</a>**的儿孙们都生效</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">chgrp shaolin /home/abc.txt  ---abc.txt组改为shaolin </span><br><span class="line"></span><br><span class="line">chgrp -R shaolin /home/test  ---test文件夹组改为shaolin</span><br></pre></td></tr></table></figure>
-<h3 id="5）综合栗子"><a class="header-anchor" href="#5）综合栗子">¶</a>5）综合栗子</h3>
-<p>警察和土匪</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436043.png" alt="image-20211226211052435" style="zoom:80%;" />
-<p>西游记</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436044.png" alt="image-20211226212626897" style="zoom:80%;" />
-<h1>定时任务调度crond—反复性</h1>
-<p>病毒扫描，用户mysql数据库的备份</p>
-<p>-e  **<a href="">编辑</a>**crontab定时任务</p>
-<p>-l   <a href=""><strong>查询</strong></a>crontab任务</p>
-<p>-r  **<a href="">删除</a>**当前用户的crontab任务             —记得终止，<strong>免得不堪重负</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">crontab -e     ---编辑定时任务</span><br><span class="line"></span><br><span class="line">*/<span class="number">1</span> * * * * ls -l /home/ &gt; /usr/a.txt     ---每隔一分钟把home下内容，重定向写到a.txt中   </span><br><span class="line">    </span><br><span class="line">service crond restart     ---重启任务调度</span><br></pre></td></tr></table></figure>
-<h2 id="1、时间规则"><a class="header-anchor" href="#1、时间规则">¶</a>1、时间规则</h2>
+</li>
+<li>Git 没绑定 GitHub 账号，查看前文Git安装配置</li>
+</ol>
+<h1>Butterfly主题</h1>
+<p>进到Hexo博客根目录，打开GitBash，下载 <code>Butterfly</code> 主题 。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</span><br></pre></td></tr></table></figure>
+<p>改Hexo博客根目录下的 <code>_config.yml</code></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">landscape</span></span><br><span class="line"><span class="string">改为</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure>
+<p>清理缓存、生成静态文件、部署到 <code>GitHub</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<p><strong>主题美化</strong></p>
 <blockquote>
-<p>五个占位符</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436045.png" alt="image-20211228162008090" style="zoom:80%;" />
+<p>官网权威文档：<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 安裝文檔(一) 快速開始 | Butterfly</a></p>
+<p>参考链接：<a href="https://blog.csdn.net/weixin_44186409/article/details/106256493">butterfly主题修改_bt-sonny的博客</a></p>
 </blockquote>
-<blockquote>
-<p>占位符的种类</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436046.png" alt="image-20211228162326304" style="zoom:80%;" />
-</blockquote>
-<blockquote>
-<p>案例</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436047.png" alt="image-20211228165024130" style="zoom:80%;" />
-</blockquote>
-<h2 id="2、应用实例"><a class="header-anchor" href="#2、应用实例">¶</a>2、应用实例</h2>
-<h3 id="1）定时执行脚本"><a class="header-anchor" href="#1）定时执行脚本">¶</a>1）定时执行脚本</h3>
-<p>每隔一分钟，把cal追加写到 /home/mycal 文件中</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">vim /home/jiaoben.sh     ---编辑jiaoben.sh</span><br><span class="line"></span><br><span class="line">cal &gt;&gt; /home/mycal       ---往jiaoben.sh里面写入命令</span><br><span class="line">     </span><br><span class="line">chmod u+x /home/jiaoben.sh     ---给jiaoben.sh执行权限</span><br><span class="line">    </span><br><span class="line">crontab -e         ---编辑crontab任务</span><br><span class="line">    </span><br><span class="line">*/<span class="number">1</span> * * * * /home/jiaoben.sh    ---往crontab写入定时任务</span><br></pre></td></tr></table></figure>
-<h3 id="2）定时备份mysql"><a class="header-anchor" href="#2）定时备份mysql">¶</a>2）定时备份mysql</h3>
-<p>每天2:00把mysql数据库testdb，备份到文件中，</p>
-<p>指令为：mysqldump  -uroot  -p密码  库名  &gt;  /home/db.bak</p>
-<p>可选</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"></span><br><span class="line"><span class="number">0</span> <span class="number">2</span> * * * mysqldump -uroot -proot 【--host=某】 --databases=testdb &gt; /home/db.bak</span><br></pre></td></tr></table></figure>
-<h1>at定时任务—一次性</h1>
-<p>只执行一次</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ps  -ef  |  grep atd     ---查看atd守护进程运行</span><br><span class="line"></span><br><span class="line">Ctrl+D    ---结束at命令的输入</span><br><span class="line">    </span><br><span class="line">atq       ---查看执行的工作任务   </span><br><span class="line">    </span><br><span class="line">atrm 编号  ---删除某任务    </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>选项</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436048.png" alt="image-20211228200533422" style="zoom: 50%;" />
-</blockquote>
-<blockquote>
-<p>时间</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436049.png" alt="image-20211228200934044" style="zoom:80%;" />
-</blockquote>
-<h2 id="1、实例"><a class="header-anchor" href="#1、实例">¶</a>1、实例</h2>
-<p>两天后的下午5点执行	/bin/ls   /home</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436050.png" alt="image-20211228202108473" style="zoom:80%;" />
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436051.png" alt="image-20211228202322938"></p>
-<p>明天17点，输出时间到 /root/date100.log</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436052.png" alt="image-20211228202701864" style="zoom:80%;" />
-<p>两分钟后执行脚本script</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436053.png" alt="image-20211228204350070" style="zoom:80%;" />]]></content>
+]]></content>
       <categories>
-        <category>Linux</category>
+        <category>Tool</category>
+        <category>Git</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
-        <tag>rwx</tag>
-        <tag>crond</tag>
+        <tag>Hexo</tag>
+        <tag>Tutorial</tag>
+        <tag>GitHub</tag>
+        <tag>Butterfly</tag>
       </tags>
   </entry>
   <entry>
@@ -737,25 +587,153 @@
       </tags>
   </entry>
   <entry>
-    <title>我的第一篇博客</title>
-    <url>/articles/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1>第一章</h1>
-<p>内<code>容</code>…</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">    world</span><br></pre></td></tr></table></figure>
-<h1>第二章</h1>
-<blockquote>
-<p>hello</p>
-</blockquote>
-<h2 id="2-1-标题"><a class="header-anchor" href="#2-1-标题">¶</a>2.1 标题</h2>
+    <title>Linux权限rwx管理+定时任务调度</title>
+    <url>/articles/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</url>
+    <content><![CDATA[<h1>组管理和权限管理</h1>
+<h2 id="1、所有者"><a class="header-anchor" href="#1、所有者">¶</a>1、所有者</h2>
+<p>文件a.txt的三概念</p>
 <ul>
-<li>内容</li>
+<li>所有者：谁创建的，可改    -------》比如根目录是root的，所以lzw就不能在那创建dir02</li>
+<li>所在组：所有者所在的组，<strong>组内其他成员对文件有点权限</strong>。</li>
+<li>其他组：</li>
+<li>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436031.png" alt="image-20211210185737254" style="zoom: 67%;" />
+</li>
 </ul>
-]]></content>
+<p>命令</p>
+<ul>
+<li>ls -ahl   <strong>查看</strong>所有者</li>
+</ul>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436032.png" alt="image-20211224181945716"></p>
+<ul>
+<li>chown tom apple.txt   <strong>更改</strong>所有者</li>
+</ul>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436033.png" alt="image-20211224182616934"></p>
+<h2 id="2、所在组"><a class="header-anchor" href="#2、所在组">¶</a>2、所在组</h2>
+<p>就是day02用户组那里</p>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436034.png" alt="image-20211224183103295"></p>
+<ul>
+<li>
+<p>ls -l     ----<strong>看</strong>所在组</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436036.png" alt="image-20211224183257114" style="zoom:80%;" />
+</li>
+<li>
+<p>chgrp 组名 文件名    ----<strong>修改</strong>文件的所在组</p>
+</li>
+</ul>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436037.png" alt="image-20211224184555425" style="zoom:80%;" />
+<ul>
+<li>usermod -g 新组名 用户名  —<strong>修改</strong>用户的组</li>
+</ul>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436038.png" alt="image-20211224184523324"></p>
+<h2 id="3、rwx权限"><a class="header-anchor" href="#3、rwx权限">¶</a>3、rwx权限</h2>
+<p>第0位，文件类型（dev目录有很多character文件</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436039.png" alt="image-20211226181515228" style="zoom:80%;" />
+<p>比如b块设备</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436040.png" alt="image-20211226181847468" style="zoom:80%;" />
+<blockquote>
+<p>第1-3位，所有者的权限</p>
+<p>第4-6位，组内其他人的权限</p>
+<p>第7-9位，其他用户的权限</p>
+<p>读文件只需 <code>文件r+目录x</code>，无需目录r</p>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436041.png" alt="image-20211228105736423" style="zoom:80%;" />1</p>
+</blockquote>
+<p><strong>重要</strong>：<code>目录的x执行权限，是读写删增目录内文件的基础</code></p>
+<h2 id="4、rwx举例"><a class="header-anchor" href="#4、rwx举例">¶</a>4、rwx举例</h2>
+<h3 id="1）看文件的rwx内容"><a class="header-anchor" href="#1）看文件的rwx内容">¶</a>1）看文件的rwx内容</h3>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436042.png" alt="image-20211226183509967" style="zoom:80%;" />
+<h3 id="2）修改rwx权限—chmod"><a class="header-anchor" href="#2）修改rwx权限—chmod">¶</a>2）修改rwx权限—chmod</h3>
+<p>给哪些<a href=""><strong>人</strong></a>权限？</p>
+<ul>
+<li>u  所有者</li>
+<li>g  组内其他人</li>
+<li>o  外人</li>
+<li>a  <u>每个人</u></li>
+</ul>
+<p>给的<a href=""><strong>权限</strong></a>有哪些？</p>
+<ol>
+<li>r   读</li>
+<li>w  写</li>
+<li>x   执行</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">用字母</span><br><span class="line">chmod u=rwx,g=rx,o=x 文件名    ---</span><br><span class="line">    </span><br><span class="line">chmod o+w 文件名       ---给外人赋予“读”</span><br><span class="line">    </span><br><span class="line">chmod a-x 文件名      ---给所有人剥夺“执行权限”</span><br></pre></td></tr></table></figure>
+<p>用**<a href="">数字表权限</a>**</p>
+<p>r=4， w=2， x=1</p>
+<ul>
+<li>1  是x</li>
+<li>2  是w</li>
+<li>3  是x+w</li>
+<li>4  是r</li>
+<li>5  是r+x</li>
+<li>6  是r+w</li>
+<li>7  是rwx</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">用数字</span><br><span class="line">chmod <span class="number">751</span> 文件名      <span class="comment">---等同于上面的</span></span><br></pre></td></tr></table></figure>
+<h3 id="3）修改所有者—chown"><a class="header-anchor" href="#3）修改所有者—chown">¶</a>3）修改所有者—chown</h3>
+<p>-R   让**<a href="">目录</a>**的儿孙们都生效</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line">chown  tom  文件名    ---文件所有者变成tom</span><br><span class="line"></span><br><span class="line">chown  tom:cat  文件名   ---所有者tom，组为cat</span><br><span class="line"></span><br><span class="line">chown  -<span class="type">R</span> tom  目录   ---目录所有儿孙的主人都是tom</span><br></pre></td></tr></table></figure>
+<h3 id="4）修改所在组—chgrp"><a class="header-anchor" href="#4）修改所在组—chgrp">¶</a>4）修改所在组—chgrp</h3>
+<p>-R   让**<a href="">目录</a>**的儿孙们都生效</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">chgrp shaolin /home/abc.txt  ---abc.txt组改为shaolin </span><br><span class="line"></span><br><span class="line">chgrp -R shaolin /home/test  ---test文件夹组改为shaolin</span><br></pre></td></tr></table></figure>
+<h3 id="5）综合栗子"><a class="header-anchor" href="#5）综合栗子">¶</a>5）综合栗子</h3>
+<p>警察和土匪</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436043.png" alt="image-20211226211052435" style="zoom:80%;" />
+<p>西游记</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436044.png" alt="image-20211226212626897" style="zoom:80%;" />
+<h1>定时任务调度crond—反复性</h1>
+<p>病毒扫描，用户mysql数据库的备份</p>
+<p>-e  **<a href="">编辑</a>**crontab定时任务</p>
+<p>-l   <a href=""><strong>查询</strong></a>crontab任务</p>
+<p>-r  **<a href="">删除</a>**当前用户的crontab任务             —记得终止，<strong>免得不堪重负</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">crontab -e     ---编辑定时任务</span><br><span class="line"></span><br><span class="line">*/<span class="number">1</span> * * * * ls -l /home/ &gt; /usr/a.txt     ---每隔一分钟把home下内容，重定向写到a.txt中   </span><br><span class="line">    </span><br><span class="line">service crond restart     ---重启任务调度</span><br></pre></td></tr></table></figure>
+<h2 id="1、时间规则"><a class="header-anchor" href="#1、时间规则">¶</a>1、时间规则</h2>
+<blockquote>
+<p>五个占位符</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436045.png" alt="image-20211228162008090" style="zoom:80%;" />
+</blockquote>
+<blockquote>
+<p>占位符的种类</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436046.png" alt="image-20211228162326304" style="zoom:80%;" />
+</blockquote>
+<blockquote>
+<p>案例</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436047.png" alt="image-20211228165024130" style="zoom:80%;" />
+</blockquote>
+<h2 id="2、应用实例"><a class="header-anchor" href="#2、应用实例">¶</a>2、应用实例</h2>
+<h3 id="1）定时执行脚本"><a class="header-anchor" href="#1）定时执行脚本">¶</a>1）定时执行脚本</h3>
+<p>每隔一分钟，把cal追加写到 /home/mycal 文件中</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">vim /home/jiaoben.sh     ---编辑jiaoben.sh</span><br><span class="line"></span><br><span class="line">cal &gt;&gt; /home/mycal       ---往jiaoben.sh里面写入命令</span><br><span class="line">     </span><br><span class="line">chmod u+x /home/jiaoben.sh     ---给jiaoben.sh执行权限</span><br><span class="line">    </span><br><span class="line">crontab -e         ---编辑crontab任务</span><br><span class="line">    </span><br><span class="line">*/<span class="number">1</span> * * * * /home/jiaoben.sh    ---往crontab写入定时任务</span><br></pre></td></tr></table></figure>
+<h3 id="2）定时备份mysql"><a class="header-anchor" href="#2）定时备份mysql">¶</a>2）定时备份mysql</h3>
+<p>每天2:00把mysql数据库testdb，备份到文件中，</p>
+<p>指令为：mysqldump  -uroot  -p密码  库名  &gt;  /home/db.bak</p>
+<p>可选</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"></span><br><span class="line"><span class="number">0</span> <span class="number">2</span> * * * mysqldump -uroot -proot 【--host=某】 --databases=testdb &gt; /home/db.bak</span><br></pre></td></tr></table></figure>
+<h1>at定时任务—一次性</h1>
+<p>只执行一次</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ps  -ef  |  grep atd     ---查看atd守护进程运行</span><br><span class="line"></span><br><span class="line">Ctrl+D    ---结束at命令的输入</span><br><span class="line">    </span><br><span class="line">atq       ---查看执行的工作任务   </span><br><span class="line">    </span><br><span class="line">atrm 编号  ---删除某任务    </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>选项</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436048.png" alt="image-20211228200533422" style="zoom: 50%;" />
+</blockquote>
+<blockquote>
+<p>时间</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436049.png" alt="image-20211228200934044" style="zoom:80%;" />
+</blockquote>
+<h2 id="1、实例"><a class="header-anchor" href="#1、实例">¶</a>1、实例</h2>
+<p>两天后的下午5点执行	/bin/ls   /home</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436050.png" alt="image-20211228202108473" style="zoom:80%;" />
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436051.png" alt="image-20211228202322938"></p>
+<p>明天17点，输出时间到 /root/date100.log</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436052.png" alt="image-20211228202701864" style="zoom:80%;" />
+<p>两分钟后执行脚本script</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202301081436053.png" alt="image-20211228204350070" style="zoom:80%;" />]]></content>
       <categories>
-        <category>java</category>
+        <category>Linux</category>
       </categories>
       <tags>
-        <tag>tool</tag>
+        <tag>Linux</tag>
+        <tag>rwx</tag>
+        <tag>crond</tag>
       </tags>
   </entry>
   <entry>
@@ -781,6 +759,28 @@
       </categories>
       <tags>
         <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的第一篇博客</title>
+    <url>/articles/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1>第一章</h1>
+<p>内<code>容</code>…</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">    world</span><br></pre></td></tr></table></figure>
+<h1>第二章</h1>
+<blockquote>
+<p>hello</p>
+</blockquote>
+<h2 id="2-1-标题"><a class="header-anchor" href="#2-1-标题">¶</a>2.1 标题</h2>
+<ul>
+<li>内容</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
