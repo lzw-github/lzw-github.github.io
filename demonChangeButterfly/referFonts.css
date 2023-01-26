@@ -1,7 +1,12 @@
 @font-face {
   font-family: 'myfont';
   font-display: swap;
-  src: url('/demonChangeButterfly/XiaolaiMonoSC-Regular.subset.ttf') format("truetype");
+  src: url('/demonChangeButterfly/Fredoka.woff2') format("truetype");
+}
+@font-face {
+  font-family: 'myfont2';
+  font-display: swap;
+  src: url('/demonChangeButterfly/HarmonyOSHans-Medium.woff2') format("truetype");
 }
 @font-face {
   font-family: 'mycodefont';
