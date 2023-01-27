@@ -1377,7 +1377,7 @@ body {
   background: var(--global-bg);
   color: var(--font-color);
   font-size: var(--global-font-size);
-  font-family: myfont,myfont2,"Microsoft YaHei",sans-serif;
+  font-family: myfont,"方正黑体_GBK","Microsoft YaHei",sans-serif;
   line-height: 2;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
