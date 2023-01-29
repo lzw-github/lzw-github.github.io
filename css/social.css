@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3869951 */
+  src: url('//at.alicdn.com/t/c/font_3869951_320ovmls4ql.woff2?t=1674809563380') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3869951_320ovmls4ql.woff?t=1674809563380') format('woff'),
+       url('//at.alicdn.com/t/c/font_3869951_320ovmls4ql.ttf?t=1674809563380') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-github:before {
+  content: "\e741";
+  font-size: 25px;
+  color: rgb(0, 0, 0);
+}
+
+.icon-youjianyouxiang:before {
+  content: "\e63a";
+  font-size: 25px;
+  color: rgb(5, 117, 20);
+}
+
+.icon-bilibili:before {
+  content: "\e609";
+  font-size: 25px;
+  color: rgb(32, 176, 227);
+}
+
+.icon-csdn:before {
+  content: "\e638";
+  font-size: 25px;
+  color: rgb(216, 30, 6);
+}
+
