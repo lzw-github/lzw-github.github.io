@@ -332,6 +332,63 @@
       </tags>
   </entry>
   <entry>
+    <title>IDEA中三种方式实现SpringBoot热部署</title>
+    <url>/articles/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<p><strong>概述</strong>：热部署(HotSwap)也叫热加载、热更新、热替换，它避免了少量代码更改而带来的避免重启时间，在大型项目中尤其有用，三个实现<code>SpringBoot</code>热部署方法，配合IDEA使用。</p>
+<ul>
+<li><code>dev-tools</code>可以实现大部分代码的热部署，但是和数据库连接池有冲突，容易造成数据库连接池关闭。</li>
+<li><code>JRebel</code>需要用网络注册，无网环境配置不太行。</li>
+<li><code>HotSwap</code> 插件IDEA自带，有时不太生效。</li>
+</ul>
+<h1>总</h1>
+<h2 id="Dev-tools-推荐"><a class="header-anchor" href="#Dev-tools-推荐">¶</a>Dev-tools(推荐)</h2>
+<p><code>spring-boot-devtools</code> 是 Spring Boot 提供的<a href="https://cloud.tencent.com/product/cclid?from=10680">开发者工具</a>，它会监控当前应用所在的 classpath 下的文件发生变化，进行<strong>自动重启</strong>。</p>
+<p>注： dev-tools并不是热部署，而是一种<strong>较快的重启方式</strong> 。</p>
+<h3 id="引入Maven依赖"><a class="header-anchor" href="#引入Maven依赖">¶</a>引入Maven依赖</h3>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 这是spring boot devtool plugin 热部署1常用，如果不添加似乎也可以运行--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    		<span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置yaml"><a class="header-anchor" href="#配置yaml">¶</a>配置yaml</h3>
+<p>在<code>application.yaml</code>或<code>application.yml</code> 配置，如果是.properties需自行转换</p>
+<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">devtools</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">restart</span>:<span class="string"></span></span><br><span class="line"><span class="comment">            #热部署生效</span></span><br><span class="line">          <span class="attr">enabled</span>: <span class="string">true</span></span><br><span class="line"><span class="comment">            #设置重启的目录</span></span><br><span class="line"><span class="comment">            #additional-paths: src/main/java</span></span><br><span class="line"><span class="comment">            #classpath目录下的WEB-INF文件夹内容修改不重启</span></span><br><span class="line">          <span class="attr">exclude</span>: <span class="string">WEB-INF/**</span></span><br></pre></td></tr></table></figure>
+<p>到这里就已经可以了，如果项目代码更改，在项目使用Debug模式启动下，只需要在IDEA上方 Build-&gt;Build Project即可（快捷键为 Ctrl+F9）</p>
+<p>如果这一步也想省掉，执行以下步骤。</p>
+<h3 id="自动编译"><a class="header-anchor" href="#自动编译">¶</a>自动编译</h3>
+<p>打开IDEA设置，在<code>Compiler</code> 选项卡，将 <code>Build project automatically</code> 勾选</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222330997.png" alt="image-20221222233042106" style="zoom:80%;" />
+<p>此时dev-tools限定在Debug模式下启动项目，如果想要Run模式也能使用dev-tools，<code>Ctrl+Shift+Alt+/</code> ，勾选Registry下的<code>Compiler autoMake allow when app running</code></p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222335867.png" alt="image-20221222233549082" style="zoom:80%;" />
+<hr>
+<h2 id="JRebel"><a class="header-anchor" href="#JRebel">¶</a>JRebel</h2>
+<p>一款知名的Java热部署插件</p>
+<h3 id="IDEA安装JRebel插件"><a class="header-anchor" href="#IDEA安装JRebel插件">¶</a>IDEA安装JRebel插件</h3>
+<p>在idea的settings -&gt; Marketspace -&gt; 搜索jrebel -&gt; 下载<code>JRebel and XRebel for IntelliJ</code></p>
+<h3 id="在线GUID地址：在线生成GUID"><a class="header-anchor" href="#在线GUID地址：在线生成GUID">¶</a>在线GUID地址：在线生成GUID</h3>
+<p>在 <a href="https://www.guidgen.com/">https://www.guidgen.com/</a> 生成GUID后， 服务器地址为 <code>https://jrebel.qekang.com/&#123;GUID&#125;</code></p>
+<h3 id="打开JRebel"><a class="header-anchor" href="#打开JRebel">¶</a>打开JRebel</h3>
+<p>选择<code>Connect to online licensing service</code></p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222342051.png" alt="image-20221222234157794" style="zoom:80%;" />
+<p>以后通过<code>JRebel</code>启动项目即可</p>
+<h3 id="设置离线模式"><a class="header-anchor" href="#设置离线模式">¶</a>设置离线模式</h3>
+<p>在IDEA中 <code>settings -&gt; JRebel &amp; XRebel -&gt; 点击Work offline</code></p>
+<h3 id="自动编译-v2"><a class="header-anchor" href="#自动编译-v2">¶</a>自动编译</h3>
+<p>同Dev-tools的自动编译</p>
+<h2 id="HotSwap"><a class="header-anchor" href="#HotSwap">¶</a>HotSwap</h2>
+<p>IDEA自带的插件，而且与<code>dev-tools</code>不兼容，需去除dev的依赖。</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222348943.png" alt="image-20221222234756047" style="zoom:80%;" />
+<p>使用和自动编译同Dev-tools。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>devtools</tag>
+        <tag>jrebel</tag>
+        <tag>idea</tag>
+        <tag>SpringBoot</tag>
+        <tag>热部署</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git配置+GitHub绑定</title>
     <url>/articles/Git%E9%85%8D%E7%BD%AE+GitHub%E7%BB%91%E5%AE%9A/</url>
     <content><![CDATA[<h1>Git安装配置，绑定GitHub账号</h1>
@@ -420,60 +477,195 @@
       </tags>
   </entry>
   <entry>
-    <title>IDEA中三种方式实现SpringBoot热部署</title>
-    <url>/articles/IDEA%E4%B8%AD%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0SpringBoot%E7%83%AD%E9%83%A8%E7%BD%B2/</url>
-    <content><![CDATA[<p><strong>概述</strong>：热部署(HotSwap)也叫热加载、热更新、热替换，它避免了少量代码更改而带来的避免重启时间，在大型项目中尤其有用，三个实现<code>SpringBoot</code>热部署方法，配合IDEA使用。</p>
+    <title>nvm管理NodeJS</title>
+    <url>/articles/nvm%E7%AE%A1%E7%90%86NodeJS/</url>
+    <content><![CDATA[<h1>nvm管理NodeJs</h1>
+<h2 id="nvm安装配置"><a class="header-anchor" href="#nvm安装配置">¶</a>nvm安装配置</h2>
+<p>推荐使用NodeJs的版本管理工具nvm，安装node更容易，允许多个node版本共存，切换方便。</p>
+<p><strong>完全卸载NodeJS</strong> ：</p>
+<ol>
+<li>控制面板卸载NodeJS，更推荐使用Geek Uninstaller和Wise Program Uninstaller</li>
+<li>重启任务管理器，鲨掉所有与node有关进程。</li>
+<li>删掉 <code>C:\Users\admin\.npmrc</code> 文件</li>
+<li>寻找以下目录删掉
 <ul>
-<li><code>dev-tools</code>可以实现大部分代码的热部署，但是和数据库连接池有冲突，容易造成数据库连接池关闭。</li>
-<li><code>JRebel</code>需要用网络注册，无网环境配置不太行。</li>
-<li><code>HotSwap</code> 插件IDEA自带，有时不太生效。</li>
+<li>C:\Program Files (x86)\nodejs</li>
+<li>C:\Program Files\nodejs</li>
+<li>C:\Users\用户名\AppData\Roaming\npm</li>
+<li>C:\Users\用户名\AppData\Roaming\npm-cache</li>
 </ul>
-<h1>总</h1>
-<h2 id="Dev-tools-推荐"><a class="header-anchor" href="#Dev-tools-推荐">¶</a>Dev-tools(推荐)</h2>
-<p><code>spring-boot-devtools</code> 是 Spring Boot 提供的<a href="https://cloud.tencent.com/product/cclid?from=10680">开发者工具</a>，它会监控当前应用所在的 classpath 下的文件发生变化，进行<strong>自动重启</strong>。</p>
-<p>注： dev-tools并不是热部署，而是一种<strong>较快的重启方式</strong> 。</p>
-<h3 id="引入Maven依赖"><a class="header-anchor" href="#引入Maven依赖">¶</a>引入Maven依赖</h3>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 这是spring boot devtool plugin 热部署1常用，如果不添加似乎也可以运行--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    		<span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="配置yaml"><a class="header-anchor" href="#配置yaml">¶</a>配置yaml</h3>
-<p>在<code>application.yaml</code>或<code>application.yml</code> 配置，如果是.properties需自行转换</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring</span>:<span class="string"></span></span><br><span class="line">    <span class="attr">devtools</span>:<span class="string"></span></span><br><span class="line">        <span class="attr">restart</span>:<span class="string"></span></span><br><span class="line"><span class="comment">            #热部署生效</span></span><br><span class="line">          <span class="attr">enabled</span>: <span class="string">true</span></span><br><span class="line"><span class="comment">            #设置重启的目录</span></span><br><span class="line"><span class="comment">            #additional-paths: src/main/java</span></span><br><span class="line"><span class="comment">            #classpath目录下的WEB-INF文件夹内容修改不重启</span></span><br><span class="line">          <span class="attr">exclude</span>: <span class="string">WEB-INF/**</span></span><br></pre></td></tr></table></figure>
-<p>到这里就已经可以了，如果项目代码更改，在项目使用Debug模式启动下，只需要在IDEA上方 Build-&gt;Build Project即可（快捷键为 Ctrl+F9）</p>
-<p>如果这一步也想省掉，执行以下步骤。</p>
-<h3 id="自动编译"><a class="header-anchor" href="#自动编译">¶</a>自动编译</h3>
-<p>打开IDEA设置，在<code>Compiler</code> 选项卡，将 <code>Build project automatically</code> 勾选</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222330997.png" alt="image-20221222233042106" style="zoom:80%;" />
-<p>此时dev-tools限定在Debug模式下启动项目，如果想要Run模式也能使用dev-tools，<code>Ctrl+Shift+Alt+/</code> ，勾选Registry下的<code>Compiler autoMake allow when app running</code></p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222335867.png" alt="image-20221222233549082" style="zoom:80%;" />
-<hr>
-<h2 id="JRebel"><a class="header-anchor" href="#JRebel">¶</a>JRebel</h2>
-<p>一款知名的Java热部署插件</p>
-<h3 id="IDEA安装JRebel插件"><a class="header-anchor" href="#IDEA安装JRebel插件">¶</a>IDEA安装JRebel插件</h3>
-<p>在idea的settings -&gt; Marketspace -&gt; 搜索jrebel -&gt; 下载<code>JRebel and XRebel for IntelliJ</code></p>
-<h3 id="在线GUID地址：在线生成GUID"><a class="header-anchor" href="#在线GUID地址：在线生成GUID">¶</a>在线GUID地址：在线生成GUID</h3>
-<p>在 <a href="https://www.guidgen.com/">https://www.guidgen.com/</a> 生成GUID后， 服务器地址为 <code>https://jrebel.qekang.com/&#123;GUID&#125;</code></p>
-<h3 id="打开JRebel"><a class="header-anchor" href="#打开JRebel">¶</a>打开JRebel</h3>
-<p>选择<code>Connect to online licensing service</code></p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222342051.png" alt="image-20221222234157794" style="zoom:80%;" />
-<p>以后通过<code>JRebel</code>启动项目即可</p>
-<h3 id="设置离线模式"><a class="header-anchor" href="#设置离线模式">¶</a>设置离线模式</h3>
-<p>在IDEA中 <code>settings -&gt; JRebel &amp; XRebel -&gt; 点击Work offline</code></p>
-<h3 id="自动编译-v2"><a class="header-anchor" href="#自动编译-v2">¶</a>自动编译</h3>
-<p>同Dev-tools的自动编译</p>
-<h2 id="HotSwap"><a class="header-anchor" href="#HotSwap">¶</a>HotSwap</h2>
-<p>IDEA自带的插件，而且与<code>dev-tools</code>不兼容，需去除dev的依赖。</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212222348943.png" alt="image-20221222234756047" style="zoom:80%;" />
-<p>使用和自动编译同Dev-tools。</p>
+</li>
+<li>删有关node的环境变量。</li>
+</ol>
+<p><strong>下载安装nvm</strong>：</p>
+<p>下载前确定node已经卸载干净。到<a href="https://github.com/coreybutler/nvm-windows/releases">github.com</a> 该网址的下载nvm-setup.zip或nvm-setup.exe</p>
+<p>双击安装exe，一路猛戳下一步，默认下载到 <code>C:\Users\用户\AppData\Roaming\nvm</code></p>
+<blockquote>
+<p>安装好nvm后，由于国内下载速度慢，所以使用淘宝镜像。在nvm安装目录下找到settings.txt文件。在最后面回车加上：</p>
+<p>node_mirror: <a href="http://npm.taobao.org/mirrors/node/">http://npm.taobao.org/mirrors/node/</a></p>
+<p>npm_mirror: <a href="https://npm.taobao.org/mirrors/npm/">https://npm.taobao.org/mirrors/npm/</a></p>
+</blockquote>
+<p><strong>nvm常用命令</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">nvm <span class="built_in">list</span>   				看本地有哪些版本NodeJs，正在使用的NodeJs会用*号标识</span><br><span class="line">nvm <span class="built_in">list</span> available    		看网上有哪些可以下载的node版本</span><br><span class="line">nvm install <span class="number">16.16</span><span class="number">.0</span>    		下载<span class="number">16.16</span><span class="number">.0</span>版本的NodeJs到nvm安装目录</span><br><span class="line">nvm uninstall <span class="number">16.16</span><span class="number">.0</span>  		 卸载<span class="number">16</span>。<span class="number">16.0</span>的NodeJs    </span><br><span class="line">nvm use <span class="number">16.16</span><span class="number">.0</span>   使用node    </span><br></pre></td></tr></table></figure>
+<p>参考链接：<a href="https://blog.csdn.net/lewky_liu/article/details/87959839">Windows完全卸载node.js并安装node.js的多版本管理工具nvm</a></p>
+<h2 id="NodeJS"><a class="header-anchor" href="#NodeJS">¶</a>NodeJS</h2>
+<p><strong>NodeJS介绍</strong>：简称 <code>node</code> ，类似后端语言的JavaScript环境，本质上是浏览器底层，自带的包管理器npm在前端能充当Maven一样的角色。</p>
+<p><strong>node版本</strong>：2022年Hexo要求<u>Node版本必须14以上</u>，推荐16或18，太高或者太低都不好。 另外，Node版本选双不选单。</p>
+<p><strong>下载安装</strong>： 直接用nvm下载node</p>
+<blockquote>
+<p>切换node或是<code>nvm use 16.16.0</code> 之前，需要先把<code>C:\Users\用户\.npmrc</code> 文件删掉，就像之前的卸载node一样。</p>
+<p>再执行以下命令</p>
+<p>npm cache clean --force                  清理缓存</p>
+<p>npm config set registry <a href="https://registry.npm.taobao.org">https://registry.npm.taobao.org</a>       node使用淘宝代理链接</p>
+<p>npm config set cache “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_cache”     node_cache文件夹没有则新建</p>
+<p>npm config set prefix “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_global”      node_global文件夹没有则新建</p>
+</blockquote>
+<p><strong>node和npm常用命令</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">node -v    		看node版本</span><br><span class="line">npm -v    		看npm版本</span><br><span class="line">npm config <span class="built_in">list</span>   			看npm配置项    </span><br><span class="line">npm config get registry     看是否在使用淘宝代理链接</span><br><span class="line">npm install 某           下载某依赖</span><br><span class="line">npm uninstall 某 -g       全局下载某依赖    </span><br><span class="line">npm uninstall 某  		卸载某依赖    </span><br></pre></td></tr></table></figure>
+<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′  <a href="https://blog.csdn.net/Kenvinxu/article/details/106053210">https://blog.csdn.net/Kenvinxu/article/details/106053210</a></p>
+<p>官网版本：<a href="https://nodejs.org/zh-cn/download/releases/">以往的版本 | Node.js (nodejs.org)</a></p>
 ]]></content>
       <categories>
-        <category>Java</category>
-        <category>SpringBoot</category>
+        <category>Tool</category>
+        <category>nvm</category>
       </categories>
       <tags>
-        <tag>devtools</tag>
-        <tag>jrebel</tag>
-        <tag>idea</tag>
-        <tag>SpringBoot</tag>
-        <tag>热部署</tag>
+        <tag>Tutorial</tag>
+        <tag>nvm</tag>
+        <tag>node</tag>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Typora+PicGo博客图床搭建</title>
+    <url>/articles/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<h1>图床存图片，哪哪都能看</h1>
+<p>本人使用 <code>Typora</code> 编辑Markdown文档来上传到博客，但本地图片上传到GitHub博客，就没法看了，为此寻找了多种方法。 最后选择了阿里云OSS存储作为图床，<code>PicGo</code>软件上传，<code>Typora</code>引用网址的方式</p>
+<h2 id="1、本地同名文件夹引用，失效"><a class="header-anchor" href="#1、本地同名文件夹引用，失效">¶</a>1、本地同名文件夹引用，失效</h2>
+<ol>
+<li>下载处理图片的插件</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install https:<span class="comment">//github.com/CodeFalling/hexo-asset-image --save</span></span><br><span class="line">或</span><br><span class="line">npm install hexo-asset-img --save    </span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>
+<p>在Hexo配置文件将配置项post_asset_folder设为true</p>
+</li>
+<li>
+<p>设置Typora放图片的方式，自动把图片放到同名文件夹下</p>
+</li>
+</ol>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062229102.png" alt="image-20221206222940084" style="zoom:80%;" />
+<ol start="4">
+<li>执行命令 <code>hexo new article_name</code>，在source/_posts中会生成文章article_name.md和同名文件夹article_name。将图片资源放在article_name文件夹中，文章就可以使用相对路径引用图片资源了。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">![可选图片描述](文章名/图片名.png)  </span><br></pre></td></tr></table></figure>
+<h2 id="2、GitHub图床，失效"><a class="header-anchor" href="#2、GitHub图床，失效">¶</a>2、GitHub图床，失效</h2>
+<ul>
+<li>登录自己的github，建立一个<strong>公开</strong>的仓库，用于存储图片</li>
+<li>进入personal settings -&gt; developer settings -&gt; personal access tokens -&gt; generate new token</li>
+</ul>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062237974.png" alt="image-20221206223720588" style="zoom:80%;" />
+<ul>
+<li>生成token信息，及时复制出现的token</li>
+<li>下载Windows的PicGo的exe文件，如PicGo-Setup-2.3.0-x64.exe，  链接：<a href="https://github.com/Molunerfinn/PicGo/releases">https://github.com/Molunerfinn/PicGo/releases</a></li>
+<li>设置PicGo，开启<strong>时间戳重命名</strong>。</li>
+</ul>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062240680.png" alt="image-20221206224009940" style="zoom:80%;" />
+<ul>
+<li>Typora设置</li>
+</ul>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062241782.png" alt="image-20221206224141673" style="zoom:80%;" />
+<ul>
+<li>点击<strong>验证图片上传选项</strong> ，看到success就大功告成！</li>
+</ul>
+<h2 id="3、Gitee图床，失效"><a class="header-anchor" href="#3、Gitee图床，失效">¶</a>3、Gitee图床，失效</h2>
+<p><u>设置方式和GitHub图床类似</u></p>
+<p><strong>在不好用这方面，和GitHub图床类似，水平十分接近。 Gitee网速稍微快一点</strong></p>
+<p>Typora把图片给PicGo，PicGo用于上传，Gitee仓库用于存放图片。</p>
+<ul>
+<li>GitHub单仓库1Gb~5GB，单文件最大100MB</li>
+<li>Gitee单仓库最大500MB，单文件最大50M，总仓库5GB；</li>
+</ul>
+<blockquote>
+<p>Gitee用于图床的个人密钥：xxxxxxxxxxx ， 被PicGo用于上传图片，让Gitee知道是自己人。 但查看图片不限于自己人<br>
+<code>https://gitee.com/码云账户名/仓库名/raw/master/</code> 图片存时，前缀地址<br>
+图片每次都会暂时存在<code>C:/Users/用户/AppData/Roaming/Typora/typora-user-images</code>， 害怕它会越存越大，解决办法是：先保存在./pictures下，需要时再上传到图床。<br>
+可以一次性上传所有本地pictures， “格式” -&gt; “图像” -&gt; “上传所有本地图片” （不用担心上传几百张，它只上传当下folder的pictures</p>
+</blockquote>
+<p>参考链接：<a href="https://cloud.tencent.com/developer/article/1801576">https://cloud.tencent.com/developer/article/1801576</a></p>
+<h2 id="4、阿里云OSS图床，最终方案"><a class="header-anchor" href="#4、阿里云OSS图床，最终方案">¶</a>4、阿里云OSS图床，最终方案</h2>
+<h3 id="4-1-开通OSS对象存储"><a class="header-anchor" href="#4-1-开通OSS对象存储">¶</a>4.1 开通OSS对象存储</h3>
+<p>在阿里云官网OSS <a href="https://www.aliyun.com/product/oss">对象存储OSS_云存储服务_-阿里云 (aliyun.com)</a> 点击 “立即开通”</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032355.png" alt="image-20221206233659678" style="zoom:80%;" />
+<p>注册账户，实名。  （如果是新用户，还可以超低价买云服务器，可以用来练习Linux命令、部署网站等）</p>
+<p>点击oss页面 “管理控制台”</p>
+<h3 id="4-2-创建Bucket"><a class="header-anchor" href="#4-2-创建Bucket">¶</a>4.2 创建Bucket</h3>
+<p>在<a href="https://oss.console.aliyun.com/bucket">OSS管理控制台 (aliyun.com)</a> 创建Bucket</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032356.png" alt="image-20221206234124640" style="zoom:80%;" />
+<blockquote>
+<ol>
+<li>Bucket名称不能有大写字母，不能中文。 建议全小写英文，中间以<code>-</code>连接。如 <code>blog-img-oss</code></li>
+<li>服务器选离自己近的</li>
+<li>Endpoint默认，所属资源组默认</li>
+<li>存储类型： <strong>标准存储</strong>（因为博客网所需流量和容量大，如果访问很少选<u>低频访问存储</u>）</li>
+<li>读写权限： 一定要是<strong>公共读</strong>！ (私有别人看不了你图片，公共读写太危险)</li>
+<li>其余的，都不听不要不开通！！ HDFS服务、冗余存储、版本控制、加密方式、日志查询、定时备份</li>
+</ol>
+</blockquote>
+<p>复制你的地域节点，如<code>oss-cn-beijing</code> ，后面的 <code>.aliyuncs.com</code> 不复制。</p>
+<h3 id="4-3-复制AccessKey和AccessKeySecret"><a class="header-anchor" href="#4-3-复制AccessKey和AccessKeySecret">¶</a>4.3 复制AccessKey和AccessKeySecret</h3>
+<p>依次点击 <u>头像</u> -&gt; AccessKey管理 -&gt; 继续使用AccessKey -&gt; 创建AccessKey</p>
+<p>一系列操作后，复制你的<code>accessKeyId</code>和<code>accessKeySecret</code></p>
+<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070004317.png" alt=""></p>
+<h3 id="4-4-充钱"><a class="header-anchor" href="#4-4-充钱">¶</a>4.4 充钱</h3>
+<p>见名知意，阿里云首页-&gt;费用</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070008232.png" alt="image-20221207000842470" style="zoom:80%;" />
+<p>主要分容量和流量(流入/留出)，费用很便宜</p>
+<ul>
+<li>容量：0.12元/GB/月</li>
+<li>图片<strong>上传</strong>到阿里OSS流量：免费</li>
+<li>用户查看你的博客图片，<strong>流出</strong>流量： 闲时<u>0.25元/GB</u>，忙时<u>0.50元/GB</u></li>
+</ul>
+<h3 id="4-5-PicGo图床设置"><a class="header-anchor" href="#4-5-PicGo图床设置">¶</a>4.5 PicGo图床设置</h3>
+<p>刚复制的那些内容派上用场了，点击确定，设为默认图床。</p>
+<p>PicGo设置开启 “时间戳重命名”</p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070016467.png" alt="image-20221207001600070" style="zoom:80%;" />
+<h3 id="4-6-Typora设置"><a class="header-anchor" href="#4-6-Typora设置">¶</a>4.6 Typora设置</h3>
+<p>验证成功，直接在Typora粘贴图片，自动由PicGo上传到OSS。</p>
+<p>图片链接如：<a href="https://xn--Bucket-on9im33a.xn--6qq04ao0deyay3ll6f.aliyuncs.com/%E4%BD%A0%E5%AD%98%E5%82%A8%E8%B7%AF%E5%BE%84/%E5%9B%BE%E7%89%87%E5%90%8D">https://你Bucket名.你存储区域名.aliyuncs.com/你存储路径/图片名</a></p>
+<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070022192.png" alt="image-20221207002129577" style="zoom:80%;" />]]></content>
+      <categories>
+        <category>Tool</category>
+        <category>图床</category>
+      </categories>
+      <tags>
+        <tag>图床</tag>
+        <tag>PicGo</tag>
+        <tag>Typora</tag>
+        <tag>OSS</tag>
+        <tag>Aliyun</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的第一篇博客</title>
+    <url>/articles/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h1>第一章</h1>
+<p>内<code>容</code>…</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">    world</span><br></pre></td></tr></table></figure>
+<h1>第二章</h1>
+<blockquote>
+<p>hello</p>
+</blockquote>
+<h2 id="2-1-标题"><a class="header-anchor" href="#2-1-标题">¶</a>2.1 标题</h2>
+<ul>
+<li>内容</li>
+</ul>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>tool</tag>
       </tags>
   </entry>
   <entry>
@@ -627,116 +819,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Typora+PicGo博客图床搭建</title>
-    <url>/articles/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<h1>图床存图片，哪哪都能看</h1>
-<p>本人使用 <code>Typora</code> 编辑Markdown文档来上传到博客，但本地图片上传到GitHub博客，就没法看了，为此寻找了多种方法。 最后选择了阿里云OSS存储作为图床，<code>PicGo</code>软件上传，<code>Typora</code>引用网址的方式</p>
-<h2 id="1、本地同名文件夹引用，失效"><a class="header-anchor" href="#1、本地同名文件夹引用，失效">¶</a>1、本地同名文件夹引用，失效</h2>
-<ol>
-<li>下载处理图片的插件</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">npm install https:<span class="comment">//github.com/CodeFalling/hexo-asset-image --save</span></span><br><span class="line">或</span><br><span class="line">npm install hexo-asset-img --save    </span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>
-<p>在Hexo配置文件将配置项post_asset_folder设为true</p>
-</li>
-<li>
-<p>设置Typora放图片的方式，自动把图片放到同名文件夹下</p>
-</li>
-</ol>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062229102.png" alt="image-20221206222940084" style="zoom:80%;" />
-<ol start="4">
-<li>执行命令 <code>hexo new article_name</code>，在source/_posts中会生成文章article_name.md和同名文件夹article_name。将图片资源放在article_name文件夹中，文章就可以使用相对路径引用图片资源了。</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">![可选图片描述](文章名/图片名.png)  </span><br></pre></td></tr></table></figure>
-<h2 id="2、GitHub图床，失效"><a class="header-anchor" href="#2、GitHub图床，失效">¶</a>2、GitHub图床，失效</h2>
-<ul>
-<li>登录自己的github，建立一个<strong>公开</strong>的仓库，用于存储图片</li>
-<li>进入personal settings -&gt; developer settings -&gt; personal access tokens -&gt; generate new token</li>
-</ul>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062237974.png" alt="image-20221206223720588" style="zoom:80%;" />
-<ul>
-<li>生成token信息，及时复制出现的token</li>
-<li>下载Windows的PicGo的exe文件，如PicGo-Setup-2.3.0-x64.exe，  链接：<a href="https://github.com/Molunerfinn/PicGo/releases">https://github.com/Molunerfinn/PicGo/releases</a></li>
-<li>设置PicGo，开启<strong>时间戳重命名</strong>。</li>
-</ul>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062240680.png" alt="image-20221206224009940" style="zoom:80%;" />
-<ul>
-<li>Typora设置</li>
-</ul>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212062241782.png" alt="image-20221206224141673" style="zoom:80%;" />
-<ul>
-<li>点击<strong>验证图片上传选项</strong> ，看到success就大功告成！</li>
-</ul>
-<h2 id="3、Gitee图床，失效"><a class="header-anchor" href="#3、Gitee图床，失效">¶</a>3、Gitee图床，失效</h2>
-<p><u>设置方式和GitHub图床类似</u></p>
-<p><strong>在不好用这方面，和GitHub图床类似，水平十分接近。 Gitee网速稍微快一点</strong></p>
-<p>Typora把图片给PicGo，PicGo用于上传，Gitee仓库用于存放图片。</p>
-<ul>
-<li>GitHub单仓库1Gb~5GB，单文件最大100MB</li>
-<li>Gitee单仓库最大500MB，单文件最大50M，总仓库5GB；</li>
-</ul>
-<blockquote>
-<p>Gitee用于图床的个人密钥：xxxxxxxxxxx ， 被PicGo用于上传图片，让Gitee知道是自己人。 但查看图片不限于自己人<br>
-<code>https://gitee.com/码云账户名/仓库名/raw/master/</code> 图片存时，前缀地址<br>
-图片每次都会暂时存在<code>C:/Users/用户/AppData/Roaming/Typora/typora-user-images</code>， 害怕它会越存越大，解决办法是：先保存在./pictures下，需要时再上传到图床。<br>
-可以一次性上传所有本地pictures， “格式” -&gt; “图像” -&gt; “上传所有本地图片” （不用担心上传几百张，它只上传当下folder的pictures</p>
-</blockquote>
-<p>参考链接：<a href="https://cloud.tencent.com/developer/article/1801576">https://cloud.tencent.com/developer/article/1801576</a></p>
-<h2 id="4、阿里云OSS图床，最终方案"><a class="header-anchor" href="#4、阿里云OSS图床，最终方案">¶</a>4、阿里云OSS图床，最终方案</h2>
-<h3 id="4-1-开通OSS对象存储"><a class="header-anchor" href="#4-1-开通OSS对象存储">¶</a>4.1 开通OSS对象存储</h3>
-<p>在阿里云官网OSS <a href="https://www.aliyun.com/product/oss">对象存储OSS_云存储服务_-阿里云 (aliyun.com)</a> 点击 “立即开通”</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032355.png" alt="image-20221206233659678" style="zoom:80%;" />
-<p>注册账户，实名。  （如果是新用户，还可以超低价买云服务器，可以用来练习Linux命令、部署网站等）</p>
-<p>点击oss页面 “管理控制台”</p>
-<h3 id="4-2-创建Bucket"><a class="header-anchor" href="#4-2-创建Bucket">¶</a>4.2 创建Bucket</h3>
-<p>在<a href="https://oss.console.aliyun.com/bucket">OSS管理控制台 (aliyun.com)</a> 创建Bucket</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070032356.png" alt="image-20221206234124640" style="zoom:80%;" />
-<blockquote>
-<ol>
-<li>Bucket名称不能有大写字母，不能中文。 建议全小写英文，中间以<code>-</code>连接。如 <code>blog-img-oss</code></li>
-<li>服务器选离自己近的</li>
-<li>Endpoint默认，所属资源组默认</li>
-<li>存储类型： <strong>标准存储</strong>（因为博客网所需流量和容量大，如果访问很少选<u>低频访问存储</u>）</li>
-<li>读写权限： 一定要是<strong>公共读</strong>！ (私有别人看不了你图片，公共读写太危险)</li>
-<li>其余的，都不听不要不开通！！ HDFS服务、冗余存储、版本控制、加密方式、日志查询、定时备份</li>
-</ol>
-</blockquote>
-<p>复制你的地域节点，如<code>oss-cn-beijing</code> ，后面的 <code>.aliyuncs.com</code> 不复制。</p>
-<h3 id="4-3-复制AccessKey和AccessKeySecret"><a class="header-anchor" href="#4-3-复制AccessKey和AccessKeySecret">¶</a>4.3 复制AccessKey和AccessKeySecret</h3>
-<p>依次点击 <u>头像</u> -&gt; AccessKey管理 -&gt; 继续使用AccessKey -&gt; 创建AccessKey</p>
-<p>一系列操作后，复制你的<code>accessKeyId</code>和<code>accessKeySecret</code></p>
-<p><img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070004317.png" alt=""></p>
-<h3 id="4-4-充钱"><a class="header-anchor" href="#4-4-充钱">¶</a>4.4 充钱</h3>
-<p>见名知意，阿里云首页-&gt;费用</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070008232.png" alt="image-20221207000842470" style="zoom:80%;" />
-<p>主要分容量和流量(流入/留出)，费用很便宜</p>
-<ul>
-<li>容量：0.12元/GB/月</li>
-<li>图片<strong>上传</strong>到阿里OSS流量：免费</li>
-<li>用户查看你的博客图片，<strong>流出</strong>流量： 闲时<u>0.25元/GB</u>，忙时<u>0.50元/GB</u></li>
-</ul>
-<h3 id="4-5-PicGo图床设置"><a class="header-anchor" href="#4-5-PicGo图床设置">¶</a>4.5 PicGo图床设置</h3>
-<p>刚复制的那些内容派上用场了，点击确定，设为默认图床。</p>
-<p>PicGo设置开启 “时间戳重命名”</p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070016467.png" alt="image-20221207001600070" style="zoom:80%;" />
-<h3 id="4-6-Typora设置"><a class="header-anchor" href="#4-6-Typora设置">¶</a>4.6 Typora设置</h3>
-<p>验证成功，直接在Typora粘贴图片，自动由PicGo上传到OSS。</p>
-<p>图片链接如：<a href="https://xn--Bucket-on9im33a.xn--6qq04ao0deyay3ll6f.aliyuncs.com/%E4%BD%A0%E5%AD%98%E5%82%A8%E8%B7%AF%E5%BE%84/%E5%9B%BE%E7%89%87%E5%90%8D">https://你Bucket名.你存储区域名.aliyuncs.com/你存储路径/图片名</a></p>
-<img src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/images/202212070022192.png" alt="image-20221207002129577" style="zoom:80%;" />]]></content>
-      <categories>
-        <category>Tool</category>
-        <category>图床</category>
-      </categories>
-      <tags>
-        <tag>图床</tag>
-        <tag>PicGo</tag>
-        <tag>Typora</tag>
-        <tag>OSS</tag>
-        <tag>Aliyun</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello World</title>
     <url>/articles/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -759,88 +841,6 @@
       </categories>
       <tags>
         <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>nvm管理NodeJS</title>
-    <url>/articles/nvm%E7%AE%A1%E7%90%86NodeJS/</url>
-    <content><![CDATA[<h1>nvm管理NodeJs</h1>
-<h2 id="nvm安装配置"><a class="header-anchor" href="#nvm安装配置">¶</a>nvm安装配置</h2>
-<p>推荐使用NodeJs的版本管理工具nvm，安装node更容易，允许多个node版本共存，切换方便。</p>
-<p><strong>完全卸载NodeJS</strong> ：</p>
-<ol>
-<li>控制面板卸载NodeJS，更推荐使用Geek Uninstaller和Wise Program Uninstaller</li>
-<li>重启任务管理器，鲨掉所有与node有关进程。</li>
-<li>删掉 <code>C:\Users\admin\.npmrc</code> 文件</li>
-<li>寻找以下目录删掉
-<ul>
-<li>C:\Program Files (x86)\nodejs</li>
-<li>C:\Program Files\nodejs</li>
-<li>C:\Users\用户名\AppData\Roaming\npm</li>
-<li>C:\Users\用户名\AppData\Roaming\npm-cache</li>
-</ul>
-</li>
-<li>删有关node的环境变量。</li>
-</ol>
-<p><strong>下载安装nvm</strong>：</p>
-<p>下载前确定node已经卸载干净。到<a href="https://github.com/coreybutler/nvm-windows/releases">github.com</a> 该网址的下载nvm-setup.zip或nvm-setup.exe</p>
-<p>双击安装exe，一路猛戳下一步，默认下载到 <code>C:\Users\用户\AppData\Roaming\nvm</code></p>
-<blockquote>
-<p>安装好nvm后，由于国内下载速度慢，所以使用淘宝镜像。在nvm安装目录下找到settings.txt文件。在最后面回车加上：</p>
-<p>node_mirror: <a href="http://npm.taobao.org/mirrors/node/">http://npm.taobao.org/mirrors/node/</a></p>
-<p>npm_mirror: <a href="https://npm.taobao.org/mirrors/npm/">https://npm.taobao.org/mirrors/npm/</a></p>
-</blockquote>
-<p><strong>nvm常用命令</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">nvm <span class="built_in">list</span>   				看本地有哪些版本NodeJs，正在使用的NodeJs会用*号标识</span><br><span class="line">nvm <span class="built_in">list</span> available    		看网上有哪些可以下载的node版本</span><br><span class="line">nvm install <span class="number">16.16</span><span class="number">.0</span>    		下载<span class="number">16.16</span><span class="number">.0</span>版本的NodeJs到nvm安装目录</span><br><span class="line">nvm uninstall <span class="number">16.16</span><span class="number">.0</span>  		 卸载<span class="number">16</span>。<span class="number">16.0</span>的NodeJs    </span><br><span class="line">nvm use <span class="number">16.16</span><span class="number">.0</span>   使用node    </span><br></pre></td></tr></table></figure>
-<p>参考链接：<a href="https://blog.csdn.net/lewky_liu/article/details/87959839">Windows完全卸载node.js并安装node.js的多版本管理工具nvm</a></p>
-<h2 id="NodeJS"><a class="header-anchor" href="#NodeJS">¶</a>NodeJS</h2>
-<p><strong>NodeJS介绍</strong>：简称 <code>node</code> ，类似后端语言的JavaScript环境，本质上是浏览器底层，自带的包管理器npm在前端能充当Maven一样的角色。</p>
-<p><strong>node版本</strong>：2022年Hexo要求<u>Node版本必须14以上</u>，推荐16或18，太高或者太低都不好。 另外，Node版本选双不选单。</p>
-<p><strong>下载安装</strong>： 直接用nvm下载node</p>
-<blockquote>
-<p>切换node或是<code>nvm use 16.16.0</code> 之前，需要先把<code>C:\Users\用户\.npmrc</code> 文件删掉，就像之前的卸载node一样。</p>
-<p>再执行以下命令</p>
-<p>npm cache clean --force                  清理缓存</p>
-<p>npm config set registry <a href="https://registry.npm.taobao.org">https://registry.npm.taobao.org</a>       node使用淘宝代理链接</p>
-<p>npm config set cache “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_cache”     node_cache文件夹没有则新建</p>
-<p>npm config set prefix “C:\Users\用户\AppData\Roaming\nvm\v版本号\node_global”      node_global文件夹没有则新建</p>
-</blockquote>
-<p><strong>node和npm常用命令</strong> ：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">node -v    		看node版本</span><br><span class="line">npm -v    		看npm版本</span><br><span class="line">npm config <span class="built_in">list</span>   			看npm配置项    </span><br><span class="line">npm config get registry     看是否在使用淘宝代理链接</span><br><span class="line">npm install 某           下载某依赖</span><br><span class="line">npm uninstall 某 -g       全局下载某依赖    </span><br><span class="line">npm uninstall 某  		卸载某依赖    </span><br></pre></td></tr></table></figure>
-<p>参考链接：跳转前可以给我点一个赞吗，拜托拜托`(<em>&gt;﹏&lt;</em>)′  <a href="https://blog.csdn.net/Kenvinxu/article/details/106053210">https://blog.csdn.net/Kenvinxu/article/details/106053210</a></p>
-<p>官网版本：<a href="https://nodejs.org/zh-cn/download/releases/">以往的版本 | Node.js (nodejs.org)</a></p>
-]]></content>
-      <categories>
-        <category>Tool</category>
-        <category>nvm</category>
-      </categories>
-      <tags>
-        <tag>Tutorial</tag>
-        <tag>nvm</tag>
-        <tag>node</tag>
-        <tag>npm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我的第一篇博客</title>
-    <url>/articles/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1>第一章</h1>
-<p>内<code>容</code>…</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">    world</span><br></pre></td></tr></table></figure>
-<h1>第二章</h1>
-<blockquote>
-<p>hello</p>
-</blockquote>
-<h2 id="2-1-标题"><a class="header-anchor" href="#2-1-标题">¶</a>2.1 标题</h2>
-<ul>
-<li>内容</li>
-</ul>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>tool</tag>
       </tags>
   </entry>
 </search>
