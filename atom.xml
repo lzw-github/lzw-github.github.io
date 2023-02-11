@@ -6,7 +6,7 @@
   <link href="https://lzw-github.github.io/atom.xml" rel="self"/>
   
   <link href="https://lzw-github.github.io/"/>
-  <updated>2023-02-11T09:10:56.348Z</updated>
+  <updated>2023-02-11T09:14:53.601Z</updated>
   <id>https://lzw-github.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://lzw-github.github.io/articles/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%B0%83%E4%BC%98%E7%9A%84%E5%8E%9F%E5%88%99%E4%B8%8E%E6%96%B9%E6%B3%95/"/>
     <id>https://lzw-github.github.io/articles/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%B0%83%E4%BC%98%E7%9A%84%E5%8E%9F%E5%88%99%E4%B8%8E%E6%96%B9%E6%B3%95/</id>
     <published>2023-02-01T13:58:34.000Z</published>
-    <updated>2023-02-11T09:10:56.348Z</updated>
+    <updated>2023-02-11T09:14:53.601Z</updated>
     
     <content type="html"><![CDATA[<h1>Java线程池调优的原则与方法</h1><h2 id="1-合理配置线程池大小"><a class="header-anchor" href="#1-合理配置线程池大小">¶</a>1.合理配置线程池大小</h2><p>根据系统的资源限制和应用的特点来设置线程池的大小。如果线程池过小，可能会造成线程饥饿；如果线程池过大，可能会导致系统资源浪费。</p><ol><li>CPU密集型任务配置尽可能少的线程数量，如配置 cpu数+1 个线程的线程池。</li><li>IO密集型任务则由于需要等待IO操作，线程并不是一直在执行任务，则配置尽可能多的线程，如 2*cpu数。</li><li>混合型的任务，<ul><li>如果可以拆分，则将其拆分成一个CPU密集型任务和一个IO密集型任务，只要这两个任务执行的时间相差不是太大，那么分解后执行的吞吐率要高于串行执行的吞吐率。</li><li>如果这两个任务执行时间相差太大，则没必要进行分解。</li></ul></li><li>依赖数据库连接池的任务，因为线程提交SQL后需要等待数据库返回结果，如果等待的时间越长CPU空闲时间就越长，那么线程数应该设置越大，这样才能更好的利用CPU。</li></ol><h2 id="2-避免长时间阻塞"><a class="header-anchor" href="#2-避免长时间阻塞">¶</a>2. 避免长时间阻塞</h2><p>线程阻塞时间过长可能会导致线程池中的线程资源浪费，因此应该避免长时间阻塞。</p><h2 id="3-合理使用阻塞队列"><a class="header-anchor" href="#3-合理使用阻塞队列">¶</a>3. 合理使用阻塞队列</h2><p>在线程池中使用阻塞队列可以控制任务的执行速度，以避免系统压力过大。</p><p>建议使用有界队列，避免<code>Out of memory</code>， 增加系统的稳定性和预警能力。可以根据需要设大一点，比如几千。</p><p>如果使用无界队列如 <code>LinkedBlockingQueue</code>，队列可能越来越大，最后撑满内存，可能导致整个系统奔溃。</p><h2 id="4-使用正确的线程池类型"><a class="header-anchor" href="#4-使用正确的线程池类型">¶</a>4. 使用正确的线程池类型</h2><p>Java提供了多种不同的线程池类型，如<code>FixedThreadPool</code> 、<code>CachedThreadPool</code> 等，选择合适的线程池类型可以提高线程池的效率。</p><p><code>SingleThreadExecutor</code> ：适用于串行执行任务的场景，一个任务一个任务地执行。</p><p><code>FixedThreadPool</code>：适用于处理CPU密集型的任务，确保CPU在长期被工作线程使用的情况下，尽可能的少的分配线程，即适用执行长期的任务。</p><p><code>CachedThreadPool</code> : 用于并发执行大量短期的小任务。</p><p><code>ScheduledThreadPool</code> : 周期性执行任务的场景，需要限制线程数量的场景.</p><h2 id="5-定期监控线程池"><a class="header-anchor" href="#5-定期监控线程池">¶</a>5. 定期监控线程池</h2><p>该定期监控线程池的状态，以确保它始终处于正常运行状态。</p><ul><li><p>taskCount：线程池需要执行的任务数量。</p></li><li><p>completedTaskCount：线程池在运行过程中已完成的任务数量。小于或等于taskCount。</p></li><li><p>largestPoolSize：线程池曾经创建过的最大线程数量。通过这个数据可以知道线程池是否满过。如等于线程池的最大大小，则表示线程池曾经满了。</p></li><li><p>getPoolSize:线程池的线程数量。如果线程池不销毁的话，池里的线程不会自动销毁，所以这个大小只增不减。</p></li><li><p>getActiveCount：获取活动的线程数。</p></li></ul><p>这些方法是优化Java线程池的常见方法，具体的优化方案取决于应用的具体情况。</p>]]></content>
     
