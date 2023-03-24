@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lzw-github.github.io/articles/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95+%E5%85%B8%E5%9E%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/</loc>
+    
+    <lastmod>2023-03-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/articles/Java%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%EF%BC%9A%E5%BC%BA%E3%80%81%E8%BD%AF%E3%80%81%E5%BC%B1%E3%80%81%E8%99%9A%E3%80%82/</loc>
+    
+    <lastmod>2023-03-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://lzw-github.github.io/articles/JVM%E5%B8%B8%E8%A7%81%E5%8F%82%E6%95%B0+%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2023-03-24</lastmod>
@@ -288,13 +306,6 @@
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/tags/JVM/</loc>
-    <lastmod>2023-03-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://lzw-github.github.io/tags/Java/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -302,21 +313,21 @@
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/tags/Linux/</loc>
+    <loc>https://lzw-github.github.io/tags/JVM/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/tags/rwx/</loc>
+    <loc>https://lzw-github.github.io/tags/GarbageCollect/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/tags/crond/</loc>
+    <loc>https://lzw-github.github.io/tags/Reference/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -344,7 +355,21 @@
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/tags/java/</loc>
+    <loc>https://lzw-github.github.io/tags/Linux/</loc>
+    <lastmod>2023-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/rwx/</loc>
+    <lastmod>2023-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/crond/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -380,6 +405,13 @@
   
   <url>
     <loc>https://lzw-github.github.io/tags/Aliyun/</loc>
+    <lastmod>2023-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/tags/java/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -451,13 +483,6 @@
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/categories/Linux/</loc>
-    <lastmod>2023-03-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://lzw-github.github.io/categories/Java/Multi-thread/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -465,7 +490,7 @@
   </url>
   
   <url>
-    <loc>https://lzw-github.github.io/categories/tool/</loc>
+    <loc>https://lzw-github.github.io/categories/Linux/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -473,6 +498,34 @@
   
   <url>
     <loc>https://lzw-github.github.io/categories/Tool/%E5%9B%BE%E5%BA%8A/</loc>
+    <lastmod>2023-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/categories/Java/SpringBoot/</loc>
+    <lastmod>2023-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/categories/Java/JVM/GarbageCollect/</loc>
+    <lastmod>2023-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/categories/Java/JVM/Reference/</loc>
+    <lastmod>2023-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lzw-github.github.io/categories/tool/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -487,13 +540,6 @@
   
   <url>
     <loc>https://lzw-github.github.io/categories/java/</loc>
-    <lastmod>2023-03-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lzw-github.github.io/categories/Java/SpringBoot/</loc>
     <lastmod>2023-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

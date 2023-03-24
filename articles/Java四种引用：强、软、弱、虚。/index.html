@@ -1,0 +1,390 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Java四种引用：强、软、弱、虚。 | WinstonLi的个人博客</title><meta name="author" content="Winston Li"><meta name="copyright" content="Winston Li"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Java四种引用：强、软、弱、虚。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java四种引用：强、软、弱、虚。">
+<meta property="og:url" content="https://lzw-github.github.io/articles/Java%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%EF%BC%9A%E5%BC%BA%E3%80%81%E8%BD%AF%E3%80%81%E5%BC%B1%E3%80%81%E8%99%9A%E3%80%82/index.html">
+<meta property="og:site_name" content="WinstonLi的个人博客">
+<meta property="og:description" content="Java四种引用：强、软、弱、虚。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lzw-github.github.io/img/default_cover_2.webp">
+<meta property="article:published_time" content="2023-02-03T12:48:34.000Z">
+<meta property="article:modified_time" content="2023-03-24T17:41:50.632Z">
+<meta property="article:author" content="Winston Li">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JVM">
+<meta property="article:tag" content="Reference">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lzw-github.github.io/img/default_cover_2.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://lzw-github.github.io/articles/Java%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%EF%BC%9A%E5%BC%BA%E3%80%81%E8%BD%AF%E3%80%81%E5%BC%B1%E3%80%81%E8%99%9A%E3%80%82/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"Outdate Notice!!! It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Winston Li","link":"链接: ","source":"来源: WinstonLi的个人博客","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.js',
+      css: 'https://cdnjs.cloudflare.com/ajax/libs/flickr-justified-gallery/2.1.2/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java四种引用：强、软、弱、虚。',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-25 01:41:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/demonChangeButterfly/referFonts.css"><link rel="stylesheet" href="/css/loadingAnime.css"><link rel="stylesheet" href="/css/social.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/echarts@4.9.0/dist/echarts.min.js"></script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="WinstonLi的个人博客" type="application/atom+xml">
+</head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa-solid fa-house-user"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa-solid fa-timeline"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa-solid fa-folder-tree"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/charts/"><i class="fa-fw fa-solid fa-chart-line"></i><span> 文章统计</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa-solid fa-laptop"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa-regular fa-comments"></i><span> 留言板</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/default_cover_2.webp')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">WinstonLi的个人博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa-solid fa-house-user"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa-solid fa-timeline"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tag"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa-solid fa-folder-tree"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/charts/"><i class="fa-fw fa-solid fa-chart-line"></i><span> 文章统计</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa-solid fa-laptop"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa-regular fa-comments"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Java四种引用：强、软、弱、虚。</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-03T12:48:34.000Z" title="发表于 2023-02-03 20:48:34">2023-02-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-24T17:41:50.632Z" title="更新于 2023-03-25 01:41:50">2023-03-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/JVM/">JVM</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/JVM/Reference/">Reference</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Java四种引用：强、软、弱、虚。"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="导读"><a class="header-anchor" href="#导读">¶</a>导读</h3>
+<p><strong>本文的思路如以下：</strong></p>
+<p><strong>（1）Java的四种对象引用的基本概念</strong></p>
+<p><strong>（2）四种对象引用的差异对比</strong></p>
+<p><strong>（3）对象可及性的判断以及与垃圾回收机制的关系</strong></p>
+<h3 id="Java的四种对象引用的基本概念"><a class="header-anchor" href="#Java的四种对象引用的基本概念">¶</a>Java的四种对象引用的基本概念</h3>
+<p>从JDK1.2版本开始，把对象的引用分为四种级别，从而使程序更加灵活的控制对象的生命周期。这四种级别由高到低依次为：强引用、软引用、弱引用和虚引用。</p>
+<h4 id="1、强引用"><a class="header-anchor" href="#1、强引用">¶</a>1、强引用</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object obj =new Object();</span><br></pre></td></tr></table></figure>
+<p>上述Object这类对象就具有强引用，属于不可回收的资源，垃圾回收器绝不会回收它。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠回收具有强引用的对象，来解决内存不足的问题。</p>
+<p>值得注意的是：如果想中断或者回收强引用对象，可以显式地将引用赋值为null，这样的话JVM就会在合适的时间，进行垃圾回收。</p>
+<p>下图是堆区的内存示意图，分为新生代，老生代，而垃圾回收主要也是在这部分区域中进行。</p>
+<img src="Java四种引用：强、软、弱、虚。/image-20230325014101165.png" alt="image-20230325014101165" style="zoom:80%;" />
+<h4 id="2、软引用（SoftReference）"><a class="header-anchor" href="#2、软引用（SoftReference）">¶</a>2、软引用（SoftReference）</h4>
+<p>如果一个对象只具有软引用，那么它的性质属于可有可无的那种。如果此时内存空间足够，垃圾回收器就不会回收它，如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。</p>
+<p>软引用可用来实现内存敏感的告诉缓存。软引用可以和一个引用队列联合使用，如果软件用所引用的对象被垃圾回收，Java虚拟机就会把这个软引用加入到与之关联的引用队列中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object obj = new Object();</span><br><span class="line">        ReferenceQueue queue = new ReferenceQueue();</span><br><span class="line">        SoftReference reference = new SoftReference(obj, queue);</span><br><span class="line">        //强引用对象滞空，保留软引用</span><br><span class="line">        obj = null;</span><br></pre></td></tr></table></figure>
+<p>当内存不足时，软引用对象被回收时，reference.get()为null，此时软引用对象的作用已经发挥完毕，这时将其添加进 <strong>ReferenceQueue 队列中</strong></p>
+<p>如果要判断哪些软引用对象已经被清理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SoftReference ref = null;</span><br><span class="line">while ((ref = (SoftReference) queue.poll()) != null) &#123;</span><br><span class="line">//清除软引用对象</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3、弱引用-WeakReference"><a class="header-anchor" href="#3、弱引用-WeakReference">¶</a>3、弱引用(WeakReference)</h4>
+<p>如果一个对象具有弱引用，那其的性质也是可有可无的状态。</p>
+<p>而弱引用和软引用的区别在于：弱引用的对象拥有更短的生命周期，只要垃圾回收器扫描到它，不管内存空间充足与否，都会回收它的内存。</p>
+<p>同样的弱引用也可以和引用队列一起使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object obj = new Object();</span><br><span class="line">        ReferenceQueue queue = new ReferenceQueue();</span><br><span class="line">        WeakReference reference = new WeakReference(obj, queue);</span><br><span class="line">        //强引用对象滞空，保留软引用</span><br><span class="line">        obj = null;</span><br></pre></td></tr></table></figure>
+<h4 id="4、虚引用（PhantomReference）"><a class="header-anchor" href="#4、虚引用（PhantomReference）">¶</a>4、虚引用（PhantomReference）</h4>
+<p>虚引用和前面的软引用、弱引用不同，它并不影响对象的生命周期。如果一个对象与虚引用关联，则跟没有引用与之关联一样，在任何时候都可能被垃圾回收器回收。</p>
+<p>注意：虚引用必须和引用队列关联使用，当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会把这个虚引用加入到与之关联的引用队列中。</p>
+<p>程序可以通过判断引用队列中是否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。如果程序发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象的内存被回收之前采取必要的行动。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Object obj = new Object();</span><br><span class="line">        ReferenceQueue queue = new ReferenceQueue();</span><br><span class="line">        PhantomReference reference = new PhantomReference(obj, queue);</span><br><span class="line">        //强引用对象滞空，保留软引用</span><br><span class="line">        obj = null;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="引用总结"><a class="header-anchor" href="#引用总结">¶</a>引用总结</h3>
+<p>1.对于强引用，平时在编写代码时会经常使用。</p>
+<p>2.而其他三种类型的引用，使用得最多就是软引用和弱引用，这两种既有相似之处又有区别，他们都来描述非必须对象。</p>
+<p>3.被软引用关联的对象只有在内存不足时才会被回收，而被弱引用关联的对象在JVM进行垃圾回收时总会被回收。</p>
+<img src="Java四种引用：强、软、弱、虚。/image-20230325014122959.png" alt="image-20230325014122959" style="zoom:80%;" />
+<h3 id="四种对象引用的差异对比"><a class="header-anchor" href="#四种对象引用的差异对比">¶</a>四种对象引用的差异对比</h3>
+<p>Java中4种引用的级别由高到低依次为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">强引用 &gt; 软引用 &gt; 弱引用 &gt; 虚引用</span><br></pre></td></tr></table></figure>
+<p>垃圾回收时对比：<br>
+<img src="Java四种引用：强、软、弱、虚。/image-20230325014135415.png" alt="image-20230325014135415" style="zoom:80%;" /></p>
+<h3 id="对象可及性的判断"><a class="header-anchor" href="#对象可及性的判断">¶</a>对象可及性的判断</h3>
+<p>在很多的时候，一个对象并不是从根集直接引用的，而是一个对象被其他对象引用，甚至同时被几个对象所引用，从而构成一个以根集为顶的树形结构。</p>
+<img src="Java四种引用：强、软、弱、虚。/image-20230325014145744.png" alt="image-20230325014145744" style="zoom:80%;" />
+<p>在这个树形的引用链中，箭头的方向代表了引用的方向，所指向的对象是被引用对象。由图可以看出，从根集到一个对象可以由很多条路径。</p>
+<p>比如到达对象5的路径就有① -&gt; ⑤，③ -&gt;⑦两条路径。由此带来了一个问题，那就是某个对象的可及性如何判断：</p>
+<p>（1）单条引用路径可及性判断：</p>
+<p>在这条路径中，最弱的一个引用决定对象的可及性。</p>
+<p>（2）多条引用路径可及性判断：</p>
+<p>几条路径中，最强的一条的引用决定对象的可及性。</p>
+<p>比如，我们假设图2中引用①和③为强引用，⑤为软引用，⑦为弱引用，对于对象5按照这两个判断原则，路径①-⑤取最弱的引用⑤，因此该路径对对象5的引用为软引用。同样，③-⑦为弱引用。在这两条路径之间取最强的引用，于是对象5是一个软可及对象。</p>
+<p><strong>比较容易理解的是Java垃圾回收器会优先清理可及强度低的对象</strong></p>
+<p>另外两个重要的点：</p>
+<p><strong>强可达的对象一定不会被清理</strong></p>
+<p><strong>JVM保证抛出out of memory之前，清理所有的软引用对象</strong></p>
+<p>最后总结成一张表格：</p>
+<table>
+<thead>
+<tr>
+<th>引用类型</th>
+<th>被垃圾回收时间</th>
+<th>用途</th>
+<th>生存时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>强引用</td>
+<td>从来不会</td>
+<td>对象的一般状态</td>
+<td>JVM停止运行时终止</td>
+</tr>
+<tr>
+<td>软引用</td>
+<td>在内存不足时</td>
+<td>对象缓存</td>
+<td>内存不足时终止</td>
+</tr>
+<tr>
+<td>弱引用</td>
+<td>在垃圾回收时</td>
+<td>对象缓存</td>
+<td>垃圾回收时终止</td>
+</tr>
+<tr>
+<td>虚引用</td>
+<td>Unkonwn</td>
+<td>Unkonwn</td>
+<td>Unkonwn</td>
+</tr>
+</tbody>
+</table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/lzw-github">Winston Li</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://lzw-github.github.io/articles/Java%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%EF%BC%9A%E5%BC%BA%E3%80%81%E8%BD%AF%E3%80%81%E5%BC%B1%E3%80%81%E8%99%9A%E3%80%82/">https://lzw-github.github.io/articles/Java四种引用：强、软、弱、虚。/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://lzw-github.github.io" target="_blank">WinstonLi的个人博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/JVM/">JVM</a><a class="post-meta__tags" href="/tags/Reference/">Reference</a></div><div class="post_share"><div class="social-share" data-image="/img/default_cover_2.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="Alipay"/></a><div class="post-qr-code-desc">Alipay</div></li><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="WeChatPay"/></a><div class="post-qr-code-desc">WeChatPay</div></li><li class="reward-item"><a href="/img/dadaguai.png" target="_blank"><img class="post-qr-code-img" src="/img/dadaguai.png" alt="大大怪"/></a><div class="post-qr-code-desc">大大怪</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/articles/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%B0%83%E4%BC%98%E7%9A%84%E5%8E%9F%E5%88%99%E4%B8%8E%E6%96%B9%E6%B3%95/"><img class="prev-cover" src="/img/cover_threadpool.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java线程池调优的原则与方法</div></div></a></div><div class="next-post pull-right"><a href="/articles/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95+%E5%85%B8%E5%9E%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/"><img class="next-cover" src="/img/default_cover_2.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">JVM垃圾回收算法+典型垃圾回收器</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/articles/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95+%E5%85%B8%E5%9E%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" title="JVM垃圾回收算法+典型垃圾回收器"><img class="cover" src="/img/default_cover_2.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-05</div><div class="title">JVM垃圾回收算法+典型垃圾回收器</div></div></a></div><div><a href="/articles/JVM%E5%B8%B8%E8%A7%81%E5%8F%82%E6%95%B0+%E9%85%8D%E7%BD%AE/" title="JVM常见参数+配置"><img class="cover" src="/img/default_cover_1.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-01</div><div class="title">JVM常见参数+配置</div></div></a></div><div><a href="/articles/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%B0%83%E4%BC%98%E7%9A%84%E5%8E%9F%E5%88%99%E4%B8%8E%E6%96%B9%E6%B3%95/" title="Java线程池调优的原则与方法"><img class="cover" src="/img/cover_threadpool.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-01</div><div class="title">Java线程池调优的原则与方法</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Winston Li</div><div class="author-info__description">Java,GitHub,Hexo,个人博客</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">14</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/lzw-github"><i class="fab fa-github"></i><span>Follow My GitHub</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/lzw-github/lzw-github.github.io" target="_blank" title="Github"><i class="iconfont icon-github"></i></a><a class="social-icon" href="mailto:zw062092@163.com" target="_blank" title="Email"><i class="iconfont icon-youjianyouxiang"></i></a><a class="social-icon" href="https://b23.tv/NHKmZEI" target="_blank" title="Bilibili"><i class="iconfont icon-bilibili"></i></a><a class="social-icon" href="https://blog.csdn.net/lzw_Z1902" target="_blank" title="CSDN"><i class="iconfont icon-csdn"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is WinstonLi's Blog, please have a friendly conversation. If you have any question, just let me know through 留言板.</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E8%AF%BB"><span class="toc-number">1.</span> <span class="toc-text">导读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E7%9A%84%E5%9B%9B%E7%A7%8D%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text">Java的四种对象引用的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E5%BC%BA%E5%BC%95%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">1、强引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E8%BD%AF%E5%BC%95%E7%94%A8%EF%BC%88SoftReference%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">2、软引用（SoftReference）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E5%BC%B1%E5%BC%95%E7%94%A8-WeakReference"><span class="toc-number">2.3.</span> <span class="toc-text">3、弱引用(WeakReference)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4%E3%80%81%E8%99%9A%E5%BC%95%E7%94%A8%EF%BC%88PhantomReference%EF%BC%89"><span class="toc-number">2.4.</span> <span class="toc-text">4、虚引用（PhantomReference）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">引用总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E5%AF%B9%E8%B1%A1%E5%BC%95%E7%94%A8%E7%9A%84%E5%B7%AE%E5%BC%82%E5%AF%B9%E6%AF%94"><span class="toc-number">4.</span> <span class="toc-text">四种对象引用的差异对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%8F%AF%E5%8F%8A%E6%80%A7%E7%9A%84%E5%88%A4%E6%96%AD"><span class="toc-number">5.</span> <span class="toc-text">对象可及性的判断</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/articles/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95+%E5%85%B8%E5%9E%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" title="JVM垃圾回收算法+典型垃圾回收器"><img src="/img/default_cover_2.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JVM垃圾回收算法+典型垃圾回收器"/></a><div class="content"><a class="title" href="/articles/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95+%E5%85%B8%E5%9E%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/" title="JVM垃圾回收算法+典型垃圾回收器">JVM垃圾回收算法+典型垃圾回收器</a><time datetime="2023-02-05T14:38:34.000Z" title="发表于 2023-02-05 22:38:34">2023-02-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/Java%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%EF%BC%9A%E5%BC%BA%E3%80%81%E8%BD%AF%E3%80%81%E5%BC%B1%E3%80%81%E8%99%9A%E3%80%82/" title="Java四种引用：强、软、弱、虚。"><img src="/img/default_cover_2.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java四种引用：强、软、弱、虚。"/></a><div class="content"><a class="title" href="/articles/Java%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%EF%BC%9A%E5%BC%BA%E3%80%81%E8%BD%AF%E3%80%81%E5%BC%B1%E3%80%81%E8%99%9A%E3%80%82/" title="Java四种引用：强、软、弱、虚。">Java四种引用：强、软、弱、虚。</a><time datetime="2023-02-03T12:48:34.000Z" title="发表于 2023-02-03 20:48:34">2023-02-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%B0%83%E4%BC%98%E7%9A%84%E5%8E%9F%E5%88%99%E4%B8%8E%E6%96%B9%E6%B3%95/" title="Java线程池调优的原则与方法"><img src="/img/cover_threadpool.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java线程池调优的原则与方法"/></a><div class="content"><a class="title" href="/articles/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%B0%83%E4%BC%98%E7%9A%84%E5%8E%9F%E5%88%99%E4%B8%8E%E6%96%B9%E6%B3%95/" title="Java线程池调优的原则与方法">Java线程池调优的原则与方法</a><time datetime="2023-02-01T13:58:34.000Z" title="发表于 2023-02-01 21:58:34">2023-02-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/" title="Linux权限rwx管理+定时任务调度"><img src="/img/cover_linux.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux权限rwx管理+定时任务调度"/></a><div class="content"><a class="title" href="/articles/Linux%E6%9D%83%E9%99%90rwx%E7%AE%A1%E7%90%86+%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/" title="Linux权限rwx管理+定时任务调度">Linux权限rwx管理+定时任务调度</a><time datetime="2023-01-02T14:58:34.000Z" title="发表于 2023-01-02 22:58:34">2023-01-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/articles/JVM%E5%B8%B8%E8%A7%81%E5%8F%82%E6%95%B0+%E9%85%8D%E7%BD%AE/" title="JVM常见参数+配置"><img src="/img/default_cover_1.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JVM常见参数+配置"/></a><div class="content"><a class="title" href="/articles/JVM%E5%B8%B8%E8%A7%81%E5%8F%82%E6%95%B0+%E9%85%8D%E7%BD%AE/" title="JVM常见参数+配置">JVM常见参数+配置</a><time datetime="2023-01-01T13:58:34.000Z" title="发表于 2023-01-01 21:58:34">2023-01-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2023 By Winston Li</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">嗨, 欢迎来到我的 <a href="https://lzw-github.github.io/">博客</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/medium-zoom/1.0.6/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'FsxUtfmtzcbaojiFvIef5lAk-9Nh9j0Va',
+      appKey: 'rxv0ptXwe9LHWvuTNVOvVpMj',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: {"ablobcatheart":"https://npm.elemecdn.com/blobcat@1.0.0/ablobcatheart.png","ablobcatheartbroken":"https://npm.elemecdn.com/blobcat@1.0.0/ablobcatheartbroken.png","blobcatheart":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatheart.png","blobcatheartpride":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatheartpride.png","blobcatlove":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatlove.png","blobcatkissheart":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatkissheart.png","blobcatsnuggle":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatsnuggle.png","comfyuee":"https://npm.elemecdn.com/blobcat@1.0.0/comfyuee.png","comfyslep":"https://npm.elemecdn.com/blobcat@1.0.0/comfyslep.png","blobcatcomfysweat":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatcomfysweat.png","blobcatcomfy":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatcomfy.png","blobcatcomftears":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatcomftears.png","blobcatfacepalm":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatfacepalm.png","blobcat0_0":"https://npm.elemecdn.com/blobcat@1.0.0/blobcat0_0.png","blobcatangry":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatangry.png","blobbanhammerr":"https://npm.elemecdn.com/blobcat@1.0.0/blobbanhammerr.png","blobcatt":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatt.png","blobcatblush":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatblush.png","blobcatcoffee":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatcoffee.png","blobcatcry":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatcry.png","blobcatdead":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatdead.png","blobcatdied":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatdied.png","blobcatdisturbed":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatdisturbed.png","blobcatfearful":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatfearful.png","blobcatfingerguns":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatfingerguns.png","blobcatflip":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatflip.png","blobcatflower":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatflower.png","blobcatgay":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatgay.png","blobcatgooglycry":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatgooglycry.png","blobcatneutral":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatneutral.png","blobcatopenmouth":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatopenmouth.png","blobcatsadreach":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatsadreach.png","blobcatscared":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatscared.png","blobcatnomblobcat":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatnomblobcat.png","blobcatpresentred":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatpresentred.png","blobcatread":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatread.png","blobcatsipsweat":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatsipsweat.png","blobcatsnapped":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatsnapped.png","blobcatthink":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatthink.png","blobcattriumph":"https://npm.elemecdn.com/blobcat@1.0.0/blobcattriumph.png","blobcatumm":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatumm.png","blobcatverified":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatverified.png","blobcatbox":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatbox.png","blobcatcaged":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatcaged.png","blobcatgooglytrash":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatgooglytrash.png","blobcatheadphones":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatheadphones.png","blobcathighfive":"https://npm.elemecdn.com/blobcat@1.0.0/blobcathighfive.png","blobcatmelt":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatmelt.png","blobcatmeltthumb":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatmeltthumb.png","blobcatnotlikethis":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatnotlikethis.png","blobcatsaitama":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatsaitama.png","blobcatyandere":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatyandere.png","blobcatpeek2":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatpeek2.png","blobcatpeekaboo":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatpeekaboo.png","blobcatphoto":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatphoto.png","ablobcatattentionreverse":"https://npm.elemecdn.com/blobcat@1.0.0/ablobcatattentionreverse.png","ablobcatreachrev":"https://npm.elemecdn.com/blobcat@1.0.0/ablobcatreachrev.png","ablobcatwave":"https://npm.elemecdn.com/blobcat@1.0.0/ablobcatwave.png","blobcatalt":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatalt.png","blobcatpolice":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatpolice.png","blobcatshocked":"https://npm.elemecdn.com/blobcat@1.0.0/blobcatshocked.png"},
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('/js/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><link rel="stylesheet" href="/css/halftransparentfooter.css"><div class="aplayer no-destroy" data-id="8027928020" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true"> </div><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/pace/1.2.4/pace.min.js"></script><script src="/js/pace.min.js"></script><script defer src="/live2d-widget/autoload.js"></script><script id="click-show-text" src="/js/click-show-text.min.js" data-mobile="false" data-text="Hey!,你好ヾ(•ω•`)o,Bonjour~" data-fontsize="15px" data-random="false" async="async"></script><link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script><script src="https://oss-hexo-blog.oss-cn-shanghai.aliyuncs.com/api/Meting.min.js"></script><script src="https://npm.elemecdn.com/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="ghbdages" style="overflow:hidden;max-height:90px;height:auto;text-align:center;margin-top:10px"><div class="swiper-wrapper"><div class="swiper-slide"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v5.4.0"><img src="/img/shields/Frame-Hexo-blue.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v3.8.2"><img src="/img/shields/Theme-Butterfly-6513df.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" title="本站使用JsDelivr为静态资源提供CDN加速"><img src="/img/shields/CDN-jsDelivr-orange.svg" alt=""/></a></div><div class="swiper-slide"><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" title="本站采用双线部署，默认线路托管于Vercel"><img src="/img/shields/Hosted-Vercel-brightgreen.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" title="本站采用双线部署，联通线路托管于Coding"><img src="/img/shields/Hosted-Coding-0cedbe.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本站项目由Github托管"><img src="/img/shields/Source-Github-d021d6.svg" alt=""/></a></div></div></div><style>a.github-badge:hover:before {display:none}</style>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-footer-beautify/lib/swiperbdage_init.min.js"></script><!-- hexo injector body_end end --></body></html>

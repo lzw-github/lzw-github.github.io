@@ -477,6 +477,114 @@
       </tags>
   </entry>
   <entry>
+    <title>JVM垃圾回收算法+典型垃圾回收器</title>
+    <url>/articles/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95+%E5%85%B8%E5%9E%8B%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8/</url>
+    <content><![CDATA[<p>JVM去完成Java的垃圾回收，今天，笔者我介绍一下JVM进行垃圾回收的各种算法。</p>
+<ul>
+<li><a href="#1-%e5%a6%82%e4%bd%95%e7%a1%ae%e5%ae%9a%e6%9f%90%e4%b8%aa%e5%af%b9%e8%b1%a1%e6%98%af%e5%9e%83%e5%9c%be">1. 如何确定某个对象是垃圾</a>
+<ul>
+<li><a href="#11-%e5%bc%95%e7%94%a8%e8%ae%a1%e6%95%b0%e6%b3%95">1.1. 引用计数法</a></li>
+<li><a href="#12-%e5%8f%af%e8%be%be%e6%80%a7%e5%88%86%e6%9e%90">1.2. 可达性分析</a></li>
+</ul>
+</li>
+<li><a href="#2-%e5%85%b8%e5%9e%8b%e7%9a%84%e5%9e%83%e5%9c%be%e5%9b%9e%e6%94%b6%e7%ae%97%e6%b3%95">2. 典型的垃圾回收算法</a>
+<ul>
+<li><a href="#21-%e6%a0%87%e8%ae%b0-%e6%b8%85%e9%99%a4%e7%ae%97%e6%b3%95mark-sweep">2.1. 标记-清除算法(Mark-Sweep)</a></li>
+<li><a href="#22-%e5%a4%8d%e5%88%b6%e7%ae%97%e6%b3%95copying">2.2. 复制算法(Copying)</a></li>
+<li><a href="#23-%e6%a0%87%e8%ae%b0-%e6%95%b4%e7%90%86%e7%ae%97%e6%b3%95mark-compact">2.3. 标记-整理算法(Mark-Compact)</a></li>
+<li><a href="#24-%e5%88%86%e4%bb%a3%e6%94%b6%e9%9b%86%e7%ae%97%e6%b3%95generational-collection">2.4. 分代收集算法(Generational Collection)</a></li>
+</ul>
+</li>
+<li><a href="#3-%e5%85%b8%e5%9e%8b%e7%9a%84%e5%9e%83%e5%9c%be%e6%94%b6%e9%9b%86%e5%99%a8">3. 典型的垃圾收集器</a>
+<ul>
+<li><a href="#31-serialserial-old">3.1. Serial/Serial Old</a></li>
+<li><a href="#32-parnew">3.2. ParNew</a></li>
+<li><a href="#33-parallel-scavenge">3.3. Parallel Scavenge</a></li>
+<li><a href="#34-parallel-old">3.4. Parallel Old</a></li>
+<li><a href="#35-cms">3.5. CMS</a></li>
+<li><a href="#36-g1">3.6. G1</a></li>
+</ul>
+</li>
+<li><a href="#4-%e5%8f%82%e8%80%83%e6%96%87%e7%ab%a0">4. 参考文章</a></li>
+</ul>
+<h1>1. 如何确定某个对象是垃圾</h1>
+<h2 id="1-1-引用计数法"><a class="header-anchor" href="#1-1-引用计数法">¶</a>1.1. 引用计数法</h2>
+<p>在Java中，引用和对象是有关联的。如果要操作对象则必须用引用进行。因此，很显然一个简单的办法是通过引用计数来判断一个对象是否可以回收。简单说，即一个对象如果没有任何与之关联的引用，则说明对象不太可能再被用到，那么这个对象就是可回收对象。这种方式即是引用计数法。这种方式的问题是无法解决循环引用的问题，举个例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">    Object object1=<span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    Object object2=<span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    object1.object=object2;</span><br><span class="line">    object2.object=object1;</span><br><span class="line">    object1=<span class="literal">null</span>;</span><br><span class="line">    object2=<span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显然，在最后，object1和object2的内存块都不能再被访问到了，但他们的引用计数都不为0，这就会使他们永远不会被清除。</p>
+<h2 id="1-2-可达性分析"><a class="header-anchor" href="#1-2-可达性分析">¶</a>1.2. 可达性分析</h2>
+<p>为了解决引用计数法的循环引用问题，Java使用了可达性分析的方法。通过一系列的&quot;GC roots&quot;对象作为起点搜索。如果在&quot;GC roots&quot;和一个对象之间没有可达路径，则称该对象是不可达的。要注意的是，不可达对象不等价于可回收对象，不可达对象变为可回收对象至少要经过两次标记过程。两次标记后仍然是可回收对象，则将面临回收。</p>
+<p>所谓&quot;GC roots&quot;，或者说tracing GC的&quot;根集合&quot;，就是一组必须活跃的引用。例如说，这些引用可能包括：</p>
+<ul>
+<li>所有Java线程当前活跃的栈帧里指向GC堆里的对象的引用；换句话说，当前所有正在被调用的方法的引用类型的参数/局部变量/临时值。</li>
+<li>VM的一些静态数据结构里指向GC堆里的对象的引用，例如说HotSpot VM里的Universe里有很多这样的引用。</li>
+<li>JNI handles，包括global handles和local handles（看情况）</li>
+<li>所有当前被加载的Java类（看情况）</li>
+<li>Java类的引用类型静态变量（看情况）</li>
+<li>Java类的运行时常量池里的引用类型常量（String或Class类型）（看情况）</li>
+<li>String常量池（StringTable）里的引用</li>
+</ul>
+<p>比较常见的将对象视为可回收对象的原因：</p>
+<ul>
+<li>显式地将对象的唯一强引用指向新的对象。</li>
+<li>显式地将对象的唯一强引用赋值为Null。</li>
+<li>局部引用所指向的对象（如，方法内对象）。</li>
+</ul>
+<p>下述代码中，每次循环结束，object都会被视为可回收对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">fun</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">.....</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i</span><br></pre></td></tr></table></figure>
+<ul>
+<li>只有弱引用与其关联的对象</li>
+</ul>
+<h1>2. 典型的垃圾回收算法</h1>
+<p>在JVM规范中并没有明确GC的运作方式，各个厂商可以采用不同的方式去实现垃圾回收器。这里讨论几种常见的GC算法。</p>
+<h2 id="2-1-标记-清除算法-Mark-Sweep"><a class="header-anchor" href="#2-1-标记-清除算法-Mark-Sweep">¶</a>2.1. 标记-清除算法(Mark-Sweep)</h2>
+<p>最基础的垃圾回收算法，分为两个阶段，标注和清除。标记阶段标记出所有需要回收的对象，清除阶段回收被标记的对象所占用的空间。如图：</p>
+<p><img src="https://images2015.cnblogs.com/blog/989246/201704/989246-20170406161514082-1220415753.jpg" alt=""></p>
+<p>从图中我们就可以发现，该算法最大的问题是内存碎片化严重，后续可能发生大对象不能找到可利用空间的问题。</p>
+<h2 id="2-2-复制算法-Copying"><a class="header-anchor" href="#2-2-复制算法-Copying">¶</a>2.2. 复制算法(Copying)</h2>
+<p>为了解决Mark-Sweep算法内存碎片化的缺陷而被提出的算法。按内存容量将内存划分为等大小的两块。每次只使用其中一块，当这一块内存满后将尚存活的对象复制到另一块上去，把已使用的内存清掉，如图：</p>
+<p><img src="https://images2015.cnblogs.com/blog/989246/201704/989246-20170406162053957-592638524.jpg" alt=""></p>
+<p>这种算法虽然实现简单，内存效率高，不易产生碎片，但是最大的问题是可用内存被压缩到了原本的一半。且存活对象增多的话，Copying算法的效率会大大降低。</p>
+<h2 id="2-3-标记-整理算法-Mark-Compact"><a class="header-anchor" href="#2-3-标记-整理算法-Mark-Compact">¶</a>2.3. 标记-整理算法(Mark-Compact)</h2>
+<p>结合了以上两个算法，为了避免缺陷而提出。标记阶段和Mark-Sweep算法相同，标记后不是清理对象，而是将存活对象移向内存的一端。然后清除端边界外的对象。如图：</p>
+<p><img src="https://images2015.cnblogs.com/blog/989246/201704/989246-20170406162848519-1635773526.jpg" alt=""></p>
+<h2 id="2-4-分代收集算法-Generational-Collection"><a class="header-anchor" href="#2-4-分代收集算法-Generational-Collection">¶</a>2.4. 分代收集算法(Generational Collection)</h2>
+<p>分代收集法是目前大部分JVM所采用的方法，其核心思想是根据对象存活的不同生命周期将内存划分为不同的域，一般情况下将GC堆划分为老生代(Tenured/Old Generation)和新生代(Young Generation)。老生代的特点是每次垃圾回收时只有少量对象需要被回收，新生代的特点是每次垃圾回收时都有大量垃圾需要被回收，因此可以根据不同区域选择不同的算法。</p>
+<p>目前大部分JVM的GC对于新生代都采取Copying算法，因为新生代中每次垃圾回收都要回收大部分对象，即要复制的操作比较少，但通常并不是按照1：1来划分新生代。一般将新生代划分为一块较大的Eden空间和两个较小的Survivor空间(From Space, To Space)，每次使用Eden空间和其中的一块Survivor空间，当进行回收时，将该两块空间中还存活的对象复制到另一块Survivor空间中。</p>
+<p><img src="https://images2015.cnblogs.com/blog/989246/201704/989246-20170406170311707-1412704605.jpg" alt=""></p>
+<p>而老生代因为每次只回收少量对象，因而采用Mark-Compact算法。</p>
+<p>另外，不要忘记在<a href="http://www.cnblogs.com/cielosun/p/6622983.html">Java基础：Java虚拟机(JVM)</a>中提到过的处于方法区的永生代(Permanet Generation)。它用来存储class类，常量，方法描述等。对永生代的回收主要包括废弃常量和无用的类。</p>
+<p>对象的内存分配主要在新生代的Eden Space和Survivor Space的From Space(Survivor目前存放对象的那一块)，少数情况会直接分配到老生代。当新生代的Eden Space和From Space空间不足时就会发生一次GC，进行GC后，Eden Space和From Space区的存活对象会被挪到To Space，然后将Eden Space和From Space进行清理。如果To Space无法足够存储某个对象，则将这个对象存储到老生代。在进行GC后，使用的便是Eden Space和To Space了，如此反复循环。当对象在Survivor区躲过一次GC后，其年龄就会+1。默认情况下年龄到达15的对象会被移到老生代中。</p>
+<h1>3. 典型的垃圾收集器</h1>
+<p>垃圾收集算法是垃圾收集器的理论基础，而垃圾收集器就是其具体实现。下面介绍HotSpot虚拟机提供的几种垃圾收集器。</p>
+<h2 id="3-1-Serial-Serial-Old"><a class="header-anchor" href="#3-1-Serial-Serial-Old">¶</a>3.1. Serial/Serial Old</h2>
+<p>最古老的收集器，是一个单线程收集器，用它进行垃圾回收时，必须暂停所有用户线程。Serial是针对新生代的收集器，采用Copying算法；而Serial Old是针对老生代的收集器，采用Mark-Compact算法。优点是简单高效，缺点是需要暂停用户线程。</p>
+<h2 id="3-2-ParNew"><a class="header-anchor" href="#3-2-ParNew">¶</a>3.2. ParNew</h2>
+<p>Seral/Serial Old的多线程版本，使用多个线程进行垃圾收集。</p>
+<h2 id="3-3-Parallel-Scavenge"><a class="header-anchor" href="#3-3-Parallel-Scavenge">¶</a>3.3. Parallel Scavenge</h2>
+<p>新生代的并行收集器，回收期间不需要暂停其他线程，采用Copying算法。该收集器与前两个收集器不同，主要为了达到一个可控的吞吐量。</p>
+<h2 id="3-4-Parallel-Old"><a class="header-anchor" href="#3-4-Parallel-Old">¶</a>3.4. Parallel Old</h2>
+<p>Parallel Scavenge的老生代版本，采用Mark-Compact算法和多线程。</p>
+<h2 id="3-5-CMS"><a class="header-anchor" href="#3-5-CMS">¶</a>3.5. CMS</h2>
+<p>Current Mark Sweep收集器是一种以最小回收时间停顿为目标的并发回收器，因而采用Mark-Sweep算法。</p>
+<h2 id="3-6-G1"><a class="header-anchor" href="#3-6-G1">¶</a>3.6. G1</h2>
+<p>G1(Garbage First)收集器技术的前沿成果，是面向服务端的收集器，能充分利用CPU和多核环境。是一款并行与并发收集器，它能够建立可预测的停顿时间模型。</p>
+<h1>4. 参考文章</h1>
+<p><a href="http://www.cnblogs.com/dolphin0520/p/3783345.html">Java垃圾回收机制</a><br>
+<a href="https://www.zhihu.com/question/53613423/answer/135743258">java的gc为什么要分代？ - RednaxelaFX的回答 - 知乎</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>JVM</category>
+        <category>GarbageCollect</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JVM</tag>
+        <tag>GarbageCollect</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JVM常见参数+配置</title>
     <url>/articles/JVM%E5%B8%B8%E8%A7%81%E5%8F%82%E6%95%B0+%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p>hello，今天分享一下JVM参数。</p>
@@ -517,8 +625,175 @@
         <category>JVM</category>
       </categories>
       <tags>
-        <tag>JVM</tag>
         <tag>Java</tag>
+        <tag>JVM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java四种引用：强、软、弱、虚。</title>
+    <url>/articles/Java%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8%EF%BC%9A%E5%BC%BA%E3%80%81%E8%BD%AF%E3%80%81%E5%BC%B1%E3%80%81%E8%99%9A%E3%80%82/</url>
+    <content><![CDATA[<h3 id="导读"><a class="header-anchor" href="#导读">¶</a>导读</h3>
+<p><strong>本文的思路如以下：</strong></p>
+<p><strong>（1）Java的四种对象引用的基本概念</strong></p>
+<p><strong>（2）四种对象引用的差异对比</strong></p>
+<p><strong>（3）对象可及性的判断以及与垃圾回收机制的关系</strong></p>
+<h3 id="Java的四种对象引用的基本概念"><a class="header-anchor" href="#Java的四种对象引用的基本概念">¶</a>Java的四种对象引用的基本概念</h3>
+<p>从JDK1.2版本开始，把对象的引用分为四种级别，从而使程序更加灵活的控制对象的生命周期。这四种级别由高到低依次为：强引用、软引用、弱引用和虚引用。</p>
+<h4 id="1、强引用"><a class="header-anchor" href="#1、强引用">¶</a>1、强引用</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Object obj =new Object();</span><br></pre></td></tr></table></figure>
+<p>上述Object这类对象就具有强引用，属于不可回收的资源，垃圾回收器绝不会回收它。当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不会靠回收具有强引用的对象，来解决内存不足的问题。</p>
+<p>值得注意的是：如果想中断或者回收强引用对象，可以显式地将引用赋值为null，这样的话JVM就会在合适的时间，进行垃圾回收。</p>
+<p>下图是堆区的内存示意图，分为新生代，老生代，而垃圾回收主要也是在这部分区域中进行。</p>
+<img src="Java四种引用：强、软、弱、虚。/image-20230325014101165.png" alt="image-20230325014101165" style="zoom:80%;" />
+<h4 id="2、软引用（SoftReference）"><a class="header-anchor" href="#2、软引用（SoftReference）">¶</a>2、软引用（SoftReference）</h4>
+<p>如果一个对象只具有软引用，那么它的性质属于可有可无的那种。如果此时内存空间足够，垃圾回收器就不会回收它，如果内存空间不足了，就会回收这些对象的内存。只要垃圾回收器没有回收它，该对象就可以被程序使用。</p>
+<p>软引用可用来实现内存敏感的告诉缓存。软引用可以和一个引用队列联合使用，如果软件用所引用的对象被垃圾回收，Java虚拟机就会把这个软引用加入到与之关联的引用队列中。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Object obj = new Object();</span><br><span class="line">        ReferenceQueue queue = new ReferenceQueue();</span><br><span class="line">        SoftReference reference = new SoftReference(obj, queue);</span><br><span class="line">        //强引用对象滞空，保留软引用</span><br><span class="line">        obj = null;</span><br></pre></td></tr></table></figure>
+<p>当内存不足时，软引用对象被回收时，reference.get()为null，此时软引用对象的作用已经发挥完毕，这时将其添加进 <strong>ReferenceQueue 队列中</strong></p>
+<p>如果要判断哪些软引用对象已经被清理：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SoftReference ref = null;</span><br><span class="line">while ((ref = (SoftReference) queue.poll()) != null) &#123;</span><br><span class="line">//清除软引用对象</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3、弱引用-WeakReference"><a class="header-anchor" href="#3、弱引用-WeakReference">¶</a>3、弱引用(WeakReference)</h4>
+<p>如果一个对象具有弱引用，那其的性质也是可有可无的状态。</p>
+<p>而弱引用和软引用的区别在于：弱引用的对象拥有更短的生命周期，只要垃圾回收器扫描到它，不管内存空间充足与否，都会回收它的内存。</p>
+<p>同样的弱引用也可以和引用队列一起使用。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Object obj = new Object();</span><br><span class="line">        ReferenceQueue queue = new ReferenceQueue();</span><br><span class="line">        WeakReference reference = new WeakReference(obj, queue);</span><br><span class="line">        //强引用对象滞空，保留软引用</span><br><span class="line">        obj = null;</span><br></pre></td></tr></table></figure>
+<h4 id="4、虚引用（PhantomReference）"><a class="header-anchor" href="#4、虚引用（PhantomReference）">¶</a>4、虚引用（PhantomReference）</h4>
+<p>虚引用和前面的软引用、弱引用不同，它并不影响对象的生命周期。如果一个对象与虚引用关联，则跟没有引用与之关联一样，在任何时候都可能被垃圾回收器回收。</p>
+<p>注意：虚引用必须和引用队列关联使用，当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会把这个虚引用加入到与之关联的引用队列中。</p>
+<p>程序可以通过判断引用队列中是否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。如果程序发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象的内存被回收之前采取必要的行动。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Object obj = new Object();</span><br><span class="line">        ReferenceQueue queue = new ReferenceQueue();</span><br><span class="line">        PhantomReference reference = new PhantomReference(obj, queue);</span><br><span class="line">        //强引用对象滞空，保留软引用</span><br><span class="line">        obj = null;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="引用总结"><a class="header-anchor" href="#引用总结">¶</a>引用总结</h3>
+<p>1.对于强引用，平时在编写代码时会经常使用。</p>
+<p>2.而其他三种类型的引用，使用得最多就是软引用和弱引用，这两种既有相似之处又有区别，他们都来描述非必须对象。</p>
+<p>3.被软引用关联的对象只有在内存不足时才会被回收，而被弱引用关联的对象在JVM进行垃圾回收时总会被回收。</p>
+<img src="Java四种引用：强、软、弱、虚。/image-20230325014122959.png" alt="image-20230325014122959" style="zoom:80%;" />
+<h3 id="四种对象引用的差异对比"><a class="header-anchor" href="#四种对象引用的差异对比">¶</a>四种对象引用的差异对比</h3>
+<p>Java中4种引用的级别由高到低依次为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">强引用 &gt; 软引用 &gt; 弱引用 &gt; 虚引用</span><br></pre></td></tr></table></figure>
+<p>垃圾回收时对比：<br>
+<img src="Java四种引用：强、软、弱、虚。/image-20230325014135415.png" alt="image-20230325014135415" style="zoom:80%;" /></p>
+<h3 id="对象可及性的判断"><a class="header-anchor" href="#对象可及性的判断">¶</a>对象可及性的判断</h3>
+<p>在很多的时候，一个对象并不是从根集直接引用的，而是一个对象被其他对象引用，甚至同时被几个对象所引用，从而构成一个以根集为顶的树形结构。</p>
+<img src="Java四种引用：强、软、弱、虚。/image-20230325014145744.png" alt="image-20230325014145744" style="zoom:80%;" />
+<p>在这个树形的引用链中，箭头的方向代表了引用的方向，所指向的对象是被引用对象。由图可以看出，从根集到一个对象可以由很多条路径。</p>
+<p>比如到达对象5的路径就有① -&gt; ⑤，③ -&gt;⑦两条路径。由此带来了一个问题，那就是某个对象的可及性如何判断：</p>
+<p>（1）单条引用路径可及性判断：</p>
+<p>在这条路径中，最弱的一个引用决定对象的可及性。</p>
+<p>（2）多条引用路径可及性判断：</p>
+<p>几条路径中，最强的一条的引用决定对象的可及性。</p>
+<p>比如，我们假设图2中引用①和③为强引用，⑤为软引用，⑦为弱引用，对于对象5按照这两个判断原则，路径①-⑤取最弱的引用⑤，因此该路径对对象5的引用为软引用。同样，③-⑦为弱引用。在这两条路径之间取最强的引用，于是对象5是一个软可及对象。</p>
+<p><strong>比较容易理解的是Java垃圾回收器会优先清理可及强度低的对象</strong></p>
+<p>另外两个重要的点：</p>
+<p><strong>强可达的对象一定不会被清理</strong></p>
+<p><strong>JVM保证抛出out of memory之前，清理所有的软引用对象</strong></p>
+<p>最后总结成一张表格：</p>
+<table>
+<thead>
+<tr>
+<th>引用类型</th>
+<th>被垃圾回收时间</th>
+<th>用途</th>
+<th>生存时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>强引用</td>
+<td>从来不会</td>
+<td>对象的一般状态</td>
+<td>JVM停止运行时终止</td>
+</tr>
+<tr>
+<td>软引用</td>
+<td>在内存不足时</td>
+<td>对象缓存</td>
+<td>内存不足时终止</td>
+</tr>
+<tr>
+<td>弱引用</td>
+<td>在垃圾回收时</td>
+<td>对象缓存</td>
+<td>垃圾回收时终止</td>
+</tr>
+<tr>
+<td>虚引用</td>
+<td>Unkonwn</td>
+<td>Unkonwn</td>
+<td>Unkonwn</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>JVM</category>
+        <category>Reference</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>JVM</tag>
+        <tag>Reference</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java线程池调优的原则与方法</title>
+    <url>/articles/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%B0%83%E4%BC%98%E7%9A%84%E5%8E%9F%E5%88%99%E4%B8%8E%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h1>Java线程池调优的原则与方法</h1>
+<h2 id="1-合理配置线程池大小"><a class="header-anchor" href="#1-合理配置线程池大小">¶</a>1.合理配置线程池大小</h2>
+<p>根据系统的资源限制和应用的特点来设置线程池的大小。如果线程池过小，可能会造成线程饥饿；如果线程池过大，可能会导致系统资源浪费。</p>
+<ol>
+<li>CPU密集型任务配置尽可能少的线程数量，如配置 cpu数+1 个线程的线程池。</li>
+<li>IO密集型任务则由于需要等待IO操作，线程并不是一直在执行任务，则配置尽可能多的线程，如 2*cpu数。</li>
+<li>混合型的任务，
+<ul>
+<li>如果可以拆分，则将其拆分成一个CPU密集型任务和一个IO密集型任务，只要这两个任务执行的时间相差不是太大，那么分解后执行的吞吐率要高于串行执行的吞吐率。</li>
+<li>如果这两个任务执行时间相差太大，则没必要进行分解。</li>
+</ul>
+</li>
+<li>依赖数据库连接池的任务，因为线程提交SQL后需要等待数据库返回结果，如果等待的时间越长CPU空闲时间就越长，那么线程数应该设置越大，这样才能更好的利用CPU。</li>
+</ol>
+<h2 id="2-避免长时间阻塞"><a class="header-anchor" href="#2-避免长时间阻塞">¶</a>2. 避免长时间阻塞</h2>
+<p>线程阻塞时间过长可能会导致线程池中的线程资源浪费，因此应该避免长时间阻塞。</p>
+<h2 id="3-合理使用阻塞队列"><a class="header-anchor" href="#3-合理使用阻塞队列">¶</a>3. 合理使用阻塞队列</h2>
+<p>在线程池中使用阻塞队列可以控制任务的执行速度，以避免系统压力过大。</p>
+<p>建议使用有界队列，避免<code>Out of memory</code>， 增加系统的稳定性和预警能力。可以根据需要设大一点，比如几千。</p>
+<p>如果使用无界队列如 <code>LinkedBlockingQueue</code>，队列可能越来越大，最后撑满内存，可能导致整个系统奔溃。</p>
+<h2 id="4-使用正确的线程池类型"><a class="header-anchor" href="#4-使用正确的线程池类型">¶</a>4. 使用正确的线程池类型</h2>
+<p>Java提供了多种不同的线程池类型，如<code>FixedThreadPool</code> 、<code>CachedThreadPool</code> 等，选择合适的线程池类型可以提高线程池的效率。</p>
+<p><code>SingleThreadExecutor</code> ：适用于串行执行任务的场景，一个任务一个任务地执行。</p>
+<p><code>FixedThreadPool</code>：适用于处理CPU密集型的任务，确保CPU在长期被工作线程使用的情况下，尽可能的少的分配线程，即适用执行长期的任务。</p>
+<p><code>CachedThreadPool</code> : 用于并发执行大量短期的小任务。</p>
+<p><code>ScheduledThreadPool</code> : 周期性执行任务的场景，需要限制线程数量的场景.</p>
+<h2 id="5-定期监控线程池"><a class="header-anchor" href="#5-定期监控线程池">¶</a>5. 定期监控线程池</h2>
+<p>该定期监控线程池的状态，以确保它始终处于正常运行状态。</p>
+<ul>
+<li>
+<p>taskCount：线程池需要执行的任务数量。</p>
+</li>
+<li>
+<p>completedTaskCount：线程池在运行过程中已完成的任务数量。小于或等于taskCount。</p>
+</li>
+<li>
+<p>largestPoolSize：线程池曾经创建过的最大线程数量。通过这个数据可以知道线程池是否满过。如等于线程池的最大大小，则表示线程池曾经满了。</p>
+</li>
+<li>
+<p>getPoolSize:线程池的线程数量。如果线程池不销毁的话，池里的线程不会自动销毁，所以这个大小只增不减。</p>
+</li>
+<li>
+<p>getActiveCount：获取活动的线程数。</p>
+</li>
+</ul>
+<p>这些方法是优化Java线程池的常见方法，具体的优化方案取决于应用的具体情况。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>Multi-thread</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>多线程</tag>
+        <tag>线程池</tag>
+        <tag>并发</tag>
       </tags>
   </entry>
   <entry>
@@ -672,92 +947,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java线程池调优的原则与方法</title>
-    <url>/articles/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%B0%83%E4%BC%98%E7%9A%84%E5%8E%9F%E5%88%99%E4%B8%8E%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h1>Java线程池调优的原则与方法</h1>
-<h2 id="1-合理配置线程池大小"><a class="header-anchor" href="#1-合理配置线程池大小">¶</a>1.合理配置线程池大小</h2>
-<p>根据系统的资源限制和应用的特点来设置线程池的大小。如果线程池过小，可能会造成线程饥饿；如果线程池过大，可能会导致系统资源浪费。</p>
-<ol>
-<li>CPU密集型任务配置尽可能少的线程数量，如配置 cpu数+1 个线程的线程池。</li>
-<li>IO密集型任务则由于需要等待IO操作，线程并不是一直在执行任务，则配置尽可能多的线程，如 2*cpu数。</li>
-<li>混合型的任务，
-<ul>
-<li>如果可以拆分，则将其拆分成一个CPU密集型任务和一个IO密集型任务，只要这两个任务执行的时间相差不是太大，那么分解后执行的吞吐率要高于串行执行的吞吐率。</li>
-<li>如果这两个任务执行时间相差太大，则没必要进行分解。</li>
-</ul>
-</li>
-<li>依赖数据库连接池的任务，因为线程提交SQL后需要等待数据库返回结果，如果等待的时间越长CPU空闲时间就越长，那么线程数应该设置越大，这样才能更好的利用CPU。</li>
-</ol>
-<h2 id="2-避免长时间阻塞"><a class="header-anchor" href="#2-避免长时间阻塞">¶</a>2. 避免长时间阻塞</h2>
-<p>线程阻塞时间过长可能会导致线程池中的线程资源浪费，因此应该避免长时间阻塞。</p>
-<h2 id="3-合理使用阻塞队列"><a class="header-anchor" href="#3-合理使用阻塞队列">¶</a>3. 合理使用阻塞队列</h2>
-<p>在线程池中使用阻塞队列可以控制任务的执行速度，以避免系统压力过大。</p>
-<p>建议使用有界队列，避免<code>Out of memory</code>， 增加系统的稳定性和预警能力。可以根据需要设大一点，比如几千。</p>
-<p>如果使用无界队列如 <code>LinkedBlockingQueue</code>，队列可能越来越大，最后撑满内存，可能导致整个系统奔溃。</p>
-<h2 id="4-使用正确的线程池类型"><a class="header-anchor" href="#4-使用正确的线程池类型">¶</a>4. 使用正确的线程池类型</h2>
-<p>Java提供了多种不同的线程池类型，如<code>FixedThreadPool</code> 、<code>CachedThreadPool</code> 等，选择合适的线程池类型可以提高线程池的效率。</p>
-<p><code>SingleThreadExecutor</code> ：适用于串行执行任务的场景，一个任务一个任务地执行。</p>
-<p><code>FixedThreadPool</code>：适用于处理CPU密集型的任务，确保CPU在长期被工作线程使用的情况下，尽可能的少的分配线程，即适用执行长期的任务。</p>
-<p><code>CachedThreadPool</code> : 用于并发执行大量短期的小任务。</p>
-<p><code>ScheduledThreadPool</code> : 周期性执行任务的场景，需要限制线程数量的场景.</p>
-<h2 id="5-定期监控线程池"><a class="header-anchor" href="#5-定期监控线程池">¶</a>5. 定期监控线程池</h2>
-<p>该定期监控线程池的状态，以确保它始终处于正常运行状态。</p>
-<ul>
-<li>
-<p>taskCount：线程池需要执行的任务数量。</p>
-</li>
-<li>
-<p>completedTaskCount：线程池在运行过程中已完成的任务数量。小于或等于taskCount。</p>
-</li>
-<li>
-<p>largestPoolSize：线程池曾经创建过的最大线程数量。通过这个数据可以知道线程池是否满过。如等于线程池的最大大小，则表示线程池曾经满了。</p>
-</li>
-<li>
-<p>getPoolSize:线程池的线程数量。如果线程池不销毁的话，池里的线程不会自动销毁，所以这个大小只增不减。</p>
-</li>
-<li>
-<p>getActiveCount：获取活动的线程数。</p>
-</li>
-</ul>
-<p>这些方法是优化Java线程池的常见方法，具体的优化方案取决于应用的具体情况。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>Multi-thread</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>多线程</tag>
-        <tag>线程池</tag>
-        <tag>并发</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/articles/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
-<h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a class="header-anchor" href="#Run-server">¶</a>Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a class="header-anchor" href="#Generate-static-files">¶</a>Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a class="header-anchor" href="#Deploy-to-remote-sites">¶</a>Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>tool</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Typora+PicGo博客图床搭建</title>
     <url>/articles/Typora+PicGo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<h1>图床存图片，哪哪都能看</h1>
@@ -865,6 +1054,31 @@
         <tag>Typora</tag>
         <tag>OSS</tag>
         <tag>Aliyun</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/articles/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a class="header-anchor" href="#Quick-Start">¶</a>Quick Start</h2>
+<h3 id="Create-a-new-post"><a class="header-anchor" href="#Create-a-new-post">¶</a>Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a class="header-anchor" href="#Run-server">¶</a>Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a class="header-anchor" href="#Generate-static-files">¶</a>Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a class="header-anchor" href="#Deploy-to-remote-sites">¶</a>Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>tool</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
